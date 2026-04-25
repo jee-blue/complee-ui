@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import { taskKey } from "@/lib/playbook";
-import { ArrowRight, LogIn, User as UserIcon } from "lucide-react";
+import { LogIn, User as UserIcon } from "lucide-react";
 
 const SECTION_NAV = [
   { id: "how-it-works", label: "How It Works" },
@@ -161,13 +161,6 @@ export function Chrome({ children }: { children: React.ReactNode }) {
               </Link>
             )}
 
-            <Link
-              to="/profile"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3.5 py-2 min-h-[40px] text-[12.5px] font-medium hover:bg-navy/90 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-            >
-              Start Assessment
-              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
           </div>
         </div>
       </header>
