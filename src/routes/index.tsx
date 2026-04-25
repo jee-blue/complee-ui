@@ -43,67 +43,146 @@ function Landing() {
 
   return (
     <Chrome>
-      {/* 1. HERO */}
+      {/* 1. HERO — premium dark, full viewport, left/right split */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden complee-soft-glow"
+        className="relative overflow-hidden bg-navy text-navy-foreground"
+        style={{ minHeight: "calc(100vh - 60px)" }}
       >
+        {/* Subtle dotted grid */}
         <div
-          className="absolute inset-0 complee-grid-bg opacity-60 pointer-events-none"
           aria-hidden="true"
+          className="absolute inset-0 pointer-events-none opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, oklch(1 0 0 / 0.7) 1px, transparent 0)",
+            backgroundSize: "28px 28px",
+          }}
         />
-        <div className="relative max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 md:pt-28 pb-10 md:pb-14 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-[12px] text-muted-foreground mb-6 sm:mb-8 shadow-sm">
-            <Sparkles className="h-3.5 w-3.5 text-brand" aria-hidden="true" />
-            For Heads of Compliance, Expansion, and COOs
-          </div>
+        {/* Abstract brand glows (navy/blue only) */}
+        <div
+          aria-hidden="true"
+          className="absolute -top-32 -left-32 h-[520px] w-[520px] rounded-full blur-[120px] opacity-30 pointer-events-none"
+          style={{ background: "var(--color-brand)" }}
+        />
+        <div
+          aria-hidden="true"
+          className="absolute bottom-[-20%] right-[-10%] h-[480px] w-[480px] rounded-full blur-[120px] opacity-25 pointer-events-none"
+          style={{ background: "oklch(0.45 0.18 263)" }}
+        />
 
-          <h1 id="hero-heading" className="fluid-h1 font-semibold text-navy">
-            Know your expansion readiness
-            <br />
-            <span className="text-brand">before regulators do.</span>
-          </h1>
+        <div
+          className="relative max-w-[1440px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col"
+          style={{ minHeight: "calc(100vh - 60px)" }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 py-10 sm:py-14 lg:py-16">
+            {/* LEFT — editorial copy */}
+            <div className="lg:col-span-7 text-left">
+              <h1
+                id="hero-heading"
+                className="font-semibold text-navy-foreground tracking-tight"
+                style={{
+                  fontSize: "clamp(2.5rem, 1.4rem + 4.2vw, 5.25rem)",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.025em",
+                }}
+              >
+                Expand into regulated markets{" "}
+                <span className="text-brand-foreground">
+                  with{" "}
+                  <span className="italic font-normal underline decoration-brand decoration-[3px] underline-offset-[8px]">
+                    confidence
+                  </span>
+                </span>
+                .
+              </h1>
 
-          <p className="mt-5 sm:mt-6 fluid-lead text-muted-foreground max-w-[680px] 2xl:max-w-[780px] mx-auto">
-            Compliance intelligence for FinTechs entering new European markets — backed by real
-            regulator data, not generic AI.
-          </p>
+              <p
+                className="mt-6 sm:mt-7 text-navy-foreground/75 max-w-[620px]"
+                style={{
+                  fontSize: "clamp(1rem, 0.9rem + 0.4vw, 1.2rem)",
+                  lineHeight: 1.55,
+                }}
+              >
+                Assess regulatory readiness across GDPR, PSD2/PSD3 and DORA before
+                expansion risk becomes expensive.
+              </p>
 
-          <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 flex-wrap">
-            <Link
-              to="/profile"
-              className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-6 py-3 min-h-[48px] text-[15px] font-medium hover:bg-navy/90 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-            >
-              Assess Expansion Readiness
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </div>
+              <div className="mt-8 sm:mt-10 flex items-center gap-3 flex-wrap">
+                <Link
+                  to="/profile"
+                  className="inline-flex items-center gap-2 rounded-lg bg-brand text-brand-foreground px-6 py-3 min-h-[48px] text-[15px] font-medium hover:bg-brand/90 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
+                >
+                  Assess Expansion Readiness
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+                <a
+                  href="#how-it-works"
+                  className="inline-flex items-center gap-2 rounded-lg border border-navy-foreground/20 bg-transparent px-5 py-3 min-h-[48px] text-[14px] font-medium text-navy-foreground hover:bg-navy-foreground/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
+                >
+                  How It Works
+                </a>
+              </div>
 
-          <div
-            role="status"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success-soft px-3 py-1.5 text-[12px] sm:text-[13px] text-success-foreground"
-          >
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
-            </span>
-            Live regulatory data tracking {total} requirements across {authorityCount} European
-            regulators
-          </div>
-
-          {/* Regulatory ribbon */}
-          <section
-            id="requirements"
-            aria-labelledby="requirements-heading"
-            className="mt-12 sm:mt-16 -mx-4 sm:-mx-6 lg:-mx-8 scroll-mt-24"
-          >
-            <div className="px-4 sm:px-6 lg:px-8 mb-4 sm:mb-5 text-center">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                Expansion Requirements Covered
+              {/* Live proof bar */}
+              <div
+                role="status"
+                className="mt-7 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85"
+              >
+                <span className="relative flex h-2 w-2" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-70" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+                </span>
+                Live regulatory data tracking {total} requirements across {authorityCount} European regulators
               </div>
             </div>
-            <RegulatoryRibbon />
-          </section>
+
+            {/* RIGHT — abstract regulatory network visual */}
+            <div className="lg:col-span-5 relative hidden md:block">
+              <HeroNetworkVisual />
+            </div>
+          </div>
+
+          {/* Bottom ribbon — Expansion Requirements Covered */}
+          <div
+            id="requirements"
+            className="relative pb-6 sm:pb-8 scroll-mt-24"
+            aria-labelledby="requirements-heading"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-navy-foreground/55">
+                Expansion Requirements Covered
+              </div>
+              <div className="h-px flex-1 bg-navy-foreground/10" aria-hidden />
+            </div>
+            <ul
+              className="flex flex-wrap items-center gap-2.5 sm:gap-3"
+              aria-label="Regulatory frameworks supported"
+            >
+              {[
+                { icon: Globe, label: "GDPR", sub: "Data Protection" },
+                { icon: CreditCard, label: "PSD2 / PSD3", sub: "Payments" },
+                { icon: ShieldCheck, label: "DORA", sub: "Operational Resilience" },
+              ].map(({ icon: Icon, label, sub }) => (
+                <li
+                  key={label}
+                  className="inline-flex items-center gap-2.5 rounded-xl border border-navy-foreground/12 bg-navy-foreground/[0.04] px-3.5 py-2 backdrop-blur-sm"
+                >
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand/20 text-brand-foreground">
+                    <Icon className="h-3.5 w-3.5" aria-hidden />
+                  </span>
+                  <span className="flex flex-col leading-tight">
+                    <span className="text-[12.5px] font-semibold text-navy-foreground">
+                      {label}
+                    </span>
+                    <span className="text-[10.5px] text-navy-foreground/60">
+                      {sub}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
