@@ -36,23 +36,23 @@ function Landing() {
 
   return (
     <Chrome>
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 complee-grid-bg opacity-60 pointer-events-none" />
-        <div className="relative max-w-[1080px] mx-auto px-5 sm:px-6 pt-14 sm:pt-20 md:pt-28 pb-12 md:pb-20 text-center">
+      <section aria-labelledby="hero-heading" className="relative overflow-hidden">
+        <div className="absolute inset-0 complee-grid-bg opacity-60 pointer-events-none" aria-hidden="true" />
+        <div className="relative max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 md:pt-28 pb-12 md:pb-20 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-[12px] text-muted-foreground mb-6 sm:mb-8">
-            <Sparkles className="h-3.5 w-3.5 text-brand" />
+            <Sparkles className="h-3.5 w-3.5 text-brand" aria-hidden="true" />
             For Heads of Compliance, Expansion, and COOs
           </div>
 
           {/* 1. Headline */}
-          <h1 className="text-[32px] sm:text-[44px] md:text-[60px] leading-[1.05] font-semibold tracking-tight text-navy">
+          <h1 id="hero-heading" className="fluid-h1 font-semibold text-navy">
             Compliance Intelligence
             <br />
             <span className="text-brand">for FinTech Expansion</span>
           </h1>
 
           {/* 2. Subheadline */}
-          <p className="mt-5 sm:mt-6 text-[15px] sm:text-[17px] md:text-[19px] leading-relaxed text-muted-foreground max-w-[640px] mx-auto">
+          <p className="mt-5 sm:mt-6 fluid-lead text-muted-foreground max-w-[640px] 2xl:max-w-[760px] mx-auto">
             Assess regulatory readiness before expanding into new European markets with a
             data-driven compliance assessment.
           </p>
@@ -61,16 +61,19 @@ function Landing() {
           <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 flex-wrap">
             <Link
               to="/profile"
-              className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 sm:px-6 py-3 sm:py-3.5 text-[14px] sm:text-[15px] font-medium hover:bg-navy/90 transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-6 py-3 min-h-[48px] text-[15px] font-medium hover:bg-navy/90 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
               Assess Expansion Readiness
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
 
           {/* 4. Live data proof bar */}
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success-soft px-3 py-1.5 text-[12px] text-success-foreground">
-            <span className="relative flex h-2 w-2">
+          <div
+            role="status"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success-soft px-3 py-1.5 text-[12px] sm:text-[13px] text-success-foreground"
+          >
+            <span className="relative flex h-2 w-2" aria-hidden="true">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
             </span>
@@ -79,39 +82,42 @@ function Landing() {
           </div>
 
           {/* Value cards */}
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-[900px] mx-auto text-left">
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-[900px] 2xl:max-w-[1100px] mx-auto text-left">
             <ValueCard
-              icon={<Database className="h-4 w-4" />}
+              icon={<Database className="h-4 w-4" aria-hidden="true" />}
               title="Real regulatory data"
               body="Sourced from FCA, BaFin, ACPR, DNB and Banco de España — not generic AI guesses."
             />
             <ValueCard
-              icon={<GitCompareArrows className="h-4 w-4" />}
+              icon={<GitCompareArrows className="h-4 w-4" aria-hidden="true" />}
               title="Cross-border gap analysis"
               body="See exactly which controls you have, which are partial, and which are missing."
             />
             <ValueCard
-              icon={<Map className="h-4 w-4" />}
+              icon={<Map className="h-4 w-4" aria-hidden="true" />}
               title="Execution-ready roadmap"
               body="Owners, effort and cost estimates so your team can act on day one."
             />
           </div>
 
           {/* 5. Regulatory requirements ribbon */}
-          <div className="mt-16 sm:mt-20 -mx-5 sm:-mx-6">
-            <div className="px-5 sm:px-6 mb-4 sm:mb-5 text-center">
+          <section
+            aria-labelledby="requirements-heading"
+            className="mt-16 sm:mt-20 -mx-4 sm:-mx-6 lg:-mx-8"
+          >
+            <div className="px-4 sm:px-6 lg:px-8 mb-4 sm:mb-5 text-center">
               <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 Key Regulatory Requirements We Assess
               </div>
-              <h2 className="mt-1.5 text-[18px] sm:text-[20px] font-semibold text-navy">
+              <h2 id="requirements-heading" className="mt-1.5 fluid-h2 font-semibold text-navy">
                 Expansion Requirements Covered
               </h2>
             </div>
             <RegulatoryRibbon />
-          </div>
+          </section>
 
-          <p className="mt-12 text-[12px] text-muted-foreground">
-            <ShieldCheck className="inline h-3.5 w-3.5 text-success mr-1 -mt-0.5" />
+          <p className="mt-12 text-[12px] sm:text-[13px] text-muted-foreground">
+            <ShieldCheck className="inline h-3.5 w-3.5 text-success mr-1 -mt-0.5" aria-hidden="true" />
             Powered by real regulator data from ACPR, BaFin, DNB, Banco de España, and the FCA.
           </p>
         </div>

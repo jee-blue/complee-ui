@@ -57,7 +57,7 @@ function Documents() {
 
   return (
     <Chrome>
-      <div className="max-w-[1180px] mx-auto px-5 sm:px-6 py-8 sm:py-12">
+      <div className="max-w-[1180px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-8 sm:mb-10">
           <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
             Step 2 — Documents
@@ -80,6 +80,9 @@ function Documents() {
             </p>
 
             <div
+              role="button"
+              tabIndex={0}
+              aria-label="Upload PDF files: drop here or press Enter to browse"
               onDragOver={(e) => {
                 e.preventDefault();
                 setDragOver(true);
@@ -91,14 +94,20 @@ function Documents() {
                 handleFiles(e.dataTransfer.files);
               }}
               onClick={() => inputRef.current?.click()}
-              className={`flex-1 min-h-[200px] sm:min-h-[240px] rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center px-6 py-8 cursor-pointer transition-colors ${
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  inputRef.current?.click();
+                }
+              }}
+              className={`flex-1 min-h-[200px] sm:min-h-[240px] rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center px-6 py-8 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                 dragOver
                   ? "border-brand bg-brand-soft/40"
                   : "border-border bg-surface-muted hover:border-brand/40"
               }`}
             >
               <div className="h-12 w-12 rounded-full bg-brand-soft flex items-center justify-center mb-4">
-                <UploadCloud className="h-6 w-6 text-brand" />
+                <UploadCloud className="h-6 w-6 text-brand" aria-hidden="true" />
               </div>
               <p className="text-[14px] font-medium text-navy">Drop PDF files here</p>
               <p className="text-[12px] text-muted-foreground mt-1">or click to browse</p>
@@ -107,7 +116,8 @@ function Documents() {
                 type="file"
                 accept="application/pdf,.pdf"
                 multiple
-                className="hidden"
+                className="sr-only"
+                aria-label="Upload PDF files"
                 onChange={(e) => handleFiles(e.target.files)}
               />
             </div>
@@ -201,7 +211,7 @@ function Documents() {
         <div className="mt-8 sm:mt-10 flex items-center justify-between gap-3 flex-wrap">
           <Link
             to="/profile"
-            className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+            className="text-[13px] text-muted-foreground hover:text-foreground transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 px-1 py-1"
           >
             ← Back
           </Link>
@@ -214,11 +224,12 @@ function Documents() {
           >
             <button
               disabled={!canContinue}
+              aria-disabled={!canContinue || undefined}
               onClick={() => navigate({ to: "/processing" })}
-              className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 text-[14px] font-medium hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 min-h-[44px] text-[14px] font-medium hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
               Run readiness assessment
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>

@@ -76,6 +76,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <AuthProvider>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-navy focus:text-navy-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+      >
+        Skip to main content
+      </a>
       <CloudSync />
       <Outlet />
       <Toaster position="bottom-right" richColors closeButton visibleToasts={3} />
