@@ -394,7 +394,7 @@ function GapsMock({ className }: { className?: string }) {
             <text className="gap-text" x="34" y={y + 19} style={{ font: "500 12.5px Inter, system-ui, sans-serif" }}>
               {r.label}
             </text>
-            <circle cx="392" cy={y + 15} r="5" fill={`oklch(${r.color})`} />
+            <circle cx="392" cy={y + 15} r="5" fill={r.color} />
             <text x="404" y={y + 19} className="gap-text" style={{ font: "600 11px Inter, system-ui, sans-serif" }}>
               {statusLabel(r.status)}
             </text>
