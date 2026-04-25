@@ -17,6 +17,7 @@ import {
   CreditCard,
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
+import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
 import { REGULATORS, getRequirements } from "@/data/requirements";
 
 const RotatingEarth = lazy(
