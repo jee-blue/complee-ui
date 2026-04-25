@@ -8,9 +8,9 @@ import { taskKey } from "@/lib/playbook";
 import { LogIn, User as UserIcon } from "lucide-react";
 
 const SECTION_NAV = [
+  { id: "why-complee", label: "Why Complee" },
   { id: "how-it-works", label: "How It Works" },
-  { id: "use-cases", label: "Use Cases" },
-  { id: "coverage", label: "Coverage" },
+  { id: "coverage", label: "Impact" },
   { id: "demo-results", label: "Demo Results" },
 ] as const;
 
