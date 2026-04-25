@@ -272,6 +272,88 @@ function Profile() {
           </div>
         </section>
 
+        {/* Regulations section */}
+        <section className="mb-8">
+          <SectionHeader
+            icon={<Scale className="h-4 w-4" />}
+            title="Regulations in scope"
+            description="Choose the frameworks you want assessed against. Your services and target country drive what's recommended."
+            badge={
+              selectedRegulations.length > 0
+                ? `${selectedRegulations.length} selected`
+                : "None selected"
+            }
+            badgeActive={selectedRegulations.length > 0}
+          />
+
+          {suggestedRegulations.length > 0 && (
+            <div className="mb-3 rounded-xl border border-brand/20 bg-brand-soft/30 p-3.5 flex items-start gap-2.5">
+              <Sparkles className="h-4 w-4 text-brand mt-0.5 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[12.5px] text-navy mb-1.5">
+                  <span className="font-semibold">Suggested for your services:</span> based on
+                  what you selected, these frameworks usually apply.
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {suggestedRegulations.map((r) => (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => toggleRegulation(r)}
+                      className="inline-flex items-center gap-1 rounded-full bg-card border border-brand/30 text-brand text-[12px] font-medium px-2.5 py-1 hover:bg-brand hover:text-white transition-colors"
+                    >
+                      + {r}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-6 sm:p-8 space-y-7">
+            {REGULATION_GROUPS.map((group) => (
+              <div key={group.title}>
+                <div className="mb-3">
+                  <h3 className="text-[13px] font-semibold text-navy uppercase tracking-[0.06em]">
+                    {group.title}
+                  </h3>
+                  <p className="text-[12.5px] text-muted-foreground mt-0.5">
+                    {group.description}
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {group.options.map((opt) => {
+                    const active = selectedRegulations.includes(opt);
+                    return (
+                      <button
+                        type="button"
+                        key={opt}
+                        onClick={() => toggleRegulation(opt)}
+                        className={`flex items-center gap-3 rounded-lg border px-3.5 py-3 text-left transition-all text-[13.5px] ${
+                          active
+                            ? "bg-brand-soft/60 border-brand text-navy shadow-sm"
+                            : "bg-card border-border text-foreground hover:border-brand/50 hover:bg-muted/30"
+                        }`}
+                      >
+                        <span
+                          className={`flex h-5 w-5 items-center justify-center rounded border transition-colors shrink-0 ${
+                            active
+                              ? "bg-brand border-brand text-white"
+                              : "border-border bg-background"
+                          }`}
+                        >
+                          {active && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+                        </span>
+                        <span className="font-medium">{opt}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Contextual guidance */}
         {home && target && !sameCountry && (
           <div className="mb-10 rounded-2xl border border-brand/20 bg-brand-soft/40 p-5 sm:p-6 flex gap-4">
@@ -300,34 +382,27 @@ function Profile() {
         )}
 
         {/* CTA bar */}
-        <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 flex items-center justify-between gap-3 flex-wrap shadow-sm">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 text-[14px] font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            Back
-          </Link>
-          <div className="flex items-center gap-4 flex-wrap">
-            {!canContinue && (
-              <span className="text-[12.5px] text-muted-foreground hidden sm:inline">
-                {sameCountry
-                  ? "Pick a different target country"
-                  : selectedServices.length === 0
-                    ? "Select at least one service"
+        <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 flex items-center justify-end gap-4 flex-wrap shadow-sm">
+          {!canContinue && (
+            <span className="text-[12.5px] text-muted-foreground hidden sm:inline">
+              {sameCountry
+                ? "Pick a different target country"
+                : selectedServices.length === 0
+                  ? "Select at least one service"
+                  : selectedRegulations.length === 0
+                    ? "Select at least one regulation"
                     : "Add a company name"}
-              </span>
-            )}
-            <button
-              onClick={handleContinue}
-              disabled={!canContinue}
-              aria-disabled={!canContinue || undefined}
-              className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 min-h-[44px] text-[14px] font-semibold hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-            >
-              Continue to documents
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
+            </span>
+          )}
+          <button
+            onClick={handleContinue}
+            disabled={!canContinue}
+            aria-disabled={!canContinue || undefined}
+            className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 min-h-[44px] text-[14px] font-semibold hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          >
+            Continue to documents
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
         </div>
       </div>
     </Chrome>
