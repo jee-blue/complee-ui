@@ -1,9 +1,9 @@
 import { Globe, CreditCard, ShieldCheck } from "lucide-react";
 
 const ITEMS = [
-  { icon: Globe, label: "GDPR", sub: "Data Protection" },
-  { icon: CreditCard, label: "PSD2 / PSD3", sub: "Payments Regulation" },
-  { icon: ShieldCheck, label: "DORA", sub: "Operational Resilience" },
+  { icon: Globe, label: "GDPR", sub: "Data Protection Requirement" },
+  { icon: CreditCard, label: "PSD2 / PSD3", sub: "Payments Regulation Requirement" },
+  { icon: ShieldCheck, label: "DORA", sub: "Operational Resilience Requirement" },
 ] as const;
 
 function RibbonGroup({ ariaHidden = false }: { ariaHidden?: boolean }) {
@@ -14,10 +14,14 @@ function RibbonGroup({ ariaHidden = false }: { ariaHidden?: boolean }) {
     >
       {ITEMS.map(({ icon: Icon, label, sub }, i) => (
         <li key={`${label}-${i}`} className="flex items-center gap-3 sm:gap-4">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-[12px] sm:text-[13px] text-navy shadow-sm whitespace-nowrap">
-            <Icon className="h-3.5 w-3.5 text-brand" aria-hidden />
-            <span className="font-medium">{label}</span>
-            <span className="text-muted-foreground font-normal">· {sub}</span>
+          <span className="inline-flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 shadow-sm whitespace-nowrap">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand-soft text-brand">
+              <Icon className="h-3.5 w-3.5" aria-hidden />
+            </span>
+            <span className="flex flex-col items-start leading-tight text-left">
+              <span className="text-[13px] font-semibold text-navy">{label}</span>
+              <span className="text-[11px] text-muted-foreground">{sub}</span>
+            </span>
           </span>
           <span
             className="hidden sm:inline-block h-1 w-1 rounded-full bg-border"
