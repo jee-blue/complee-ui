@@ -641,3 +641,140 @@ function UseCaseCard({
     </div>
   );
 }
+
+// Abstract regulatory expansion network — pure SVG, navy/brand only.
+function HeroNetworkVisual() {
+  // Hub at center, jurisdiction nodes around it
+  const nodes = [
+    { id: "FR", x: 220, y: 240, label: "FR" },   // hub
+    { id: "GB", x: 110, y: 130, label: "GB" },
+    { id: "DE", x: 330, y: 110, label: "DE" },
+    { id: "NL", x: 360, y: 220, label: "NL" },
+    { id: "ES", x: 150, y: 340, label: "ES" },
+    { id: "IT", x: 320, y: 340, label: "IT" },
+  ];
+  const hub = nodes[0];
+  const spokes = nodes.slice(1);
+
+  return (
+    <div
+      className="relative w-full aspect-square max-w-[520px] mx-auto"
+      aria-hidden="true"
+    >
+      {/* Soft halo behind */}
+      <div
+        className="absolute inset-[12%] rounded-full blur-3xl opacity-40"
+        style={{ background: "var(--color-brand)" }}
+      />
+      <svg
+        viewBox="0 0 440 440"
+        className="relative w-full h-full"
+        fill="none"
+      >
+        <defs>
+          <radialGradient id="ringFade" cx="50%" cy="50%" r="50%">
+            <stop offset="60%" stopColor="oklch(1 0 0)" stopOpacity="0" />
+            <stop offset="100%" stopColor="oklch(1 0 0)" stopOpacity="0.18" />
+          </radialGradient>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="oklch(0.7 0.18 263)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="oklch(0.7 0.18 263)" stopOpacity="0.15" />
+          </linearGradient>
+        </defs>
+
+        {/* Concentric rings */}
+        {[80, 140, 200].map((r) => (
+          <circle
+            key={r}
+            cx="220"
+            cy="220"
+            r={r}
+            stroke="oklch(1 0 0 / 0.08)"
+            strokeWidth="1"
+          />
+        ))}
+        <circle cx="220" cy="220" r="210" fill="url(#ringFade)" />
+
+        {/* Spoke connections */}
+        {spokes.map((n) => (
+          <g key={`l-${n.id}`}>
+            <line
+              x1={hub.x}
+              y1={hub.y}
+              x2={n.x}
+              y2={n.y}
+              stroke="url(#lineGrad)"
+              strokeWidth="1.25"
+              strokeDasharray="3 4"
+            />
+          </g>
+        ))}
+
+        {/* Outer nodes */}
+        {spokes.map((n) => (
+          <g key={n.id}>
+            <circle
+              cx={n.x}
+              cy={n.y}
+              r="14"
+              fill="oklch(0.236 0.061 268)"
+              stroke="oklch(0.7 0.18 263 / 0.6)"
+              strokeWidth="1.25"
+            />
+            <text
+              x={n.x}
+              y={n.y + 3.5}
+              textAnchor="middle"
+              fontSize="9"
+              fontWeight="600"
+              fill="oklch(0.95 0.01 263)"
+              fontFamily="Inter, sans-serif"
+            >
+              {n.label}
+            </text>
+          </g>
+        ))}
+
+        {/* Central hub with pulse */}
+        <circle
+          cx={hub.x}
+          cy={hub.y}
+          r="28"
+          fill="oklch(0.52 0.222 263 / 0.18)"
+        >
+          <animate
+            attributeName="r"
+            values="22;34;22"
+            dur="3.2s"
+            repeatCount="indefinite"
+          />
+          <animate
+            attributeName="opacity"
+            values="0.45;0;0.45"
+            dur="3.2s"
+            repeatCount="indefinite"
+          />
+        </circle>
+        <circle
+          cx={hub.x}
+          cy={hub.y}
+          r="18"
+          fill="var(--color-brand)"
+          stroke="oklch(1 0 0 / 0.5)"
+          strokeWidth="1.5"
+        />
+        <text
+          x={hub.x}
+          y={hub.y + 4}
+          textAnchor="middle"
+          fontSize="10"
+          fontWeight="700"
+          fill="oklch(0.99 0 0)"
+          fontFamily="Inter, sans-serif"
+        >
+          {hub.label}
+        </text>
+      </svg>
+    </div>
+  );
+}
