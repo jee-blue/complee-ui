@@ -5,12 +5,12 @@ import { useAuth } from "@/hooks/useAuth";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import { taskKey } from "@/lib/playbook";
-import { LogIn, Menu, User as UserIcon, X } from "lucide-react";
+import { ArrowRight, LogIn, User as UserIcon } from "lucide-react";
 
 const SECTION_NAV = [
-  { id: "how-it-works", label: "How it Works" },
+  { id: "how-it-works", label: "How It Works" },
   { id: "use-cases", label: "Use Cases" },
-  { id: "requirements", label: "Requirements" },
+  { id: "requirements", label: "Coverage" },
   { id: "demo-results", label: "Demo Results" },
 ] as const;
 
