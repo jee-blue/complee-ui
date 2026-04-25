@@ -104,7 +104,7 @@
 
   --border: oklch(0.92 0.012 255);
   --input: oklch(0.92 0.012 255);
-  --ring: oklch(0.566 0.222 263);
+  --ring: oklch(0.52 0.222 263);
 
   --surface: oklch(1 0 0);
   --surface-muted: oklch(0.97 0.01 255);
