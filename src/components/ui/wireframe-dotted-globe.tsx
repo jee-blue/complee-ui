@@ -363,6 +363,58 @@ export default function RotatingEarth({
     );
   }
 
+  // Compute leader-line label anchors at the globe's edge to avoid overlapping
+  // points and Europe. Each label is pushed radially outward from the globe
+  // center, then vertically de-overlapped against its siblings.
+  const cx = width / 2;
+  const cy = height / 2;
+  const edgeRadius = Math.min(width, height) / 2.4 + 18; // just outside sphere
+  const labelHeight = 22;
+
+  type Anchor = {
+    point: RegPoint;
+    px: number;
+    py: number;
+    lx: number;
+    ly: number;
+    side: "left" | "right";
+    visible: boolean;
+  };
+
+  const anchors: Anchor[] = labels
+    .filter((l) => l.visible)
+    .map((l) => {
+      const dx = l.x - cx;
+      const dy = l.y - cy;
+      const len = Math.max(1, Math.hypot(dx, dy));
+      // Project the label out along the ray from globe center through the point
+      const lx = cx + (dx / len) * edgeRadius;
+      const ly = cy + (dy / len) * edgeRadius;
+      return {
+        point: l.point,
+        px: l.x,
+        py: l.y,
+        lx,
+        ly,
+        side: dx >= 0 ? ("right" as const) : ("left" as const),
+        visible: l.visible,
+      };
+    });
+
+  // De-overlap labels vertically per side
+  (["left", "right"] as const).forEach((side) => {
+    const group = anchors
+      .filter((a) => a.side === side)
+      .sort((a, b) => a.ly - b.ly);
+    for (let i = 1; i < group.length; i++) {
+      const prev = group[i - 1];
+      const curr = group[i];
+      if (curr.ly - prev.ly < labelHeight) {
+        curr.ly = prev.ly + labelHeight;
+      }
+    }
+  });
+
   return (
     <div
       className={`relative ${className}`}
@@ -374,26 +426,57 @@ export default function RotatingEarth({
         aria-label="Rotating dotted globe highlighting European regulatory coverage"
         role="img"
       />
-      {/* Label overlay */}
-      <div
-        className="pointer-events-none absolute inset-0"
+
+      {/* Leader lines (SVG, hidden on small mobile) */}
+      <svg
+        className="pointer-events-none absolute inset-0 hidden sm:block"
+        width={width}
+        height={height}
         aria-hidden="true"
       >
-        {labels.map(({ point, x, y, visible }) => (
+        {anchors.map((a) => (
+          <line
+            key={`line-${a.point.name}`}
+            x1={a.px}
+            y1={a.py}
+            x2={a.lx}
+            y2={a.ly}
+            stroke="oklch(0.85 0.06 263 / 0.5)"
+            strokeWidth={0.75}
+            strokeDasharray="2 2"
+            style={{
+              opacity: a.visible ? 1 : 0,
+              transition: "opacity 600ms ease-out 200ms",
+            }}
+          />
+        ))}
+      </svg>
+
+      {/* Compact pill labels — hidden on small mobile to keep points readable */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden sm:block"
+        aria-hidden="true"
+      >
+        {anchors.map((a) => (
           <div
-            key={point.name}
+            key={`label-${a.point.name}`}
             className="absolute transition-opacity duration-500"
             style={{
-              left: x,
-              top: y,
-              opacity: visible ? 1 : 0,
-              transform: "translate(10px, -50%)",
+              left: a.lx,
+              top: a.ly,
+              opacity: a.visible ? 1 : 0,
+              transitionDelay: "200ms",
+              transform:
+                a.side === "right"
+                  ? "translate(6px, -50%)"
+                  : "translate(calc(-100% - 6px), -50%)",
+              maxWidth: 160,
             }}
           >
-            <div className="whitespace-nowrap rounded-md border border-white/15 bg-navy/70 backdrop-blur-sm px-2 py-1 text-[10px] font-medium text-navy-foreground shadow-sm">
-              <span className="text-navy-foreground">{point.name}</span>
+            <div className="whitespace-nowrap rounded-full border border-white/10 bg-navy/80 px-2.5 py-1.5 text-[11px] font-medium leading-none text-navy-foreground">
+              <span>{a.point.name}</span>
               <span className="mx-1 text-navy-foreground/40">·</span>
-              <span className="text-brand-foreground/90">{point.authority}</span>
+              <span className="text-navy-foreground/70">{a.point.authority}</span>
             </div>
           </div>
         ))}
