@@ -10,7 +10,7 @@ import { LogIn, User as UserIcon } from "lucide-react";
 const SECTION_NAV = [
   { id: "how-it-works", label: "How It Works" },
   { id: "use-cases", label: "Use Cases" },
-  { id: "requirements", label: "Coverage" },
+  { id: "coverage", label: "Coverage" },
   { id: "demo-results", label: "Demo Results" },
 ] as const;
 
@@ -113,26 +113,49 @@ export function Chrome({ children }: { children: React.ReactNode }) {
             <span className="font-semibold tracking-tight text-[17px] text-navy">Complee</span>
           </Link>
 
-          {/* Center section nav (desktop) */}
+          {/* Center section nav (desktop) — guided journey with progress line */}
           <nav
             aria-label="Page sections"
-            className="hidden md:flex items-center gap-1"
+            className="hidden md:flex items-center gap-1 relative"
           >
-            {SECTION_NAV.map((s) => {
+            {SECTION_NAV.map((s, i) => {
+              const activeIdx = SECTION_NAV.findIndex((n) => n.id === activeSection);
               const isActive = isHome && activeSection === s.id;
+              const isVisited = isHome && activeIdx > -1 && i < activeIdx;
               return (
                 <a
                   key={s.id}
                   href={isHome ? `#${s.id}` : `/#${s.id}`}
                   onClick={(e) => handleSectionClick(e, s.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`inline-flex items-center px-3 py-2 min-h-[40px] rounded-md text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+                  className={`relative inline-flex items-center px-3 py-2 min-h-[40px] rounded-md text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                     isActive
-                      ? "text-brand bg-brand-soft"
-                      : "text-muted-foreground hover:text-navy hover:bg-surface-muted"
+                      ? "text-brand"
+                      : isVisited
+                        ? "text-navy/70 hover:text-navy hover:bg-surface-muted"
+                        : "text-muted-foreground hover:text-navy hover:bg-surface-muted"
                   }`}
                 >
-                  {s.label}
+                  <span className="inline-flex items-center gap-1.5">
+                    <span
+                      className={`tabular-nums text-[10px] font-semibold ${
+                        isActive
+                          ? "text-brand"
+                          : isVisited
+                            ? "text-navy/50"
+                            : "text-muted-foreground/60"
+                      }`}
+                    >
+                      0{i + 1}
+                    </span>
+                    {s.label}
+                  </span>
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-3 right-3 -bottom-px h-[2px] rounded-full bg-brand"
+                    />
+                  )}
                 </a>
               );
             })}
@@ -163,9 +186,65 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
           </div>
         </div>
+        {/* Journey progress line (home only) */}
+        {isHome && (() => {
+          const activeIdx = SECTION_NAV.findIndex((n) => n.id === activeSection);
+          const journeyPct =
+            activeIdx < 0 ? 0 : ((activeIdx + 1) / SECTION_NAV.length) * 100;
+          return (
+            <div
+              className="h-[2px] bg-border/60"
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={SECTION_NAV.length}
+              aria-valuenow={Math.max(0, activeIdx + 1)}
+              aria-label="Page journey progress"
+            >
+              <div
+                className="h-full bg-brand transition-all duration-500 ease-out"
+                style={{ width: `${journeyPct}%` }}
+              />
+            </div>
+          );
+        })()}
       </header>
 
-      {/* Step bar — only inside the assessment flow */}
+      {/* Mobile journey chips (home only) */}
+      {isHome && (
+        <nav
+          aria-label="Page sections (mobile)"
+          className="md:hidden border-b border-border bg-card/80 backdrop-blur sticky top-[60px] z-20"
+        >
+          <div className="max-w-[1440px] mx-auto px-4 py-2 overflow-x-auto">
+            <ul className="flex items-center gap-2 min-w-max">
+              {SECTION_NAV.map((s, i) => {
+                const isActive = activeSection === s.id;
+                return (
+                  <li key={s.id}>
+                    <a
+                      href={`#${s.id}`}
+                      onClick={(e) => handleSectionClick(e, s.id)}
+                      aria-current={isActive ? "true" : undefined}
+                      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-medium border transition-colors ${
+                        isActive
+                          ? "border-brand bg-brand-soft text-brand"
+                          : "border-border bg-card text-muted-foreground hover:text-navy"
+                      }`}
+                    >
+                      <span className="tabular-nums text-[10px] opacity-70">
+                        0{i + 1}
+                      </span>
+                      {s.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </nav>
+      )}
+
+
       {idx >= 0 && (
         <div className="border-b border-border bg-card">
           <div

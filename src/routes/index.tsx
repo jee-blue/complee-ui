@@ -255,10 +255,47 @@ function Landing() {
         </div>
       </section>
 
-      {/* 4. IMPACT / PROOF BAND */}
+      {/* 4. USE CASES */}
       <section
+        id="use-cases"
+        aria-labelledby="usecases-heading"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
+      >
+        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+          <div className="text-center max-w-[720px] mx-auto">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              Use Cases
+            </div>
+            <h2 id="usecases-heading" className="mt-2 fluid-h2 font-semibold text-navy">
+              Built for FinTech expansion use cases
+            </h2>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+            <UseCaseCard
+              tag="Market entry"
+              title="France to UK expansion readiness"
+              body="Assess what an ACPR-authorised EMI needs to operate under FCA rules."
+            />
+            <UseCaseCard
+              tag="Licensing"
+              title="Payment licensing requirement checks"
+              body="Map PSD2 / PSD3 obligations and authorisation prerequisites by market."
+            />
+            <UseCaseCard
+              tag="Resilience"
+              title="Operational resilience gap review"
+              body="Compare existing DORA controls against target-market expectations."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 5. COVERAGE — IMPACT / PROOF BAND */}
+      <section
+        id="coverage"
         aria-labelledby="impact-heading"
-        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground"
+        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground scroll-mt-20"
       >
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07]"
@@ -494,38 +531,6 @@ function Landing() {
         </div>
       </section>
 
-
-      {/* 5. USE CASES */}
-      <section id="use-cases" aria-labelledby="usecases-heading" className="border-t border-border scroll-mt-20">
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-          <div className="text-center max-w-[720px] mx-auto">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              Use Cases
-            </div>
-            <h2 id="usecases-heading" className="mt-2 fluid-h2 font-semibold text-navy">
-              Built for FinTech expansion use cases
-            </h2>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            <UseCaseCard
-              tag="Market entry"
-              title="France to UK expansion readiness"
-              body="Assess what an ACPR-authorised EMI needs to operate under FCA rules."
-            />
-            <UseCaseCard
-              tag="Licensing"
-              title="Payment licensing requirement checks"
-              body="Map PSD2 / PSD3 obligations and authorisation prerequisites by market."
-            />
-            <UseCaseCard
-              tag="Resilience"
-              title="Operational resilience gap review"
-              body="Compare existing DORA controls against target-market expectations."
-            />
-          </div>
-        </div>
-      </section>
 
       {/* 6. FINAL CTA */}
       <section aria-labelledby="final-cta-heading" className="border-t border-border bg-navy">
