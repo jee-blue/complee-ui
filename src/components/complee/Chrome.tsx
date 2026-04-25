@@ -147,14 +147,6 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
           {/* Right cluster */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              to="/profile"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3 py-2 min-h-[40px] text-[12px] font-medium hover:bg-navy/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-            >
-              Start Assessment
-              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-
             {user ? (
               <Link
                 to="/account"
