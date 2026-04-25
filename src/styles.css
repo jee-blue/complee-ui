@@ -137,6 +137,27 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  /* Global accessible focus ring for any natively-focusable element */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  /* Respect reduced-motion users */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -144,6 +165,20 @@
     background-image:
       radial-gradient(circle at 1px 1px, oklch(0.85 0.02 255 / 0.5) 1px, transparent 0);
     background-size: 24px 24px;
+  }
+  /* Fluid type helpers — scale smoothly from mobile to 2K */
+  .fluid-h1 {
+    font-size: clamp(2rem, 1.4rem + 3vw, 4.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .fluid-lead {
+    font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.25rem);
+    line-height: 1.55;
+  }
+  .fluid-h2 {
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+    line-height: 1.2;
   }
 }
 
