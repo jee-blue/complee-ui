@@ -5,7 +5,6 @@ import {
   GitCompareArrows,
   Map,
   ShieldCheck,
-  Sparkles,
   ClipboardList,
   Search,
   Route as RouteIcon,
@@ -13,9 +12,10 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
+  Globe,
+  CreditCard,
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
-import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
 import { REGULATORS, getRequirements } from "@/data/requirements";
 
 export const Route = createFileRoute("/")({
