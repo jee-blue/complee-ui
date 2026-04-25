@@ -72,39 +72,39 @@
   --primary: oklch(0.236 0.061 268);
   --primary-foreground: oklch(0.984 0.003 247);
 
-  /* Vibrant blue accent #1E5BFF */
-  --brand: oklch(0.566 0.222 263);
+  /* Vibrant blue accent — darkened to meet WCAG 2.1 AA on light surfaces */
+  --brand: oklch(0.52 0.222 263);
   --brand-foreground: oklch(0.99 0 0);
   --brand-soft: oklch(0.95 0.03 263);
 
   --secondary: oklch(0.965 0.012 255);
   --secondary-foreground: oklch(0.236 0.061 268);
   --muted: oklch(0.965 0.012 255);
-  --muted-foreground: oklch(0.5 0.025 257);
+  --muted-foreground: oklch(0.45 0.025 257);
   --accent: oklch(0.95 0.03 263);
   --accent-foreground: oklch(0.236 0.061 268);
 
-  /* Teal #00D4A8 */
-  --success: oklch(0.78 0.155 175);
-  --success-foreground: oklch(0.25 0.07 175);
+  /* Teal — darkened so icon/text usage passes contrast on light surfaces */
+  --success: oklch(0.5 0.13 175);
+  --success-foreground: oklch(0.22 0.07 175);
   --success-soft: oklch(0.955 0.04 175);
 
-  /* Amber #FFB547 */
+  /* Amber */
   --warn: oklch(0.82 0.15 75);
   --warn-foreground: oklch(0.32 0.09 60);
   --warn-soft: oklch(0.97 0.04 80);
 
-  /* Coral #FF6B5C */
-  --danger: oklch(0.7 0.2 22);
+  /* Coral — darkened so danger text/buttons pass AA */
+  --danger: oklch(0.52 0.21 22);
   --danger-foreground: oklch(0.99 0 0);
   --danger-soft: oklch(0.96 0.035 22);
 
-  --destructive: oklch(0.7 0.2 22);
+  --destructive: oklch(0.52 0.21 22);
   --destructive-foreground: oklch(0.99 0 0);
 
   --border: oklch(0.92 0.012 255);
   --input: oklch(0.92 0.012 255);
-  --ring: oklch(0.566 0.222 263);
+  --ring: oklch(0.52 0.222 263);
 
   --surface: oklch(1 0 0);
   --surface-muted: oklch(0.97 0.01 255);
