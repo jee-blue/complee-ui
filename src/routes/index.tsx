@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   ArrowRight,
   Database,
@@ -17,6 +18,38 @@ import {
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { REGULATORS, getRequirements } from "@/data/requirements";
+
+const RotatingEarth = lazy(
+  () => import("@/components/ui/wireframe-dotted-globe"),
+);
+
+function HeroGlobe() {
+  const [mounted, setMounted] = useState(false);
+  const [size, setSize] = useState(520);
+  useEffect(() => {
+    setMounted(true);
+    const calc = () => {
+      const w = window.innerWidth;
+      if (w < 1024) setSize(380);
+      else if (w < 1280) setSize(440);
+      else if (w < 1536) setSize(500);
+      else setSize(560);
+    };
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, []);
+  if (!mounted) {
+    return <div style={{ width: 520, height: 520 }} aria-hidden />;
+  }
+  return (
+    <Suspense fallback={<div style={{ width: size, height: size }} />}>
+      <RotatingEarth width={size} height={size} />
+    </Suspense>
+  );
+}
+
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
