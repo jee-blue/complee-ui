@@ -44,25 +44,29 @@ function Landing() {
   return (
     <Chrome>
       {/* 1. HERO */}
-      <section aria-labelledby="hero-heading" className="relative overflow-hidden">
+      <section
+        aria-labelledby="hero-heading"
+        className="relative overflow-hidden complee-soft-glow"
+      >
         <div
           className="absolute inset-0 complee-grid-bg opacity-60 pointer-events-none"
           aria-hidden="true"
         />
         <div className="relative max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 md:pt-28 pb-10 md:pb-14 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-[12px] text-muted-foreground mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-[12px] text-muted-foreground mb-6 sm:mb-8 shadow-sm">
             <Sparkles className="h-3.5 w-3.5 text-brand" aria-hidden="true" />
             For Heads of Compliance, Expansion, and COOs
           </div>
 
           <h1 id="hero-heading" className="fluid-h1 font-semibold text-navy">
-            Compliance Intelligence
+            Know your expansion readiness
             <br />
-            <span className="text-brand">for FinTech Expansion</span>
+            <span className="text-brand">before regulators do.</span>
           </h1>
 
-          <p className="mt-5 sm:mt-6 fluid-lead text-muted-foreground max-w-[640px] 2xl:max-w-[760px] mx-auto">
-            Assess regulatory readiness before entering new European markets.
+          <p className="mt-5 sm:mt-6 fluid-lead text-muted-foreground max-w-[680px] 2xl:max-w-[780px] mx-auto">
+            Compliance intelligence for FinTechs entering new European markets — backed by real
+            regulator data, not generic AI.
           </p>
 
           <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 flex-wrap">
@@ -95,7 +99,7 @@ function Landing() {
           >
             <div className="px-4 sm:px-6 lg:px-8 mb-4 sm:mb-5 text-center">
               <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                Key Regulatory Requirements We Assess
+                Expansion Requirements Covered
               </div>
             </div>
             <RegulatoryRibbon />
@@ -173,7 +177,108 @@ function Landing() {
         </div>
       </section>
 
-      {/* 4. SAMPLE OUTPUT PREVIEW */}
+      {/* 4. IMPACT / PROOF BAND */}
+      <section
+        aria-labelledby="impact-heading"
+        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground"
+      >
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.07]"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, oklch(1 0 0 / 0.6) 1px, transparent 0)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+        <div
+          className="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full blur-[100px] opacity-30 pointer-events-none"
+          aria-hidden="true"
+          style={{ background: "var(--color-brand)" }}
+        />
+        <div className="relative max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+            <div className="lg:col-span-7">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-foreground/70">
+                Impact
+              </div>
+              <h2
+                id="impact-heading"
+                className="mt-3 fluid-display font-semibold text-navy-foreground"
+              >
+                Cut expansion readiness assessment time by{" "}
+                <span className="text-brand-foreground underline decoration-brand decoration-[3px] underline-offset-[6px]">
+                  50%
+                </span>
+                .
+              </h2>
+              <p className="mt-5 max-w-[560px] text-[15px] sm:text-[16px] leading-relaxed text-navy-foreground/80">
+                Assess gaps across GDPR, PSD3 and DORA in minutes, not weeks — using live
+                regulator data, not consultant decks.
+              </p>
+            </div>
+
+            <div className="lg:col-span-5">
+              <dl className="grid grid-cols-3 gap-4 sm:gap-6">
+                <div>
+                  <dt className="text-[11px] uppercase tracking-[0.1em] text-navy-foreground/60">
+                    Faster
+                  </dt>
+                  <dd className="mt-2 text-[2rem] sm:text-[2.5rem] font-semibold text-navy-foreground tabular-nums leading-none">
+                    50%
+                  </dd>
+                  <p className="mt-1.5 text-[12px] text-navy-foreground/70">
+                    vs. manual review
+                  </p>
+                </div>
+                <div>
+                  <dt className="text-[11px] uppercase tracking-[0.1em] text-navy-foreground/60">
+                    Coverage
+                  </dt>
+                  <dd className="mt-2 text-[2rem] sm:text-[2.5rem] font-semibold text-navy-foreground tabular-nums leading-none">
+                    {total}
+                  </dd>
+                  <p className="mt-1.5 text-[12px] text-navy-foreground/70">
+                    requirements tracked
+                  </p>
+                </div>
+                <div>
+                  <dt className="text-[11px] uppercase tracking-[0.1em] text-navy-foreground/60">
+                    Regulators
+                  </dt>
+                  <dd className="mt-2 text-[2rem] sm:text-[2.5rem] font-semibold text-navy-foreground tabular-nums leading-none">
+                    {authorityCount}
+                  </dd>
+                  <p className="mt-1.5 text-[12px] text-navy-foreground/70">
+                    European authorities
+                  </p>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <div className="mt-12 sm:mt-16 pt-8 border-t border-navy-foreground/10">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-navy-foreground/60 text-center">
+              Sourced from European regulators
+            </div>
+            <ul
+              className="mt-5 flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-12 gap-y-3 text-navy-foreground/85"
+              aria-label="Regulator credibility row"
+            >
+              {["FCA", "ACPR", "BaFin", "DNB"].map((r) => (
+                <li
+                  key={r}
+                  className="text-[16px] sm:text-[18px] font-semibold tracking-wide"
+                >
+                  {r}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. SAMPLE OUTPUT PREVIEW */}
       <section
         id="demo-results"
         aria-labelledby="preview-heading"
