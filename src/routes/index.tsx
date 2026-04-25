@@ -137,9 +137,9 @@ function Landing() {
               </div>
             </div>
 
-            {/* RIGHT — abstract regulatory network visual */}
-            <div className="lg:col-span-5 relative hidden md:block">
-              <HeroNetworkVisual />
+            {/* RIGHT — rotating dotted globe */}
+            <div className="lg:col-span-5 relative hidden md:flex items-center justify-center">
+              <HeroGlobe />
             </div>
           </div>
 
