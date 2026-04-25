@@ -10,7 +10,7 @@ import { LogIn, User as UserIcon } from "lucide-react";
 const SECTION_NAV = [
   { id: "how-it-works", label: "How It Works" },
   { id: "use-cases", label: "Use Cases" },
-  { id: "requirements", label: "Coverage" },
+  { id: "coverage", label: "Coverage" },
   { id: "demo-results", label: "Demo Results" },
 ] as const;
 
@@ -113,26 +113,49 @@ export function Chrome({ children }: { children: React.ReactNode }) {
             <span className="font-semibold tracking-tight text-[17px] text-navy">Complee</span>
           </Link>
 
-          {/* Center section nav (desktop) */}
+          {/* Center section nav (desktop) — guided journey with progress line */}
           <nav
             aria-label="Page sections"
-            className="hidden md:flex items-center gap-1"
+            className="hidden md:flex items-center gap-1 relative"
           >
-            {SECTION_NAV.map((s) => {
+            {SECTION_NAV.map((s, i) => {
+              const activeIdx = SECTION_NAV.findIndex((n) => n.id === activeSection);
               const isActive = isHome && activeSection === s.id;
+              const isVisited = isHome && activeIdx > -1 && i < activeIdx;
               return (
                 <a
                   key={s.id}
                   href={isHome ? `#${s.id}` : `/#${s.id}`}
                   onClick={(e) => handleSectionClick(e, s.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`inline-flex items-center px-3 py-2 min-h-[40px] rounded-md text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+                  className={`relative inline-flex items-center px-3 py-2 min-h-[40px] rounded-md text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                     isActive
-                      ? "text-brand bg-brand-soft"
-                      : "text-muted-foreground hover:text-navy hover:bg-surface-muted"
+                      ? "text-brand"
+                      : isVisited
+                        ? "text-navy/70 hover:text-navy hover:bg-surface-muted"
+                        : "text-muted-foreground hover:text-navy hover:bg-surface-muted"
                   }`}
                 >
-                  {s.label}
+                  <span className="inline-flex items-center gap-1.5">
+                    <span
+                      className={`tabular-nums text-[10px] font-semibold ${
+                        isActive
+                          ? "text-brand"
+                          : isVisited
+                            ? "text-navy/50"
+                            : "text-muted-foreground/60"
+                      }`}
+                    >
+                      0{i + 1}
+                    </span>
+                    {s.label}
+                  </span>
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-3 right-3 -bottom-px h-[2px] rounded-full bg-brand"
+                    />
+                  )}
                 </a>
               );
             })}
