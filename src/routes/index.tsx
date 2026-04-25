@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Database, GitCompareArrows, Map, ShieldCheck, Sparkles } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
+import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
 import { REGULATORS, getRequirements } from "@/data/requirements";
 
 export const Route = createFileRoute("/")({
@@ -89,6 +90,8 @@ function Landing() {
           </p>
         </div>
       </section>
+
+      <RegulatoryRibbon />
     </Chrome>
   );
 }
