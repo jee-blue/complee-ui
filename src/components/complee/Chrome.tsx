@@ -105,17 +105,56 @@ export function Chrome({ children }: { children: React.ReactNode }) {
         <div className="min-h-[60px] max-w-[1440px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-4 py-2">
           <Link
             to="/"
+            onClick={(e) => {
+              if (isHome) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                history.replaceState(null, "", "/");
+                setActiveSection("");
+              }
+            }}
             className="flex items-center gap-2.5 min-w-0 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-            aria-label="Complee home"
+            aria-label="Complee — back to top"
           >
             <Logo />
             <span className="font-semibold tracking-tight text-[17px] text-navy">Complee</span>
           </Link>
 
-          <nav aria-label="Account" className="flex items-center gap-2 sm:gap-3">
-            <span className="text-[13px] text-muted-foreground hidden md:block">
-              AI Compliance Consultant
-            </span>
+          {/* Center section nav (desktop) */}
+          <nav
+            aria-label="Page sections"
+            className="hidden lg:flex items-center gap-1"
+          >
+            {SECTION_NAV.map((s) => {
+              const isActive = isHome && activeSection === s.id;
+              return (
+                <a
+                  key={s.id}
+                  href={isHome ? `#${s.id}` : `/#${s.id}`}
+                  onClick={(e) => handleSectionClick(e, s.id)}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`inline-flex items-center px-3 py-2 min-h-[40px] rounded-md text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+                    isActive
+                      ? "text-brand bg-brand-soft"
+                      : "text-muted-foreground hover:text-navy hover:bg-surface-muted"
+                  }`}
+                >
+                  {s.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right cluster */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              to="/profile"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3 py-2 min-h-[40px] text-[12px] font-medium hover:bg-navy/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              Start Assessment
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+
             {user ? (
               <Link
                 to="/account"
@@ -131,14 +170,66 @@ export function Chrome({ children }: { children: React.ReactNode }) {
             ) : (
               <Link
                 to="/auth"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3 py-2 min-h-[40px] text-[12px] font-medium hover:bg-navy/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 min-h-[40px] text-[12px] font-medium text-navy hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               >
                 <LogIn className="h-3.5 w-3.5" aria-hidden="true" />
-                Sign in
+                <span className="hidden sm:inline">Sign In</span>
               </Link>
             )}
-          </nav>
+
+            {/* Mobile menu toggle */}
+            <button
+              type="button"
+              onClick={() => setMobileOpen((v) => !v)}
+              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-border bg-card text-navy hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
+            >
+              {mobileOpen ? (
+                <X className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <Menu className="h-4 w-4" aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile nav panel */}
+        {mobileOpen && (
+          <div
+            id="mobile-nav"
+            className="lg:hidden border-t border-border bg-card"
+          >
+            <nav aria-label="Page sections" className="px-4 sm:px-6 py-3 flex flex-col gap-1">
+              {SECTION_NAV.map((s) => {
+                const isActive = isHome && activeSection === s.id;
+                return (
+                  <a
+                    key={s.id}
+                    href={isHome ? `#${s.id}` : `/#${s.id}`}
+                    onClick={(e) => handleSectionClick(e, s.id)}
+                    aria-current={isActive ? "true" : undefined}
+                    className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-[14px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+                      isActive
+                        ? "text-brand bg-brand-soft"
+                        : "text-navy hover:bg-surface-muted"
+                    }`}
+                  >
+                    {s.label}
+                  </a>
+                );
+              })}
+              <Link
+                to="/profile"
+                className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3 py-2.5 min-h-[44px] text-[14px] font-medium hover:bg-navy/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              >
+                Start Assessment
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Step bar — only inside the assessment flow */}
