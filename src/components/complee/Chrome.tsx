@@ -37,13 +37,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
   const step = idx + 1;
   const pct = idx >= 0 ? (step / STEPS.length) * 100 : 0;
 
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
 
   // Observe sections on the homepage to highlight the active nav link
   useEffect(() => {
