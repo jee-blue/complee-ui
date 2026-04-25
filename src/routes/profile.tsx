@@ -59,7 +59,7 @@ function Profile() {
 
   return (
     <Chrome>
-      <div className="max-w-[1080px] mx-auto px-5 sm:px-6 py-8 sm:py-12">
+      <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-8 sm:mb-10">
           <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
             Step 1 — Profile
@@ -185,17 +185,18 @@ function Profile() {
         <div className="mt-8 flex items-center justify-between gap-3 flex-wrap">
           <Link
             to="/"
-            className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+            className="text-[13px] text-muted-foreground hover:text-foreground transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 px-1 py-1"
           >
             ← Back
           </Link>
           <button
             onClick={handleContinue}
             disabled={sameCountry}
-            className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 text-[14px] font-medium hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-disabled={sameCountry || undefined}
+            className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 min-h-[44px] text-[14px] font-medium hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
           >
             Continue to documents
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       </div>
