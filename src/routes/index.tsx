@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Database, GitCompareArrows, Map, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Database,
+  GitCompareArrows,
+  Map,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
 import { REGULATORS, getRequirements } from "@/data/requirements";
@@ -7,11 +14,11 @@ import { REGULATORS, getRequirements } from "@/data/requirements";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Complee — AI Compliance Consultant for FinTech" },
+      { title: "Complee — Compliance Intelligence for FinTech Expansion" },
       {
         name: "description",
         content:
-          "Expand across European borders with a real-data compliance readiness assessment.",
+          "Assess regulatory readiness before expanding into new European markets with a data-driven compliance assessment.",
       },
     ],
   }),
@@ -37,39 +44,41 @@ function Landing() {
             For Heads of Compliance, Expansion, and COOs
           </div>
 
+          {/* 1. Headline */}
           <h1 className="text-[32px] sm:text-[44px] md:text-[60px] leading-[1.05] font-semibold tracking-tight text-navy">
-            AI Compliance Consultant
+            Compliance Intelligence
             <br />
-            <span className="text-brand">for FinTech Companies</span>
+            <span className="text-brand">for FinTech Expansion</span>
           </h1>
 
+          {/* 2. Subheadline */}
           <p className="mt-5 sm:mt-6 text-[15px] sm:text-[17px] md:text-[19px] leading-relaxed text-muted-foreground max-w-[640px] mx-auto">
-            Expand across European borders with a real-data compliance readiness assessment.
+            Assess regulatory readiness before expanding into new European markets with a
+            data-driven compliance assessment.
           </p>
 
-          <div className="mt-10 sm:mt-12 -mx-5 sm:-mx-6">
-            <RegulatoryRibbon />
-          </div>
-
+          {/* 3. Primary CTA */}
           <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 flex-wrap">
             <Link
               to="/profile"
               className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 sm:px-6 py-3 sm:py-3.5 text-[14px] sm:text-[15px] font-medium hover:bg-navy/90 transition-colors shadow-sm"
             >
-              Start assessment
+              Assess Expansion Readiness
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
+          {/* 4. Live data proof bar */}
           <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success-soft px-3 py-1.5 text-[12px] text-success-foreground">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
             </span>
-            Live data · Currently tracking {total} requirements across {authorityCount} European
+            Live regulatory data tracking {total} requirements across {authorityCount} European
             regulators
           </div>
 
+          {/* Value cards */}
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-[900px] mx-auto text-left">
             <ValueCard
               icon={<Database className="h-4 w-4" />}
@@ -86,6 +95,19 @@ function Landing() {
               title="Execution-ready roadmap"
               body="Owners, effort and cost estimates so your team can act on day one."
             />
+          </div>
+
+          {/* 5. Regulatory requirements ribbon */}
+          <div className="mt-16 sm:mt-20 -mx-5 sm:-mx-6">
+            <div className="px-5 sm:px-6 mb-4 sm:mb-5 text-center">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                Key Regulatory Requirements We Assess
+              </div>
+              <h2 className="mt-1.5 text-[18px] sm:text-[20px] font-semibold text-navy">
+                Expansion Requirements Covered
+              </h2>
+            </div>
+            <RegulatoryRibbon />
           </div>
 
           <p className="mt-12 text-[12px] text-muted-foreground">
