@@ -1,5 +1,6 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Building2, Check, Info, Lightbulb } from "lucide-react";
+import { useMemo } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { ArrowRight, Building2, Check, Info, Lightbulb, Scale, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Chrome } from "@/components/complee/Chrome";
 import { useAssessment } from "@/store/assessment";
@@ -39,6 +40,41 @@ const INSTITUTION_TYPES: { value: InstitutionType; label: string }[] = [
   { value: "PI", label: "Payment Institution (PI)" },
   { value: "AISP", label: "Account Information Service Provider (AISP)" },
 ];
+
+const REGULATION_GROUPS: { title: string; description: string; options: string[] }[] = [
+  {
+    title: "Payments regulation",
+    description: "Core frameworks governing payment services and electronic money.",
+    options: ["PSD2", "PSD3 / PSR", "SCA / RTS", "EMD2"],
+  },
+  {
+    title: "Operational resilience",
+    description: "ICT risk, incident reporting, and third-party controls.",
+    options: ["DORA", "ICT risk controls", "Incident reporting"],
+  },
+  {
+    title: "Financial crime",
+    description: "Anti-money laundering and customer due diligence.",
+    options: ["AMLD6", "MLR 2017", "KYC / CDD"],
+  },
+  {
+    title: "Data & consumer",
+    description: "Data protection and consumer-facing obligations.",
+    options: ["GDPR", "Consumer Duty", "Outsourcing / TPR"],
+  },
+];
+
+// Lightweight service → regulation suggestions
+const SERVICE_TO_REG_HINTS: Record<string, string[]> = {
+  "Payment initiation": ["PSD3 / PSR", "SCA / RTS"],
+  "Account information": ["PSD2", "PSD3 / PSR"],
+  "Cross-border transfers": ["PSD3 / PSR", "DORA"],
+  "Card issuing": ["SCA / RTS", "PSD2"],
+  "E-money issuance": ["EMD2", "PSD2"],
+  "Safeguarded customer funds": ["EMD2"],
+  "Merchant acquiring": ["PSD2", "SCA / RTS"],
+  "Payment accounts": ["PSD2", "GDPR"],
+};
 
 function Profile() {
   const navigate = useNavigate();
