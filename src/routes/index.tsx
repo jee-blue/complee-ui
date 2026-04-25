@@ -89,8 +89,9 @@ function Landing() {
 
           {/* Regulatory ribbon */}
           <section
+            id="requirements"
             aria-labelledby="requirements-heading"
-            className="mt-12 sm:mt-16 -mx-4 sm:-mx-6 lg:-mx-8"
+            className="mt-12 sm:mt-16 -mx-4 sm:-mx-6 lg:-mx-8 scroll-mt-24"
           >
             <div className="px-4 sm:px-6 lg:px-8 mb-4 sm:mb-5 text-center">
               <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
@@ -138,7 +139,7 @@ function Landing() {
       </section>
 
       {/* 3. HOW IT WORKS */}
-      <section aria-labelledby="how-heading" className="border-t border-border">
+      <section id="how-it-works" aria-labelledby="how-heading" className="border-t border-border scroll-mt-20">
         <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
@@ -174,8 +175,9 @@ function Landing() {
 
       {/* 4. SAMPLE OUTPUT PREVIEW */}
       <section
+        id="demo-results"
         aria-labelledby="preview-heading"
-        className="border-t border-border bg-surface-muted/40"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
       >
         <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
@@ -282,7 +284,7 @@ function Landing() {
       </section>
 
       {/* 5. USE CASES */}
-      <section aria-labelledby="usecases-heading" className="border-t border-border">
+      <section id="use-cases" aria-labelledby="usecases-heading" className="border-t border-border scroll-mt-20">
         <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
