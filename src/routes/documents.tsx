@@ -60,7 +60,7 @@ function Documents() {
       <div className="max-w-[1180px] mx-auto px-5 sm:px-6 py-8 sm:py-12">
         <div className="mb-8 sm:mb-10">
           <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
-            Step 3 — Documents
+            Step 2 — Documents
           </p>
           <h1 className="text-[24px] sm:text-[32px] font-semibold tracking-tight text-navy">
             Upload your current compliance pack
