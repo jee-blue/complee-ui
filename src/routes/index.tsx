@@ -154,24 +154,26 @@ function Landing() {
             </h2>
           </div>
 
-          <ol className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            <StepCard
+          <ol className="mt-12 flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-4 text-left">
+            <FlowStep
               n={1}
-              icon={<ClipboardList className="h-4 w-4" aria-hidden="true" />}
-              title="Answer a short readiness assessment"
-              body="Tell us your home market, target market, and the services you provide."
+              icon={<ClipboardList className="h-5 w-5" aria-hidden="true" />}
+              title="Assess"
+              body="Answer a short readiness assessment tailored to your business."
             />
-            <StepCard
+            <FlowConnector />
+            <FlowStep
               n={2}
-              icon={<Search className="h-4 w-4" aria-hidden="true" />}
-              title="Identify regulatory gaps for target market"
-              body="See which controls are covered, partial, or missing against real regulator data."
+              icon={<Search className="h-5 w-5" aria-hidden="true" />}
+              title="Identify Gaps"
+              body="See exactly which requirements are ready, partial, or missing for your target market."
             />
-            <StepCard
+            <FlowConnector />
+            <FlowStep
               n={3}
-              icon={<RouteIcon className="h-4 w-4" aria-hidden="true" />}
-              title="Receive an expansion roadmap"
-              body="Prioritized actions with owners and effort, ready for your team."
+              icon={<RouteIcon className="h-5 w-5" aria-hidden="true" />}
+              title="Receive Roadmap"
+              body="Get a prioritized roadmap with actions, owners, and estimated effort."
             />
           </ol>
         </div>
@@ -475,7 +477,7 @@ function ValueCard({
   );
 }
 
-function StepCard({
+function FlowStep({
   n,
   icon,
   title,
@@ -487,18 +489,57 @@ function StepCard({
   body: string;
 }) {
   return (
-    <li className="rounded-xl border border-border bg-card p-5 shadow-sm">
+    <li className="flex-1 flex flex-col items-start gap-3 md:max-w-[280px]">
       <div className="flex items-center gap-3">
-        <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-navy text-navy-foreground text-[12px] font-semibold tabular-nums">
+        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-navy text-navy-foreground text-[13px] font-semibold tabular-nums shadow-sm">
           {n}
         </span>
-        <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand-soft text-brand">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
           {icon}
         </span>
       </div>
-      <div className="mt-3 text-[14px] font-semibold text-navy">{title}</div>
-      <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
+      <div>
+        <div className="text-[15px] font-semibold text-navy">{title}</div>
+        <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground max-w-[260px]">
+          {body}
+        </p>
+      </div>
     </li>
+  );
+}
+
+function FlowConnector() {
+  return (
+    <div
+      aria-hidden="true"
+      className="hidden md:flex items-center justify-center pt-4 shrink-0"
+    >
+      <svg
+        width="64"
+        height="8"
+        viewBox="0 0 64 8"
+        fill="none"
+        className="text-border"
+      >
+        <line
+          x1="0"
+          y1="4"
+          x2="56"
+          y2="4"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
+        />
+        <path
+          d="M56 1 L62 4 L56 7"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
   );
 }
 
