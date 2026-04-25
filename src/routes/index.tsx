@@ -144,7 +144,7 @@ function Landing() {
 
       {/* 3. HOW IT WORKS */}
       <section id="how-it-works" aria-labelledby="how-heading" className="border-t border-border scroll-mt-20">
-        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] px-4 sm:px-6 lg:px-12 py-14 sm:py-20">
+        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
               How It Works
