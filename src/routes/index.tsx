@@ -15,8 +15,8 @@ import {
   Clock,
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
-import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
 import { REGULATORS, getRequirements } from "@/data/requirements";
+import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
 
 const RotatingEarth = lazy(
   () => import("@/components/ui/wireframe-dotted-globe"),
