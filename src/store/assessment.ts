@@ -19,6 +19,7 @@ export interface UploadedDocument {
 interface AssessmentState {
   profile: CompanyProfile;
   selectedServices: string[];
+  selectedRegulations: string[];
   uploadedDocuments: UploadedDocument[];
   samplePackSelected: boolean;
   assessmentResults: AssessmentResult | null;
@@ -35,6 +36,10 @@ interface AssessmentState {
   // Services
   setSelectedServices: (s: string[]) => void;
   toggleService: (s: string) => void;
+
+  // Regulations
+  setSelectedRegulations: (s: string[]) => void;
+  toggleRegulation: (s: string) => void;
 
   // Documents
   setUploadedDocuments: (d: UploadedDocument[]) => void;
