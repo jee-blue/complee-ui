@@ -89,8 +89,9 @@ function Landing() {
 
           {/* Regulatory ribbon */}
           <section
+            id="requirements"
             aria-labelledby="requirements-heading"
-            className="mt-12 sm:mt-16 -mx-4 sm:-mx-6 lg:-mx-8"
+            className="mt-12 sm:mt-16 -mx-4 sm:-mx-6 lg:-mx-8 scroll-mt-24"
           >
             <div className="px-4 sm:px-6 lg:px-8 mb-4 sm:mb-5 text-center">
               <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
