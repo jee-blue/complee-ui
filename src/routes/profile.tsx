@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, Info } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, Check, Info, Lightbulb } from "lucide-react";
 import { toast } from "sonner";
 import { Chrome } from "@/components/complee/Chrome";
 import { useAssessment } from "@/store/assessment";
@@ -15,15 +15,22 @@ export const Route = createFileRoute("/profile")({
   component: Profile,
 });
 
-const SERVICE_OPTIONS = [
-  "E-money issuance",
-  "Payment accounts",
-  "Card issuing",
-  "Payment initiation",
-  "Account information",
-  "Cross-border transfers",
-  "Merchant acquiring",
-  "Safeguarded customer funds",
+const SERVICE_GROUPS: { title: string; description: string; options: string[] }[] = [
+  {
+    title: "Money & accounts",
+    description: "Core financial products you offer to customers.",
+    options: ["E-money issuance", "Payment accounts", "Safeguarded customer funds"],
+  },
+  {
+    title: "Payments & cards",
+    description: "How money moves in and out of your platform.",
+    options: ["Card issuing", "Payment initiation", "Cross-border transfers", "Merchant acquiring"],
+  },
+  {
+    title: "Open banking",
+    description: "Data and account access services.",
+    options: ["Account information"],
+  },
 ];
 
 const INSTITUTION_TYPES: { value: InstitutionType; label: string }[] = [
@@ -47,9 +54,13 @@ function Profile() {
   const home = getRegulatorByCountry(profile.homeCountry);
   const target = getRegulatorByCountry(profile.targetCountry);
   const sameCountry = profile.homeCountry === profile.targetCountry;
+  const canContinue = !sameCountry && selectedServices.length > 0 && profile.companyName.trim().length > 0;
 
   const handleContinue = () => {
-    if (sameCountry) return;
+    if (sameCountry) {
+      toast.error("Choose a different target country.");
+      return;
+    }
     if (selectedServices.length === 0) {
       toast.error("Select at least one service to assess.");
       return;
@@ -59,158 +70,273 @@ function Profile() {
 
   return (
     <Chrome>
-      <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="mb-8 sm:mb-10">
-          <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
-            Step 1 — Profile
+      <div className="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        {/* Context header */}
+        <div className="mb-10 sm:mb-12">
+          <p className="text-[12px] uppercase tracking-[0.16em] text-brand font-semibold mb-3">
+            Step 1 of 4 — Company scope
           </p>
-          <h1 className="text-[24px] sm:text-[32px] font-semibold tracking-tight text-navy">
-            Tell Complee about your company
+          <h1 className="text-[28px] sm:text-[36px] font-semibold tracking-tight text-navy leading-tight">
+            Tell us about your company
           </h1>
-          <p className="mt-2 text-[14px] sm:text-[15px] text-muted-foreground">
-            Pre-filled with the FlowPay demo. Adjust anything.
+          <p className="mt-3 text-[15px] sm:text-[16px] text-muted-foreground max-w-[640px] leading-relaxed">
+            We'll use this to scope the regulatory requirements that apply to your expansion.
+            Pre-filled with the FlowPay demo — adjust any field to match your business.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card shadow-sm p-5 sm:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-            <Field label="Company name">
-              <input
-                type="text"
-                value={profile.companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                className="w-full h-11 rounded-lg border border-input bg-background px-3.5 text-[14px] outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition"
-              />
-            </Field>
+        {/* Profile section */}
+        <section className="mb-8">
+          <SectionHeader
+            icon={<Building2 className="h-4 w-4" />}
+            title="Company profile"
+            description="The basics about your business and where you operate."
+          />
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-6 sm:p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+              <Field label="Company name">
+                <input
+                  type="text"
+                  value={profile.companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  placeholder="e.g. FlowPay"
+                  className="w-full h-11 rounded-lg border border-input bg-background px-3.5 text-[14px] outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition"
+                />
+              </Field>
 
-            <Field label="Institution type">
-              <select
-                value={profile.institutionType}
-                onChange={(e) => setInstitutionType(e.target.value as InstitutionType)}
-                className="w-full h-11 rounded-lg border border-input bg-background px-3.5 text-[14px] outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition"
-              >
-                {INSTITUTION_TYPES.map((t) => (
-                  <option key={t.value} value={t.value}>
-                    {t.label}
-                  </option>
-                ))}
-              </select>
-            </Field>
+              <Field label="Institution type">
+                <select
+                  value={profile.institutionType}
+                  onChange={(e) => setInstitutionType(e.target.value as InstitutionType)}
+                  className="w-full h-11 rounded-lg border border-input bg-background px-3.5 text-[14px] outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition"
+                >
+                  {INSTITUTION_TYPES.map((t) => (
+                    <option key={t.value} value={t.value}>
+                      {t.label}
+                    </option>
+                  ))}
+                </select>
+              </Field>
 
-            <Field label="Home country">
-              <select
-                value={profile.homeCountry}
-                onChange={(e) => setHomeCountry(e.target.value as CountryCode)}
-                className="w-full h-11 rounded-lg border border-input bg-background px-3.5 text-[14px] outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition"
-              >
-                {REGULATORS.map((r) => (
-                  <option key={r.code} value={r.code}>
-                    {r.flag} {r.country} — {r.authority}
-                  </option>
-                ))}
-              </select>
-            </Field>
+              <Field label="Home country" hint="Where you're licensed today.">
+                <select
+                  value={profile.homeCountry}
+                  onChange={(e) => setHomeCountry(e.target.value as CountryCode)}
+                  className="w-full h-11 rounded-lg border border-input bg-background px-3.5 text-[14px] outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition"
+                >
+                  {REGULATORS.map((r) => (
+                    <option key={r.code} value={r.code}>
+                      {r.flag} {r.country} — {r.authority}
+                    </option>
+                  ))}
+                </select>
+              </Field>
 
-            <Field label="Target country">
-              <select
-                value={profile.targetCountry}
-                onChange={(e) => setTargetCountry(e.target.value as CountryCode)}
-                className={`w-full h-11 rounded-lg border bg-background px-3.5 text-[14px] outline-none focus:ring-2 transition ${
-                  sameCountry
-                    ? "border-danger focus:border-danger focus:ring-danger/20"
-                    : "border-input focus:border-brand focus:ring-brand/20"
-                }`}
-              >
-                {REGULATORS.map((r) => (
-                  <option key={r.code} value={r.code}>
-                    {r.flag} {r.country} — {r.authority}
-                  </option>
-                ))}
-              </select>
-              {sameCountry && (
-                <p className="mt-2 text-[12px] text-danger">
-                  Choose a different target country to run an expansion assessment.
-                </p>
-              )}
-            </Field>
-
-            <div className="md:col-span-2">
-              <Field label="Services offered">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {SERVICE_OPTIONS.map((opt) => {
-                    const active = selectedServices.includes(opt);
-                    return (
-                      <label
-                        key={opt}
-                        className={`flex items-center gap-2.5 rounded-lg border px-3 py-2.5 cursor-pointer transition-all text-[13px] ${
-                          active
-                            ? "bg-brand-soft/50 border-brand text-navy"
-                            : "bg-card border-border text-foreground hover:border-brand/50"
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={active}
-                          onChange={() => toggleService(opt)}
-                          className="h-4 w-4 rounded border-border accent-brand"
-                        />
-                        {opt}
-                      </label>
-                    );
-                  })}
-                </div>
+              <Field label="Target country" hint="Where you want to expand.">
+                <select
+                  value={profile.targetCountry}
+                  onChange={(e) => setTargetCountry(e.target.value as CountryCode)}
+                  className={`w-full h-11 rounded-lg border bg-background px-3.5 text-[14px] outline-none focus:ring-2 transition ${
+                    sameCountry
+                      ? "border-danger focus:border-danger focus:ring-danger/20"
+                      : "border-input focus:border-brand focus:ring-brand/20"
+                  }`}
+                >
+                  {REGULATORS.map((r) => (
+                    <option key={r.code} value={r.code}>
+                      {r.flag} {r.country} — {r.authority}
+                    </option>
+                  ))}
+                </select>
+                {sameCountry && (
+                  <p className="mt-2 text-[12px] text-danger">
+                    Choose a different target country to run an expansion assessment.
+                  </p>
+                )}
               </Field>
             </div>
           </div>
-        </div>
+        </section>
 
+        {/* Services section */}
+        <section className="mb-8">
+          <SectionHeader
+            icon={<Check className="h-4 w-4" />}
+            title="Services offered"
+            description="Select everything you provide today — we'll map each to its regulatory obligations."
+            badge={
+              selectedServices.length > 0
+                ? `${selectedServices.length} selected`
+                : "None selected"
+            }
+            badgeActive={selectedServices.length > 0}
+          />
+          <div className="rounded-2xl border border-border bg-card shadow-sm p-6 sm:p-8 space-y-7">
+            {SERVICE_GROUPS.map((group) => (
+              <div key={group.title}>
+                <div className="mb-3">
+                  <h3 className="text-[13px] font-semibold text-navy uppercase tracking-[0.06em]">
+                    {group.title}
+                  </h3>
+                  <p className="text-[12.5px] text-muted-foreground mt-0.5">
+                    {group.description}
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {group.options.map((opt) => {
+                    const active = selectedServices.includes(opt);
+                    return (
+                      <button
+                        type="button"
+                        key={opt}
+                        onClick={() => toggleService(opt)}
+                        className={`flex items-center gap-3 rounded-lg border px-3.5 py-3 text-left transition-all text-[13.5px] ${
+                          active
+                            ? "bg-brand-soft/60 border-brand text-navy shadow-sm"
+                            : "bg-card border-border text-foreground hover:border-brand/50 hover:bg-muted/30"
+                        }`}
+                      >
+                        <span
+                          className={`flex h-5 w-5 items-center justify-center rounded border transition-colors shrink-0 ${
+                            active
+                              ? "bg-brand border-brand text-white"
+                              : "border-border bg-background"
+                          }`}
+                        >
+                          {active && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+                        </span>
+                        <span className="font-medium">{opt}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contextual guidance */}
         {home && target && !sameCountry && (
-          <div className="mt-6 rounded-xl border border-brand/20 bg-brand-soft/40 p-4 sm:p-5 flex gap-3">
-            <Info className="h-5 w-5 text-brand mt-0.5 shrink-0" />
-            <p className="text-[13px] sm:text-[14px] leading-relaxed text-navy">
-              <span className="font-medium">Did you know?</span> Expanding from{" "}
-              <span className="font-medium">
-                {home.flag} {home.country}
-              </span>{" "}
-              to{" "}
-              <span className="font-medium">
-                {target.flag} {target.country}
-              </span>{" "}
-              typically takes 12–18 months and €200–500k in advisory fees. Complee compresses
-              the assessment into 5 minutes.
-            </p>
+          <div className="mb-10 rounded-2xl border border-brand/20 bg-brand-soft/40 p-5 sm:p-6 flex gap-4">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand/10 text-brand shrink-0">
+              <Lightbulb className="h-4.5 w-4.5" />
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[13px] font-semibold text-navy uppercase tracking-[0.06em]">
+                Did you know?
+              </p>
+              <p className="text-[14px] leading-relaxed text-navy">
+                Expanding from{" "}
+                <span className="font-semibold">
+                  {home.flag} {home.country}
+                </span>{" "}
+                to{" "}
+                <span className="font-semibold">
+                  {target.flag} {target.country}
+                </span>{" "}
+                typically takes <span className="font-semibold">12–18 months</span> and{" "}
+                <span className="font-semibold">€200–500k</span> in advisory fees. Complee
+                compresses the readiness assessment into about 5 minutes.
+              </p>
+            </div>
           </div>
         )}
 
-        <div className="mt-8 flex items-center justify-between gap-3 flex-wrap">
+        {/* CTA bar */}
+        <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 flex items-center justify-between gap-3 flex-wrap shadow-sm">
           <Link
             to="/"
-            className="text-[13px] text-muted-foreground hover:text-foreground transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 px-1 py-1"
+            className="inline-flex items-center gap-1.5 text-[14px] font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
           >
-            ← Back
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            Back
           </Link>
-          <button
-            onClick={handleContinue}
-            disabled={sameCountry}
-            aria-disabled={sameCountry || undefined}
-            className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 min-h-[44px] text-[14px] font-medium hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-          >
-            Continue to documents
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </button>
+          <div className="flex items-center gap-4 flex-wrap">
+            {!canContinue && (
+              <span className="text-[12.5px] text-muted-foreground hidden sm:inline">
+                {sameCountry
+                  ? "Pick a different target country"
+                  : selectedServices.length === 0
+                    ? "Select at least one service"
+                    : "Add a company name"}
+              </span>
+            )}
+            <button
+              onClick={handleContinue}
+              disabled={!canContinue}
+              aria-disabled={!canContinue || undefined}
+              className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-5 py-3 min-h-[44px] text-[14px] font-semibold hover:bg-navy/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              Continue to documents
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
     </Chrome>
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function SectionHeader({
+  icon,
+  title,
+  description,
+  badge,
+  badgeActive,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  badge?: string;
+  badgeActive?: boolean;
+}) {
+  return (
+    <div className="mb-3 flex items-end justify-between gap-3 flex-wrap">
+      <div className="flex items-start gap-2.5">
+        <span className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-soft text-brand mt-0.5">
+          {icon}
+        </span>
+        <div>
+          <h2 className="text-[16px] font-semibold text-navy leading-tight">{title}</h2>
+          <p className="text-[13px] text-muted-foreground mt-0.5">{description}</p>
+        </div>
+      </div>
+      {badge && (
+        <span
+          className={`text-[12px] font-medium px-2.5 py-1 rounded-full border ${
+            badgeActive
+              ? "bg-brand-soft/60 border-brand/30 text-brand"
+              : "bg-muted/50 border-border text-muted-foreground"
+          }`}
+        >
+          {badge}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function Field({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
-      <span className="block text-[12px] font-medium text-navy mb-1.5 uppercase tracking-[0.06em]">
+      <span className="block text-[12px] font-semibold text-navy mb-1.5 uppercase tracking-[0.06em]">
         {label}
       </span>
       {children}
+      {hint && (
+        <span className="mt-1.5 flex items-center gap-1 text-[11.5px] text-muted-foreground">
+          <Info className="h-3 w-3" aria-hidden="true" />
+          {hint}
+        </span>
+      )}
     </label>
   );
 }
