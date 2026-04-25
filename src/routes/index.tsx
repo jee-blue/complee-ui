@@ -13,8 +13,6 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
-  Globe,
-  CreditCard,
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
