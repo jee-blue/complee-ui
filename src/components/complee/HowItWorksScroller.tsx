@@ -232,17 +232,17 @@ function AssessMock({ className }: { className?: string }) {
     >
       <defs>
         <style>{`
-          .ass-bg { fill: oklch(var(--color-card) / 1); }
-          .ass-surface { fill: oklch(var(--color-surface-muted) / 0.6); }
-          .ass-border { stroke: oklch(var(--color-border) / 1); fill: none; }
-          .ass-text { fill: oklch(var(--color-navy) / 1); font: 600 13px Inter, system-ui, sans-serif; }
-          .ass-muted { fill: oklch(var(--color-muted-foreground) / 1); font: 400 11px Inter, system-ui, sans-serif; }
-          .ass-label { fill: oklch(var(--color-muted-foreground) / 1); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
-          .ass-pill { fill: oklch(var(--color-brand-soft) / 1); }
-          .ass-pill-text { fill: oklch(var(--color-brand) / 1); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
-          .ass-brand { fill: oklch(var(--color-brand) / 1); }
-          .ass-brand-soft { fill: oklch(var(--color-brand-soft) / 1); }
-          .ass-progress-bg { fill: oklch(var(--color-muted) / 1); }
+          .ass-bg { fill: color-mix(in oklab, var(--color-card) calc(1 * 100%), transparent); }
+          .ass-surface { fill: color-mix(in oklab, var(--color-surface-muted) calc(0.6 * 100%), transparent); }
+          .ass-border { stroke: color-mix(in oklab, var(--color-border) calc(1 * 100%), transparent); fill: none; }
+          .ass-text { fill: color-mix(in oklab, var(--color-navy) calc(1 * 100%), transparent); font: 600 13px Inter, system-ui, sans-serif; }
+          .ass-muted { fill: color-mix(in oklab, var(--color-muted-foreground) calc(1 * 100%), transparent); font: 400 11px Inter, system-ui, sans-serif; }
+          .ass-label { fill: color-mix(in oklab, var(--color-muted-foreground) calc(1 * 100%), transparent); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+          .ass-pill { fill: color-mix(in oklab, var(--color-brand-soft) calc(1 * 100%), transparent); }
+          .ass-pill-text { fill: color-mix(in oklab, var(--color-brand) calc(1 * 100%), transparent); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+          .ass-brand { fill: color-mix(in oklab, var(--color-brand) calc(1 * 100%), transparent); }
+          .ass-brand-soft { fill: color-mix(in oklab, var(--color-brand-soft) calc(1 * 100%), transparent); }
+          .ass-progress-bg { fill: color-mix(in oklab, var(--color-muted) calc(1 * 100%), transparent); }
         `}</style>
       </defs>
 
@@ -286,15 +286,15 @@ function AssessMock({ className }: { className?: string }) {
         <text x="14" y="17" className="ass-pill-text" style={{ font: "600 11px Inter, system-ui, sans-serif" }}>
           EMI
         </text>
-        <rect x="86" y="0" width="78" height="26" rx="13" fill="oklch(var(--color-card))" stroke="oklch(var(--color-border))" />
+        <rect x="86" y="0" width="78" height="26" rx="13" fill="var(--color-card)" stroke="var(--color-border)" />
         <text x="105" y="17" className="ass-muted" style={{ font: "500 11px Inter, system-ui, sans-serif" }}>
           PI
         </text>
-        <rect x="172" y="0" width="78" height="26" rx="13" fill="oklch(var(--color-card))" stroke="oklch(var(--color-border))" />
+        <rect x="172" y="0" width="78" height="26" rx="13" fill="var(--color-card)" stroke="var(--color-border)" />
         <text x="190" y="17" className="ass-muted" style={{ font: "500 11px Inter, system-ui, sans-serif" }}>
           Bank
         </text>
-        <rect x="258" y="0" width="106" height="26" rx="13" fill="oklch(var(--color-card))" stroke="oklch(var(--color-border))" />
+        <rect x="258" y="0" width="106" height="26" rx="13" fill="var(--color-card)" stroke="var(--color-border)" />
         <text x="275" y="17" className="ass-muted" style={{ font: "500 11px Inter, system-ui, sans-serif" }}>
           Crypto / VASP
         </text>
@@ -307,7 +307,7 @@ function AssessMock({ className }: { className?: string }) {
       <text className="ass-muted" x="408" y="312">33%</text>
 
       <rect className="ass-brand" x="420" y="320" width="120" height="32" rx="8" />
-      <text x="445" y="340" fill="oklch(var(--color-brand-foreground))" style={{ font: "600 12px Inter, system-ui, sans-serif" }}>
+      <text x="445" y="340" fill="var(--color-brand-foreground)" style={{ font: "600 12px Inter, system-ui, sans-serif" }}>
         Continue →
       </text>
     </svg>
@@ -335,44 +335,44 @@ function GapsMock({ className }: { className?: string }) {
     >
       <defs>
         <style>{`
-          .gap-text { fill: oklch(var(--color-navy)); font: 600 13px Inter, system-ui, sans-serif; }
-          .gap-muted { fill: oklch(var(--color-muted-foreground)); font: 400 11px Inter, system-ui, sans-serif; }
-          .gap-label { fill: oklch(var(--color-muted-foreground)); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
-          .gap-row-bg { fill: oklch(var(--color-card)); stroke: oklch(var(--color-border)); }
+          .gap-text { fill: var(--color-navy); font: 600 13px Inter, system-ui, sans-serif; }
+          .gap-muted { fill: var(--color-muted-foreground); font: 400 11px Inter, system-ui, sans-serif; }
+          .gap-label { fill: var(--color-muted-foreground); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+          .gap-row-bg { fill: var(--color-card); stroke: var(--color-border); }
         `}</style>
       </defs>
 
       {/* Header row: score card + summary */}
       <g>
-        <rect x="20" y="18" width="200" height="92" rx="12" fill="oklch(var(--color-surface-muted) / 0.6)" stroke="oklch(var(--color-border))" />
+        <rect x="20" y="18" width="200" height="92" rx="12" fill="color-mix(in oklab, var(--color-surface-muted) calc(0.6 * 100%), transparent)" stroke="var(--color-border)" />
         <text className="gap-label" x="32" y="38">Readiness Score</text>
-        <text x="32" y="78" fill="oklch(var(--color-brand))" style={{ font: "700 34px Inter, system-ui, sans-serif" }}>
+        <text x="32" y="78" fill="var(--color-brand)" style={{ font: "700 34px Inter, system-ui, sans-serif" }}>
           72%
         </text>
         <text className="gap-muted" x="32" y="98">Moderate readiness</text>
 
         {/* mini bar */}
-        <rect x="118" y="68" width="86" height="6" rx="3" fill="oklch(var(--color-muted))" />
-        <rect x="118" y="68" width="62" height="6" rx="3" fill="oklch(var(--color-brand))" />
+        <rect x="118" y="68" width="86" height="6" rx="3" fill="var(--color-muted)" />
+        <rect x="118" y="68" width="62" height="6" rx="3" fill="var(--color-brand)" />
       </g>
 
       <g transform="translate(232, 18)">
-        <rect width="308" height="92" rx="12" fill="oklch(var(--color-card))" stroke="oklch(var(--color-border))" />
+        <rect width="308" height="92" rx="12" fill="var(--color-card)" stroke="var(--color-border)" />
         <text className="gap-label" x="14" y="20">Findings</text>
 
         {/* three pills */}
         <g transform="translate(14, 32)">
-          <circle cx="6" cy="22" r="5" fill="oklch(var(--color-success))" />
+          <circle cx="6" cy="22" r="5" fill="var(--color-success)" />
           <text x="18" y="26" className="gap-text" style={{ font: "600 12px Inter, system-ui, sans-serif" }}>
             12 ready
           </text>
 
-          <circle cx="100" cy="22" r="5" fill="oklch(var(--color-warning))" />
+          <circle cx="100" cy="22" r="5" fill="var(--color-warning)" />
           <text x="112" y="26" className="gap-text" style={{ font: "600 12px Inter, system-ui, sans-serif" }}>
             4 partial
           </text>
 
-          <circle cx="194" cy="22" r="5" fill="oklch(var(--color-danger))" />
+          <circle cx="194" cy="22" r="5" fill="var(--color-danger)" />
           <text x="206" y="26" className="gap-text" style={{ font: "600 12px Inter, system-ui, sans-serif" }}>
             3 missing
           </text>
@@ -425,33 +425,33 @@ function RoadmapMock({ className }: { className?: string }) {
     >
       <defs>
         <style>{`
-          .rd-text { fill: oklch(var(--color-navy)); font: 600 13px Inter, system-ui, sans-serif; }
-          .rd-muted { fill: oklch(var(--color-muted-foreground)); font: 400 11px Inter, system-ui, sans-serif; }
-          .rd-label { fill: oklch(var(--color-muted-foreground)); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+          .rd-text { fill: var(--color-navy); font: 600 13px Inter, system-ui, sans-serif; }
+          .rd-muted { fill: var(--color-muted-foreground); font: 400 11px Inter, system-ui, sans-serif; }
+          .rd-label { fill: var(--color-muted-foreground); font: 600 10px Inter, system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
         `}</style>
       </defs>
 
       {/* Header */}
       <text className="rd-label" x="20" y="32">Expansion roadmap · France → UK</text>
-      <text x="20" y="58" fill="oklch(var(--color-navy))" style={{ font: "700 18px Inter, system-ui, sans-serif" }}>
+      <text x="20" y="58" fill="var(--color-navy)" style={{ font: "700 18px Inter, system-ui, sans-serif" }}>
         6-week plan to FCA readiness
       </text>
 
       {/* Top metrics */}
       <g transform="translate(20, 76)">
-        <rect width="160" height="60" rx="10" fill="oklch(var(--color-surface-muted) / 0.6)" stroke="oklch(var(--color-border))" />
+        <rect width="160" height="60" rx="10" fill="color-mix(in oklab, var(--color-surface-muted) calc(0.6 * 100%), transparent)" stroke="var(--color-border)" />
         <text className="rd-label" x="14" y="20">Estimated effort</text>
         <text x="14" y="46" className="rd-text" style={{ font: "700 18px Inter, system-ui, sans-serif" }}>
           6 weeks
         </text>
 
-        <rect x="172" width="160" height="60" rx="10" fill="oklch(var(--color-card))" stroke="oklch(var(--color-border))" />
+        <rect x="172" width="160" height="60" rx="10" fill="var(--color-card)" stroke="var(--color-border)" />
         <text className="rd-label" x="186" y="20">Owners assigned</text>
         <text x="186" y="46" className="rd-text" style={{ font: "700 18px Inter, system-ui, sans-serif" }}>
           4 teams
         </text>
 
-        <rect x="344" width="176" height="60" rx="10" fill="oklch(var(--color-card))" stroke="oklch(var(--color-border))" />
+        <rect x="344" width="176" height="60" rx="10" fill="var(--color-card)" stroke="var(--color-border)" />
         <text className="rd-label" x="358" y="20">Critical items</text>
         <text x="358" y="46" className="rd-text" style={{ font: "700 18px Inter, system-ui, sans-serif" }}>
           3 of 10
@@ -459,10 +459,10 @@ function RoadmapMock({ className }: { className?: string }) {
       </g>
 
       {/* Timeline header */}
-      <line x1="60" y1="172" x2="540" y2="172" stroke="oklch(var(--color-border))" />
+      <line x1="60" y1="172" x2="540" y2="172" stroke="var(--color-border)" />
       {["W1", "W2", "W3", "W4", "W5", "W6"].map((w, i) => (
         <g key={w}>
-          <circle cx={60 + i * 96} cy="172" r="4" fill={i < 4 ? "oklch(var(--color-brand))" : "oklch(var(--color-border))"} />
+          <circle cx={60 + i * 96} cy="172" r="4" fill={i < 4 ? "var(--color-brand)" : "var(--color-border)"} />
           <text x={60 + i * 96 - 8} y="160" className="rd-muted">
             {w}
           </text>
@@ -474,16 +474,16 @@ function RoadmapMock({ className }: { className?: string }) {
         const y = 196 + i * 38;
         return (
           <g key={it.title}>
-            <rect x="20" y={y} width="520" height="30" rx="8" fill="oklch(var(--color-card))" stroke="oklch(var(--color-border))" />
-            <rect x="20" y={y} width="4" height="30" rx="2" fill="oklch(var(--color-brand))" />
+            <rect x="20" y={y} width="520" height="30" rx="8" fill="var(--color-card)" stroke="var(--color-border)" />
+            <rect x="20" y={y} width="4" height="30" rx="2" fill="var(--color-brand)" />
             <text x="38" y={y + 19} className="rd-text" style={{ font: "600 11px Inter, system-ui, sans-serif" }}>
               {it.week}
             </text>
             <text x="78" y={y + 19} className="rd-text" style={{ font: "500 12.5px Inter, system-ui, sans-serif" }}>
               {it.title}
             </text>
-            <rect x="408" y={y + 7} width="86" height="16" rx="8" fill="oklch(var(--color-brand-soft))" />
-            <text x="418" y={y + 18} fill="oklch(var(--color-brand))" style={{ font: "600 10px Inter, system-ui, sans-serif" }}>
+            <rect x="408" y={y + 7} width="86" height="16" rx="8" fill="var(--color-brand-soft)" />
+            <text x="418" y={y + 18} fill="var(--color-brand)" style={{ font: "600 10px Inter, system-ui, sans-serif" }}>
               {it.track}
             </text>
             <text x="506" y={y + 19} className="rd-muted" style={{ font: "500 11px Inter, system-ui, sans-serif" }}>
