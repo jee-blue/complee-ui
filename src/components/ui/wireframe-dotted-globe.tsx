@@ -280,41 +280,58 @@ export default function RotatingEarth({
       }
     };
 
-    // Start oriented toward Europe so points are visible on load
-    const rotation: [number, number] = [-10, -48];
-    let autoRotate = !prefersReducedMotion;
-    const rotationSpeed = 0.08; // gentle ambient rotation
+    // Final resting orientation — Europe centered
+    const FINAL_ROTATION: [number, number] = [-10, -48];
+    // Start further west so we ease into Europe
+    const START_ROTATION: [number, number] = [-90, -20];
+    const rotation: [number, number] = prefersReducedMotion
+      ? [...FINAL_ROTATION]
+      : [...START_ROTATION];
+    projection.rotate(rotation);
 
-    const tick = (elapsed: number) => {
-      // Update reg point progress
-      if (!prefersReducedMotion && animStartTime > 0) {
-        const t = performance.now() - animStartTime;
-        let anyChanged = false;
-        REG_POINTS.forEach((_, i) => {
-          const start = i * POINT_STAGGER;
-          const local = Math.max(0, Math.min(1, (t - start) / POINT_DURATION));
-          if (pointProgress[i] !== local) {
-            pointProgress[i] = local;
-            anyChanged = true;
-          }
-        });
-        if (anyChanged || autoRotate) {
-          if (autoRotate) {
-            rotation[0] += rotationSpeed;
-            projection.rotate(rotation);
-          }
-          render();
-        }
-      } else if (autoRotate) {
-        rotation[0] += rotationSpeed;
+    const INTRO_DURATION = 1800; // ms — globe rotates into place
+    const POINT_DELAY = INTRO_DURATION - 200; // points start near end of rotation
+    let introDone = prefersReducedMotion;
+    let frozen = prefersReducedMotion;
+
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const tick = () => {
+      if (frozen || animStartTime === 0) return;
+      const t = performance.now() - animStartTime;
+
+      // Phase 1: rotate into Europe
+      if (!introDone) {
+        const p = Math.min(1, t / INTRO_DURATION);
+        const e = easeInOutCubic(p);
+        rotation[0] = START_ROTATION[0] + (FINAL_ROTATION[0] - START_ROTATION[0]) * e;
+        rotation[1] = START_ROTATION[1] + (FINAL_ROTATION[1] - START_ROTATION[1]) * e;
         projection.rotate(rotation);
-        render();
+        if (p >= 1) introDone = true;
+      }
+
+      // Phase 2: reveal points (staggered, after rotation nearly complete)
+      let pointsDone = true;
+      REG_POINTS.forEach((_, i) => {
+        const start = POINT_DELAY + i * POINT_STAGGER;
+        const local = Math.max(0, Math.min(1, (t - start) / POINT_DURATION));
+        pointProgress[i] = local;
+        if (local < 1) pointsDone = false;
+      });
+
+      render();
+
+      // Freeze permanently once intro + points complete
+      if (introDone && pointsDone) {
+        frozen = true;
+        timer.stop();
       }
     };
     const timer = d3.timer(tick);
 
+    // Allow drag interaction; do NOT resume auto-rotation after release
     const onMouseDown = (event: MouseEvent) => {
-      autoRotate = false;
       const startX = event.clientX;
       const startY = event.clientY;
       const start: [number, number] = [rotation[0], rotation[1]];
@@ -332,11 +349,6 @@ export default function RotatingEarth({
       const onUp = () => {
         document.removeEventListener("mousemove", onMove);
         document.removeEventListener("mouseup", onUp);
-        if (!prefersReducedMotion) {
-          setTimeout(() => {
-            autoRotate = true;
-          }, 2000);
-        }
       };
       document.addEventListener("mousemove", onMove);
       document.addEventListener("mouseup", onUp);
