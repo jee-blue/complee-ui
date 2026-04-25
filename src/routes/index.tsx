@@ -177,45 +177,10 @@ function Landing() {
           </div>
 
           {/* Bottom ribbon — Expansion Requirements Covered */}
-          <div
-            id="requirements"
-            className="relative pb-6 sm:pb-8 scroll-mt-24"
-            aria-labelledby="requirements-heading"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-navy-foreground/55">
-                Expansion Requirements Covered
-              </div>
-              <div className="h-px flex-1 bg-navy-foreground/10" aria-hidden />
-            </div>
-            <ul
-              className="flex flex-wrap items-center gap-2.5 sm:gap-3"
-              aria-label="Regulatory frameworks supported"
-            >
-              {[
-                { icon: Globe, label: "GDPR", sub: "Data Protection" },
-                { icon: CreditCard, label: "PSD2 / PSD3", sub: "Payments" },
-                { icon: ShieldCheck, label: "DORA", sub: "Operational Resilience" },
-              ].map(({ icon: Icon, label, sub }) => (
-                <li
-                  key={label}
-                  className="inline-flex items-center gap-2.5 rounded-xl border border-navy-foreground/12 bg-navy-foreground/[0.04] px-3.5 py-2 backdrop-blur-sm"
-                >
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand/20 text-brand-foreground">
-                    <Icon className="h-3.5 w-3.5" aria-hidden />
-                  </span>
-                  <span className="flex flex-col leading-tight">
-                    <span className="text-[12.5px] font-semibold text-navy-foreground">
-                      {label}
-                    </span>
-                    <span className="text-[10.5px] text-navy-foreground/60">
-                      {sub}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
+          <div className="relative pb-6 sm:pb-8">
+            <RegulatoryRibbon />
           </div>
+
         </div>
       </section>
 
