@@ -113,49 +113,26 @@ export function Chrome({ children }: { children: React.ReactNode }) {
             <span className="font-semibold tracking-tight text-[17px] text-navy">Complee</span>
           </Link>
 
-          {/* Center section nav (desktop) — guided journey with progress line */}
+          {/* Center section nav (desktop) */}
           <nav
             aria-label="Page sections"
-            className="hidden md:flex items-center gap-1 relative"
+            className="hidden md:flex items-center gap-1"
           >
-            {SECTION_NAV.map((s, i) => {
-              const activeIdx = SECTION_NAV.findIndex((n) => n.id === activeSection);
+            {SECTION_NAV.map((s) => {
               const isActive = isHome && activeSection === s.id;
-              const isVisited = isHome && activeIdx > -1 && i < activeIdx;
               return (
                 <a
                   key={s.id}
                   href={isHome ? `#${s.id}` : `/#${s.id}`}
                   onClick={(e) => handleSectionClick(e, s.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative inline-flex items-center px-3 py-2 min-h-[40px] rounded-md text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+                  className={`inline-flex items-center px-3 py-2 min-h-[40px] rounded-md text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                     isActive
-                      ? "text-brand"
-                      : isVisited
-                        ? "text-navy/70 hover:text-navy hover:bg-surface-muted"
-                        : "text-muted-foreground hover:text-navy hover:bg-surface-muted"
+                      ? "text-brand bg-brand-soft"
+                      : "text-muted-foreground hover:text-navy hover:bg-surface-muted"
                   }`}
                 >
-                  <span className="inline-flex items-center gap-1.5">
-                    <span
-                      className={`tabular-nums text-[10px] font-semibold ${
-                        isActive
-                          ? "text-brand"
-                          : isVisited
-                            ? "text-navy/50"
-                            : "text-muted-foreground/60"
-                      }`}
-                    >
-                      0{i + 1}
-                    </span>
-                    {s.label}
-                  </span>
-                  {isActive && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-3 right-3 -bottom-px h-[2px] rounded-full bg-brand"
-                    />
-                  )}
+                  {s.label}
                 </a>
               );
             })}
@@ -186,30 +163,9 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
           </div>
         </div>
-        {/* Journey progress line (home only) */}
-        {isHome && (() => {
-          const activeIdx = SECTION_NAV.findIndex((n) => n.id === activeSection);
-          const journeyPct =
-            activeIdx < 0 ? 0 : ((activeIdx + 1) / SECTION_NAV.length) * 100;
-          return (
-            <div
-              className="h-[2px] bg-border/60"
-              role="progressbar"
-              aria-valuemin={0}
-              aria-valuemax={SECTION_NAV.length}
-              aria-valuenow={Math.max(0, activeIdx + 1)}
-              aria-label="Page journey progress"
-            >
-              <div
-                className="h-full bg-brand transition-all duration-500 ease-out"
-                style={{ width: `${journeyPct}%` }}
-              />
-            </div>
-          );
-        })()}
       </header>
 
-      {/* Mobile journey chips (home only) */}
+      {/* Mobile section nav (home only) */}
       {isHome && (
         <nav
           aria-label="Page sections (mobile)"
@@ -217,7 +173,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
         >
           <div className="max-w-[1440px] mx-auto px-4 py-2 overflow-x-auto">
             <ul className="flex items-center gap-2 min-w-max">
-              {SECTION_NAV.map((s, i) => {
+              {SECTION_NAV.map((s) => {
                 const isActive = activeSection === s.id;
                 return (
                   <li key={s.id}>
@@ -225,15 +181,12 @@ export function Chrome({ children }: { children: React.ReactNode }) {
                       href={`#${s.id}`}
                       onClick={(e) => handleSectionClick(e, s.id)}
                       aria-current={isActive ? "true" : undefined}
-                      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-medium border transition-colors ${
+                      className={`inline-flex items-center rounded-full px-3 py-1.5 text-[12px] font-medium transition-colors ${
                         isActive
-                          ? "border-brand bg-brand-soft text-brand"
-                          : "border-border bg-card text-muted-foreground hover:text-navy"
+                          ? "bg-brand-soft text-brand"
+                          : "text-muted-foreground hover:text-navy"
                       }`}
                     >
-                      <span className="tabular-nums text-[10px] opacity-70">
-                        0{i + 1}
-                      </span>
                       {s.label}
                     </a>
                   </li>
