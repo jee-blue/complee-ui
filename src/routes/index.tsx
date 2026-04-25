@@ -17,6 +17,7 @@ import {
 import { Chrome } from "@/components/complee/Chrome";
 import { REGULATORS, getRequirements } from "@/data/requirements";
 import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
+import { HowItWorksScroller } from "@/components/complee/HowItWorksScroller";
 
 const RotatingEarth = lazy(
   () => import("@/components/ui/wireframe-dotted-globe"),
@@ -219,42 +220,8 @@ function Landing() {
         </div>
       </section>
 
-      {/* 3. HOW IT WORKS */}
-      <section id="how-it-works" aria-labelledby="how-heading" className="border-t border-border scroll-mt-20">
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-          <div className="text-center max-w-[720px] mx-auto">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              How It Works
-            </div>
-            <h2 id="how-heading" className="mt-2 fluid-h2 font-semibold text-navy">
-              Three steps to expansion readiness
-            </h2>
-          </div>
-
-          <ol className="mt-12 flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-4 text-left">
-            <FlowStep
-              n={1}
-              icon={<ClipboardList className="h-5 w-5" aria-hidden="true" />}
-              title="Assess"
-              body="Answer a short readiness assessment tailored to your business."
-            />
-            <FlowConnector />
-            <FlowStep
-              n={2}
-              icon={<Search className="h-5 w-5" aria-hidden="true" />}
-              title="Identify Gaps"
-              body="See exactly which requirements are ready, partial, or missing for your target market."
-            />
-            <FlowConnector />
-            <FlowStep
-              n={3}
-              icon={<RouteIcon className="h-5 w-5" aria-hidden="true" />}
-              title="Receive Roadmap"
-              body="Get a prioritized roadmap with actions, owners, and estimated effort."
-            />
-          </ol>
-        </div>
-      </section>
+      {/* 3. HOW IT WORKS — sticky scroll-driven walkthrough */}
+      <HowItWorksScroller />
 
       {/* 4. USE CASES */}
       <section
