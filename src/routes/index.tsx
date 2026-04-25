@@ -154,24 +154,26 @@ function Landing() {
             </h2>
           </div>
 
-          <ol className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            <StepCard
+          <ol className="mt-12 flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-4 text-left">
+            <FlowStep
               n={1}
-              icon={<ClipboardList className="h-4 w-4" aria-hidden="true" />}
-              title="Answer a short readiness assessment"
-              body="Tell us your home market, target market, and the services you provide."
+              icon={<ClipboardList className="h-5 w-5" aria-hidden="true" />}
+              title="Assess"
+              body="Answer a short readiness assessment tailored to your business."
             />
-            <StepCard
+            <FlowConnector />
+            <FlowStep
               n={2}
-              icon={<Search className="h-4 w-4" aria-hidden="true" />}
-              title="Identify regulatory gaps for target market"
-              body="See which controls are covered, partial, or missing against real regulator data."
+              icon={<Search className="h-5 w-5" aria-hidden="true" />}
+              title="Identify Gaps"
+              body="See exactly which requirements are ready, partial, or missing for your target market."
             />
-            <StepCard
+            <FlowConnector />
+            <FlowStep
               n={3}
-              icon={<RouteIcon className="h-4 w-4" aria-hidden="true" />}
-              title="Receive an expansion roadmap"
-              body="Prioritized actions with owners and effort, ready for your team."
+              icon={<RouteIcon className="h-5 w-5" aria-hidden="true" />}
+              title="Receive Roadmap"
+              body="Get a prioritized roadmap with actions, owners, and estimated effort."
             />
           </ol>
         </div>
