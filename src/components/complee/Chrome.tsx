@@ -7,8 +7,9 @@ import { useStepProgress } from "@/store/stepProgress";
 import { taskKey } from "@/lib/playbook";
 import { LogIn, User as UserIcon } from "lucide-react";
 
+// Assessment flow steps (the homepage "/" is intentionally excluded so the
+// step indicator only appears once the user clicks "Start assessment").
 const STEPS = [
-  { path: "/", label: "Start" },
   { path: "/profile", label: "Profile" },
   { path: "/documents", label: "Documents" },
   { path: "/processing", label: "Analysis" },
@@ -23,12 +24,8 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
   const isAccountRoute = location.pathname === "/account" || location.pathname === "/auth";
 
-  const idx = isAccountRoute
-    ? -1
-    : Math.max(
-        0,
-        STEPS.findIndex((s) => s.path === location.pathname),
-      );
+  const stepIndex = STEPS.findIndex((s) => s.path === location.pathname);
+  const idx = isAccountRoute ? -1 : stepIndex;
   const step = idx + 1;
   const pct = idx >= 0 ? (step / STEPS.length) * 100 : 0;
 

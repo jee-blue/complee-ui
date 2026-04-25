@@ -135,7 +135,7 @@ function Results() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6 sm:mb-8">
           <div>
             <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
-              Step 5 — Results
+              Step 4 — Results
             </p>
             <h1 className="text-[24px] sm:text-[30px] font-semibold tracking-tight text-navy">
               {profile.companyName} expansion readiness
