@@ -99,7 +99,7 @@ function Landing() {
           >
             <div className="px-4 sm:px-6 lg:px-8 mb-4 sm:mb-5 text-center">
               <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                Key Regulatory Requirements We Assess
+                Expansion Requirements Covered
               </div>
             </div>
             <RegulatoryRibbon />
