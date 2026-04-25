@@ -1,11 +1,18 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Logo } from "./Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import { taskKey } from "@/lib/playbook";
-import { LogIn, User as UserIcon } from "lucide-react";
+import { ArrowRight, LogIn, Menu, User as UserIcon, X } from "lucide-react";
+
+const SECTION_NAV = [
+  { id: "how-it-works", label: "How it Works" },
+  { id: "use-cases", label: "Use Cases" },
+  { id: "requirements", label: "Requirements" },
+  { id: "demo-results", label: "Demo Results" },
+] as const;
 
 // Assessment flow steps (the homepage "/" is intentionally excluded so the
 // step indicator only appears once the user clicks "Start assessment").
