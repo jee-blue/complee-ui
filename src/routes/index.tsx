@@ -44,25 +44,29 @@ function Landing() {
   return (
     <Chrome>
       {/* 1. HERO */}
-      <section aria-labelledby="hero-heading" className="relative overflow-hidden">
+      <section
+        aria-labelledby="hero-heading"
+        className="relative overflow-hidden complee-soft-glow"
+      >
         <div
           className="absolute inset-0 complee-grid-bg opacity-60 pointer-events-none"
           aria-hidden="true"
         />
         <div className="relative max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 md:pt-28 pb-10 md:pb-14 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-[12px] text-muted-foreground mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-[12px] text-muted-foreground mb-6 sm:mb-8 shadow-sm">
             <Sparkles className="h-3.5 w-3.5 text-brand" aria-hidden="true" />
             For Heads of Compliance, Expansion, and COOs
           </div>
 
           <h1 id="hero-heading" className="fluid-h1 font-semibold text-navy">
-            Compliance Intelligence
+            Know your expansion readiness
             <br />
-            <span className="text-brand">for FinTech Expansion</span>
+            <span className="text-brand">before regulators do.</span>
           </h1>
 
-          <p className="mt-5 sm:mt-6 fluid-lead text-muted-foreground max-w-[640px] 2xl:max-w-[760px] mx-auto">
-            Assess regulatory readiness before entering new European markets.
+          <p className="mt-5 sm:mt-6 fluid-lead text-muted-foreground max-w-[680px] 2xl:max-w-[780px] mx-auto">
+            Compliance intelligence for FinTechs entering new European markets — backed by real
+            regulator data, not generic AI.
           </p>
 
           <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 flex-wrap">
