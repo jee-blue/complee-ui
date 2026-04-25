@@ -37,7 +37,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
     return { total: remediation.length, done };
   }, [assessmentResults, byKey]);
 
-  const showRoadmapBar = roadmap.total > 0;
+  const showRoadmapBar = false;
   const roadmapPct = roadmap.total === 0 ? 0 : Math.round((roadmap.done / roadmap.total) * 100);
   const roadmapComplete = roadmap.total > 0 && roadmap.done === roadmap.total;
 
