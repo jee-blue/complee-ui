@@ -75,11 +75,14 @@ const DEFAULT_SERVICES = [
   "Fraud monitoring",
 ];
 
+const DEFAULT_REGULATIONS = ["PSD2", "GDPR"];
+
 export const useAssessment = create<AssessmentState>()(
   persist(
     (set) => ({
       profile: DEFAULT_PROFILE,
       selectedServices: DEFAULT_SERVICES,
+      selectedRegulations: DEFAULT_REGULATIONS,
       uploadedDocuments: [],
       samplePackSelected: false,
       assessmentResults: null,
@@ -102,6 +105,14 @@ export const useAssessment = create<AssessmentState>()(
           selectedServices: s.selectedServices.includes(svc)
             ? s.selectedServices.filter((x) => x !== svc)
             : [...s.selectedServices, svc],
+        })),
+
+      setSelectedRegulations: (selectedRegulations) => set({ selectedRegulations }),
+      toggleRegulation: (reg) =>
+        set((s) => ({
+          selectedRegulations: s.selectedRegulations.includes(reg)
+            ? s.selectedRegulations.filter((x) => x !== reg)
+            : [...s.selectedRegulations, reg],
         })),
 
       setUploadedDocuments: (uploadedDocuments) => set({ uploadedDocuments }),
@@ -130,6 +141,7 @@ export const useAssessment = create<AssessmentState>()(
         set({
           profile: DEFAULT_PROFILE,
           selectedServices: DEFAULT_SERVICES,
+          selectedRegulations: DEFAULT_REGULATIONS,
           uploadedDocuments: [],
           samplePackSelected: false,
           assessmentResults: null,
