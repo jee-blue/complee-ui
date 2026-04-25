@@ -175,8 +175,9 @@ function Landing() {
 
       {/* 4. SAMPLE OUTPUT PREVIEW */}
       <section
+        id="demo-results"
         aria-labelledby="preview-heading"
-        className="border-t border-border bg-surface-muted/40"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
       >
         <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
