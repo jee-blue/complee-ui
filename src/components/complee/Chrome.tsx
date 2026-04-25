@@ -30,11 +30,59 @@ export function Chrome({ children }: { children: React.ReactNode }) {
   const { byKey } = useStepProgress();
 
   const isAccountRoute = location.pathname === "/account" || location.pathname === "/auth";
+  const isHome = location.pathname === "/";
 
   const stepIndex = STEPS.findIndex((s) => s.path === location.pathname);
   const idx = isAccountRoute ? -1 : stepIndex;
   const step = idx + 1;
   const pct = idx >= 0 ? (step / STEPS.length) * 100 : 0;
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  // Observe sections on the homepage to highlight the active nav link
+  useEffect(() => {
+    if (!isHome) {
+      setActiveSection("");
+      return;
+    }
+    const elements = SECTION_NAV
+      .map((s) => document.getElementById(s.id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [isHome]);
+
+  const handleSectionClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: string,
+  ) => {
+    if (!isHome) return; // let the link navigate to "/#id"
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${id}`);
+      setActiveSection(id);
+    }
+    setMobileOpen(false);
+  };
 
   // Live roadmap progress (visible whenever there are results)
   const roadmap = useMemo(() => {
