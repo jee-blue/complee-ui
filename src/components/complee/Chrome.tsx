@@ -75,7 +75,6 @@ export function Chrome({ children }: { children: React.ReactNode }) {
       history.replaceState(null, "", `#${id}`);
       setActiveSection(id);
     }
-    setMobileOpen(false);
   };
 
   // Live roadmap progress (visible whenever there are results)
