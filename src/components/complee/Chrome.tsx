@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import { taskKey } from "@/lib/playbook";
-import { ArrowRight, LogIn, Menu, User as UserIcon, X } from "lucide-react";
+import { LogIn, Menu, User as UserIcon, X } from "lucide-react";
 
 const SECTION_NAV = [
   { id: "how-it-works", label: "How it Works" },
