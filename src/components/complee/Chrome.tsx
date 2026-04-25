@@ -116,7 +116,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
           {/* Center section nav (desktop) */}
           <nav
             aria-label="Page sections"
-            className="hidden lg:flex items-center gap-1"
+            className="hidden md:flex items-center gap-1"
           >
             {SECTION_NAV.map((s) => {
               const isActive = isHome && activeSection === s.id;
@@ -143,63 +143,33 @@ export function Chrome({ children }: { children: React.ReactNode }) {
             {user ? (
               <Link
                 to="/account"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 min-h-[40px] text-[12px] font-medium text-navy hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 min-h-[40px] text-[12px] font-medium text-navy hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               >
                 <UserIcon className="h-3.5 w-3.5" aria-hidden="true" />
-                <span className="max-w-[120px] truncate hidden sm:inline">
+                <span className="max-w-[120px] truncate">
                   {(user.user_metadata?.display_name as string | undefined) ??
                     user.email?.split("@")[0]}
                 </span>
-                <span className="sm:hidden">Account</span>
               </Link>
             ) : (
               <Link
                 to="/auth"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 min-h-[40px] text-[12px] font-medium text-navy hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 min-h-[40px] text-[12px] font-medium text-navy hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               >
                 <LogIn className="h-3.5 w-3.5" aria-hidden="true" />
-                <span className="hidden sm:inline">Sign In</span>
+                Sign In
               </Link>
             )}
 
-            {/* Mobile menu toggle */}
-            <button
-              type="button"
-              onClick={() => setMobileOpen((v) => !v)}
-              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-border bg-card text-navy hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-nav"
+            <Link
+              to="/profile"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3.5 py-2 min-h-[40px] text-[12.5px] font-medium hover:bg-navy/90 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
-              {mobileOpen ? (
-                <X className="h-4 w-4" aria-hidden="true" />
-              ) : (
-                <Menu className="h-4 w-4" aria-hidden="true" />
-              )}
-            </button>
+              Start Assessment
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
           </div>
         </div>
-
-        {/* Mobile nav panel */}
-        {mobileOpen && (
-          <div
-            id="mobile-nav"
-            className="lg:hidden border-t border-border bg-card"
-          >
-            <nav aria-label="Page sections" className="px-4 sm:px-6 py-3 flex flex-col gap-1">
-              {SECTION_NAV.map((s) => (
-                <a
-                  key={s.id}
-                  href={isHome ? `#${s.id}` : `/#${s.id}`}
-                  onClick={(e) => handleSectionClick(e, s.id)}
-                  className="inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-[14px] font-medium text-navy transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-        )}
       </header>
 
       {/* Step bar — only inside the assessment flow */}
