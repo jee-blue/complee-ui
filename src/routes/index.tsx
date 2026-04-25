@@ -47,6 +47,10 @@ function Landing() {
             Expand across European borders with a real-data compliance readiness assessment.
           </p>
 
+          <div className="mt-10 sm:mt-12 -mx-5 sm:-mx-6">
+            <RegulatoryRibbon />
+          </div>
+
           <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 flex-wrap">
             <Link
               to="/profile"
@@ -90,8 +94,6 @@ function Landing() {
           </p>
         </div>
       </section>
-
-      <RegulatoryRibbon />
     </Chrome>
   );
 }
