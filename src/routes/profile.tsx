@@ -81,16 +81,33 @@ function Profile() {
   const {
     profile,
     selectedServices,
+    selectedRegulations,
     setCompanyName,
     setHomeCountry,
     setTargetCountry,
     setInstitutionType,
     toggleService,
+    toggleRegulation,
   } = useAssessment();
   const home = getRegulatorByCountry(profile.homeCountry);
   const target = getRegulatorByCountry(profile.targetCountry);
   const sameCountry = profile.homeCountry === profile.targetCountry;
-  const canContinue = !sameCountry && selectedServices.length > 0 && profile.companyName.trim().length > 0;
+  const canContinue =
+    !sameCountry &&
+    selectedServices.length > 0 &&
+    selectedRegulations.length > 0 &&
+    profile.companyName.trim().length > 0;
+
+  // Suggested regulations based on selected services (not yet picked)
+  const suggestedRegulations = useMemo(() => {
+    const set = new Set<string>();
+    selectedServices.forEach((svc) => {
+      (SERVICE_TO_REG_HINTS[svc] ?? []).forEach((r) => {
+        if (!selectedRegulations.includes(r)) set.add(r);
+      });
+    });
+    return Array.from(set);
+  }, [selectedServices, selectedRegulations]);
 
   const handleContinue = () => {
     if (sameCountry) {
@@ -99,6 +116,10 @@ function Profile() {
     }
     if (selectedServices.length === 0) {
       toast.error("Select at least one service to assess.");
+      return;
+    }
+    if (selectedRegulations.length === 0) {
+      toast.error("Select at least one regulation to scope the assessment.");
       return;
     }
     navigate({ to: "/documents" });
