@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import { taskKey } from "@/lib/playbook";
-import { ArrowRight, LogIn, Menu, User as UserIcon, X } from "lucide-react";
+import { LogIn, Menu, User as UserIcon, X } from "lucide-react";
 
 const SECTION_NAV = [
   { id: "how-it-works", label: "How it Works" },
@@ -147,14 +147,6 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
           {/* Right cluster */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              to="/profile"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3 py-2 min-h-[40px] text-[12px] font-medium hover:bg-navy/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-            >
-              Start Assessment
-              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-
             {user ? (
               <Link
                 to="/account"
@@ -202,31 +194,16 @@ export function Chrome({ children }: { children: React.ReactNode }) {
             className="lg:hidden border-t border-border bg-card"
           >
             <nav aria-label="Page sections" className="px-4 sm:px-6 py-3 flex flex-col gap-1">
-              {SECTION_NAV.map((s) => {
-                const isActive = isHome && activeSection === s.id;
-                return (
-                  <a
-                    key={s.id}
-                    href={isHome ? `#${s.id}` : `/#${s.id}`}
-                    onClick={(e) => handleSectionClick(e, s.id)}
-                    aria-current={isActive ? "true" : undefined}
-                    className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-[14px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
-                      isActive
-                        ? "text-brand bg-brand-soft"
-                        : "text-navy hover:bg-surface-muted"
-                    }`}
-                  >
-                    {s.label}
-                  </a>
-                );
-              })}
-              <Link
-                to="/profile"
-                className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg bg-navy text-navy-foreground px-3 py-2.5 min-h-[44px] text-[14px] font-medium hover:bg-navy/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-              >
-                Start Assessment
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
+              {SECTION_NAV.map((s) => (
+                <a
+                  key={s.id}
+                  href={isHome ? `#${s.id}` : `/#${s.id}`}
+                  onClick={(e) => handleSectionClick(e, s.id)}
+                  className="inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-[14px] font-medium text-navy transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                >
+                  {s.label}
+                </a>
+              ))}
             </nav>
           </div>
         )}
