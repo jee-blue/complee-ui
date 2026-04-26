@@ -499,8 +499,8 @@ function Landing() {
 
 
       {/* 6. FINAL CTA */}
-      <section aria-labelledby="final-cta-heading" className="border-t border-border bg-navy">
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+      <section aria-labelledby="final-cta-heading" className="border-t border-border bg-navy min-h-screen flex items-center">
+        <div className="w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
           <h2
             id="final-cta-heading"
             className="fluid-h2 font-semibold text-navy-foreground"
