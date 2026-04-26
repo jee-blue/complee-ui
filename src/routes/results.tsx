@@ -131,32 +131,33 @@ function Results() {
 
   return (
     <Chrome>
-      <StepShell
-        eyebrow="Step 4 of 4 — Results dashboard"
-        title={`${profile.companyName} expansion readiness`}
-        width="wide"
-        description={
-          <>
-            <p>
-              Assessment against{" "}
-              <span className="font-medium text-navy">
-                {target?.authority ?? profile.targetCountry}
-              </span>{" "}
-              requirements for entering{" "}
-              <span className="font-medium text-navy">
-                {target?.flag} {target?.country ?? profile.targetCountry}
-              </span>
-              .
-            </p>
-            <p className="mt-1.5 text-[13px]">
-              Data version {meta.version} · Extracted {formatISODate(meta.generated_at)}
-            </p>
-          </>
-        }
-        headerAside={
-          result && rows.length > 0 ? <ReadinessBadge score={result.readinessScore} /> : null
-        }
-      >
+      <>
+        <StepShell
+          eyebrow="Step 4 of 4 — Results dashboard"
+          title={`${profile.companyName} expansion readiness`}
+          width="wide"
+          description={
+            <>
+              <p>
+                Assessment against{" "}
+                <span className="font-medium text-navy">
+                  {target?.authority ?? profile.targetCountry}
+                </span>{" "}
+                requirements for entering{" "}
+                <span className="font-medium text-navy">
+                  {target?.flag} {target?.country ?? profile.targetCountry}
+                </span>
+                .
+              </p>
+              <p className="mt-1.5 text-[13px]">
+                Data version {meta.version} · Extracted {formatISODate(meta.generated_at)}
+              </p>
+            </>
+          }
+          headerAside={
+            result && rows.length > 0 ? <ReadinessBadge score={result.readinessScore} /> : null
+          }
+        >
         <>
           {/* Empty state */}
         {result && rows.length === 0 && (
@@ -553,15 +554,16 @@ function Results() {
           </button>
         </div>
         </>
-      </StepShell>
+        </StepShell>
 
-      <DetailPanel row={selected} onClose={() => setSelected(null)} />
-      <RoadmapGuide
-        row={guideRow}
-        queue={[...roadmap.Compliance, ...roadmap.Operations, ...roadmap.Engineering]}
-        onClose={() => setGuideRow(null)}
-        onAdvance={(next) => setGuideRow(next)}
-      />
+        <DetailPanel row={selected} onClose={() => setSelected(null)} />
+        <RoadmapGuide
+          row={guideRow}
+          queue={[...roadmap.Compliance, ...roadmap.Operations, ...roadmap.Engineering]}
+          onClose={() => setGuideRow(null)}
+          onAdvance={(next) => setGuideRow(next)}
+        />
+      </>
     </Chrome>
   );
 }
