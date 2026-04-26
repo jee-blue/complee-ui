@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ReviewRouteImport } from './routes/review'
 import { Route as ResultsRouteImport } from './routes/results'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProcessingRouteImport } from './routes/processing'
@@ -19,6 +20,11 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AcceptInviteRouteImport } from './routes/accept-invite'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ReviewRoute = ReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResultsRoute = ResultsRouteImport.update({
   id: '/results',
   path: '/results',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/processing': typeof ProcessingRoute
   '/profile': typeof ProfileRoute
   '/results': typeof ResultsRoute
+  '/review': typeof ReviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/processing': typeof ProcessingRoute
   '/profile': typeof ProfileRoute
   '/results': typeof ResultsRoute
+  '/review': typeof ReviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/processing': typeof ProcessingRoute
   '/profile': typeof ProfileRoute
   '/results': typeof ResultsRoute
+  '/review': typeof ReviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/processing'
     | '/profile'
     | '/results'
+    | '/review'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/processing'
     | '/profile'
     | '/results'
+    | '/review'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/processing'
     | '/profile'
     | '/results'
+    | '/review'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,10 +157,18 @@ export interface RootRouteChildren {
   ProcessingRoute: typeof ProcessingRoute
   ProfileRoute: typeof ProfileRoute
   ResultsRoute: typeof ResultsRoute
+  ReviewRoute: typeof ReviewRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/review': {
+      id: '/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof ReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/results': {
       id: '/results'
       path: '/results'
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProcessingRoute: ProcessingRoute,
   ProfileRoute: ProfileRoute,
   ResultsRoute: ResultsRoute,
+  ReviewRoute: ReviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
