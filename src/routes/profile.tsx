@@ -133,7 +133,8 @@ function Profile() {
         title="Tell us about your company"
         description="We'll use this to scope the regulatory requirements that apply to your expansion. Pre-filled with the FlowPay demo — adjust any field to match your business."
       >
-        {/* Profile section */}
+        <>
+          {/* Profile section */}
         <section>
           <SectionHeader
             icon={<Building2 className="h-4 w-4" />}
@@ -406,6 +407,7 @@ function Profile() {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
+        </>
       </StepShell>
     </Chrome>
   );
