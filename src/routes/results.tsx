@@ -10,6 +10,8 @@ import {
   Code2,
   ExternalLink,
   FileDown,
+  FileSignature,
+  Loader2,
   PlayCircle,
   RefreshCw,
   ShieldCheck,
@@ -29,8 +31,6 @@ import {
   signDocument,
   type SignedDocument,
 } from "@/lib/documentSigning";
-import { taskKey as taskKeyFn } from "@/lib/playbook";
-import { FileSignature, Loader2 } from "lucide-react";
 import {
   getRegulatorByCountry,
   getRequirements,
