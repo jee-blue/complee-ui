@@ -179,8 +179,6 @@ export async function reviewerApprove(opts: {
     );
     if (!err) reviewer_signature_image_path = path;
   }
-    if (!err) reviewer_signature_image_path = path;
-  }
 
   const { data, error } = await supabase
     .from("signed_documents")
