@@ -56,6 +56,60 @@ export type Database = {
         }
         Relationships: []
       }
+      document_comments: {
+        Row: {
+          assessment_id: string
+          author_name: string
+          author_role: string
+          author_user_id: string
+          body: string
+          created_at: string
+          id: string
+          resolved: boolean
+          signed_document_id: string
+          updated_at: string
+        }
+        Insert: {
+          assessment_id: string
+          author_name: string
+          author_role: string
+          author_user_id: string
+          body: string
+          created_at?: string
+          id?: string
+          resolved?: boolean
+          signed_document_id: string
+          updated_at?: string
+        }
+        Update: {
+          assessment_id?: string
+          author_name?: string
+          author_role?: string
+          author_user_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          resolved?: boolean
+          signed_document_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_comments_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_comments_signed_document_id_fkey"
+            columns: ["signed_document_id"]
+            isOneToOne: false
+            referencedRelation: "signed_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           company_name: string | null
@@ -90,13 +144,16 @@ export type Database = {
           document_title: string
           id: string
           owner_user_id: string
+          pdf_path: string | null
           requirement_id: string
           review_status: Database["public"]["Enums"]["document_review_status"]
           reviewer_name: string | null
           reviewer_signature_hash: string | null
+          reviewer_signature_image_path: string | null
           reviewer_signed_at: string | null
           reviewer_user_id: string | null
           signature_hash: string
+          signature_image_path: string | null
           signed_at: string
           signed_ip: string | null
           signed_user_agent: string | null
@@ -109,13 +166,16 @@ export type Database = {
           document_title: string
           id?: string
           owner_user_id: string
+          pdf_path?: string | null
           requirement_id: string
           review_status?: Database["public"]["Enums"]["document_review_status"]
           reviewer_name?: string | null
           reviewer_signature_hash?: string | null
+          reviewer_signature_image_path?: string | null
           reviewer_signed_at?: string | null
           reviewer_user_id?: string | null
           signature_hash: string
+          signature_image_path?: string | null
           signed_at?: string
           signed_ip?: string | null
           signed_user_agent?: string | null
@@ -128,13 +188,16 @@ export type Database = {
           document_title?: string
           id?: string
           owner_user_id?: string
+          pdf_path?: string | null
           requirement_id?: string
           review_status?: Database["public"]["Enums"]["document_review_status"]
           reviewer_name?: string | null
           reviewer_signature_hash?: string | null
+          reviewer_signature_image_path?: string | null
           reviewer_signed_at?: string | null
           reviewer_user_id?: string | null
           signature_hash?: string
+          signature_image_path?: string | null
           signed_at?: string
           signed_ip?: string | null
           signed_user_agent?: string | null
