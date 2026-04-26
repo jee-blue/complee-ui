@@ -271,9 +271,8 @@ function Landing() {
           }}
         />
         <div
-          className="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full blur-[100px] opacity-30 pointer-events-none"
+          className="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full blur-[100px] opacity-30 pointer-events-none bg-brand"
           aria-hidden="true"
-          style={{ background: "var(--color-brand)" }}
         />
         <div className="relative w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
