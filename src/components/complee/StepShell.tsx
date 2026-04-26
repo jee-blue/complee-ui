@@ -18,28 +18,38 @@ export function StepShell({
   description,
   children,
   footer,
+  width = "narrow",
+  headerAside,
 }: {
   eyebrow: string;
   title: string;
   description?: ReactNode;
   children: ReactNode;
   footer?: ReactNode;
+  width?: "narrow" | "wide";
+  headerAside?: ReactNode;
 }) {
+  const containerWidth = width === "wide" ? "max-w-[1200px]" : "max-w-[880px]";
   return (
-    <div className="max-w-[880px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20">
+    <div
+      className={`${containerWidth} mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20`}
+    >
       {/* Hero intro */}
-      <div className="mb-16 sm:mb-20">
-        <p className="text-[12px] uppercase tracking-[0.16em] text-brand font-semibold mb-6">
-          {eyebrow}
-        </p>
-        <h1 className="text-[32px] sm:text-[42px] font-semibold tracking-tight text-navy leading-[1.15]">
-          {title}
-        </h1>
-        {description && (
-          <div className="mt-7 sm:mt-8 text-[16px] sm:text-[17px] text-muted-foreground max-w-[620px] leading-relaxed">
-            {description}
-          </div>
-        )}
+      <div className="mb-16 sm:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div className="min-w-0">
+          <p className="text-[12px] uppercase tracking-[0.16em] text-brand font-semibold mb-6">
+            {eyebrow}
+          </p>
+          <h1 className="text-[32px] sm:text-[42px] font-semibold tracking-tight text-navy leading-[1.15]">
+            {title}
+          </h1>
+          {description && (
+            <div className="mt-7 sm:mt-8 text-[16px] sm:text-[17px] text-muted-foreground max-w-[620px] leading-relaxed">
+              {description}
+            </div>
+          )}
+        </div>
+        {headerAside && <div className="shrink-0">{headerAside}</div>}
       </div>
 
       {/* Step body */}
