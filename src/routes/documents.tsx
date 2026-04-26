@@ -171,7 +171,7 @@ const STATUS_META: Record<
   },
   review: {
     label: "Needs review",
-    cls: "bg-warning-soft text-warning border-warning/30",
+    cls: "bg-brand-soft text-navy border-brand/30",
     icon: AlertCircle,
   },
 };
