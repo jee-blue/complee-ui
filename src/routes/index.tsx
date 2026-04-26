@@ -185,8 +185,6 @@ function Landing() {
         </div>
       </section>
 
-        </div>
-      </section>
 
       {/* 2. VALUE PROPOSITION */}
       <section
