@@ -1,5 +1,6 @@
-// Document signing helpers — signature metadata only (no PDF storage).
+// Document signing helpers — signature metadata + PDF storage.
 import { supabase } from "@/integrations/supabase/client";
+import { buildSignedPdf } from "@/lib/pdfGenerator";
 
 export type DocumentReviewStatus =
   | "draft"
@@ -23,8 +24,46 @@ export interface SignedDocument {
   reviewer_name: string | null;
   reviewer_signature_hash: string | null;
   reviewer_signed_at: string | null;
+  pdf_path: string | null;
+  signature_image_path: string | null;
+  reviewer_signature_image_path: string | null;
   created_at: string;
   updated_at: string;
+}
+
+const BUCKET = "complee-docs";
+
+async function uploadDataUrl(path: string, dataUrl: string, contentType: string) {
+  const b64 = dataUrl.split(",")[1] ?? "";
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const { error } = await supabase.storage
+    .from(BUCKET)
+    .upload(path, bytes, { contentType, upsert: true });
+  return error?.message;
+}
+
+async function uploadBytes(path: string, bytes: Uint8Array, contentType: string) {
+  const { error } = await supabase.storage
+    .from(BUCKET)
+    .upload(path, bytes, { contentType, upsert: true });
+  return error?.message;
+}
+
+export async function getSignedUrl(path: string, expiresIn = 60 * 30) {
+  const { data, error } = await supabase.storage
+    .from(BUCKET)
+    .createSignedUrl(path, expiresIn);
+  if (error) return { error: error.message };
+  return { url: data.signedUrl };
+}
+
+export async function downloadFile(path: string): Promise<{ bytes?: Uint8Array; error?: string }> {
+  const { data, error } = await supabase.storage.from(BUCKET).download(path);
+  if (error || !data) return { error: error?.message ?? "download failed" };
+  const buf = await data.arrayBuffer();
+  return { bytes: new Uint8Array(buf) };
 }
 
 async function sha256Hex(input: string) {
