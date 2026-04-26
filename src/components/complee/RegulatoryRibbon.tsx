@@ -14,19 +14,17 @@ function RibbonGroup({ ariaHidden = false }: { ariaHidden?: boolean }) {
     >
       {ITEMS.map(({ icon: Icon, label, sub }, i) => (
         <li key={`${label}-${i}`} className="flex items-center gap-3 sm:gap-4">
-          <span className="inline-flex items-center gap-2.5 rounded-xl border border-navy-foreground/12 bg-navy-foreground/[0.04] px-4 py-2.5 backdrop-blur-sm whitespace-nowrap">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand/20 text-brand-foreground">
+          <span className="inline-flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 shadow-sm whitespace-nowrap">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand-soft text-brand">
               <Icon className="h-3.5 w-3.5" aria-hidden />
             </span>
             <span className="flex flex-col items-start leading-tight text-left">
-              <span className="text-[13px] font-semibold text-navy-foreground">
-                {label}
-              </span>
-              <span className="text-[11px] text-navy-foreground/60">{sub}</span>
+              <span className="text-[13px] font-semibold text-navy">{label}</span>
+              <span className="text-[11px] text-muted-foreground">{sub}</span>
             </span>
           </span>
           <span
-            className="hidden sm:inline-block h-1 w-1 rounded-full bg-navy-foreground/20"
+            className="hidden sm:inline-block h-1 w-1 rounded-full bg-border"
             aria-hidden
           />
         </li>
@@ -38,33 +36,20 @@ function RibbonGroup({ ariaHidden = false }: { ariaHidden?: boolean }) {
 export function RegulatoryRibbon() {
   return (
     <section
-      aria-labelledby="requirements-heading"
-      id="requirements"
-      className="relative bg-transparent scroll-mt-24"
+      aria-label="Regulatory frameworks supported"
+      className="relative bg-transparent"
     >
-      <div className="flex items-center gap-3 mb-3">
-        <h2
-          id="requirements-heading"
-          className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-navy-foreground/55"
-        >
-          Expansion Requirements Covered
-        </h2>
-        <div className="h-px flex-1 bg-navy-foreground/10" aria-hidden />
-      </div>
+      {/* Edge fade masks */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 bg-gradient-to-r from-background to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 bg-gradient-to-l from-background to-transparent z-10" />
 
-      {/* Edge fade masks blend into the navy hero */}
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 bg-gradient-to-r from-navy to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 bg-gradient-to-l from-navy to-transparent z-10" />
-
-        <div className="overflow-hidden py-2 sm:py-3">
-          <div className="flex w-max animate-marquee motion-reduce:animate-none">
-            <RibbonGroup />
-            <RibbonGroup ariaHidden />
-          </div>
+      <div className="overflow-hidden py-3 sm:py-4">
+        <div className="flex w-max animate-marquee motion-reduce:animate-none">
+          {/* Two identical groups for a seamless -50% loop */}
+          <RibbonGroup />
+          <RibbonGroup ariaHidden />
         </div>
       </div>
     </section>
   );
 }
-
