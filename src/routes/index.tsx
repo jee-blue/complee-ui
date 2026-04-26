@@ -397,7 +397,7 @@ function Landing() {
             </div>
 
             {/* RIGHT — two cards */}
-            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+            <div className="lg:col-span-7 lg:justify-self-end lg:max-w-[640px] w-full grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
               {/* Card 1 — Readiness Score */}
               <div className="rounded-2xl border border-border bg-card shadow-sm p-6">
                 <div className="text-[12px] text-muted-foreground">
