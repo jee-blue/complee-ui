@@ -261,7 +261,7 @@ function Landing() {
       <section
         id="coverage"
         aria-labelledby="impact-heading"
-        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground scroll-mt-20"
+        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground scroll-mt-20 min-h-screen flex items-center"
       >
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07]"
