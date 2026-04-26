@@ -170,14 +170,15 @@ export async function reviewerApprove(opts: {
   );
 
   let reviewer_signature_image_path: string | null = null;
-  if (opts.reviewerSignaturePngDataUrl) {
-    // Reviewers can only write to {assessment}/reviews/...
+  if (opts.reviewerSignaturePngDataUrl && opts.assessmentId && opts.requirementId) {
     const path = `${opts.assessmentId}/reviews/${opts.requirementId}-reviewer.png`;
     const err = await uploadDataUrl(
       path,
       opts.reviewerSignaturePngDataUrl,
       "image/png",
     );
+    if (!err) reviewer_signature_image_path = path;
+  }
     if (!err) reviewer_signature_image_path = path;
   }
 
