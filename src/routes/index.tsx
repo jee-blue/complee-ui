@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { REGULATORS, getRequirements } from "@/data/requirements";
-import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
+import RegulatoryRibbon from "@/components/complee/RegulatoryRibbon";
 import { HowItWorksScroller } from "@/components/complee/HowItWorksScroller";
 
 const RotatingEarth = lazy(
