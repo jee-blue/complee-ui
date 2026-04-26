@@ -155,10 +155,15 @@ function Landing() {
                 </a>
               </div>
 
+              {/* Regulatory ribbon — sits between CTAs and live status */}
+              <div className="mt-7 sm:mt-8 max-w-[680px]">
+                <RegulatoryRibbon />
+              </div>
+
               {/* Live proof bar */}
               <div
                 role="status"
-                className="mt-7 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85"
+                className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-70" />
@@ -172,11 +177,6 @@ function Landing() {
             <div className="lg:col-span-5 relative hidden md:flex items-center justify-center">
               <HeroGlobe />
             </div>
-          </div>
-
-          {/* Bottom ribbon — Expansion Requirements Covered */}
-          <div className="relative pb-6 sm:pb-8">
-            <RegulatoryRibbon />
           </div>
 
         </div>
