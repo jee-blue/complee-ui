@@ -78,12 +78,41 @@ export async function signDocument(opts: {
   requirementId: string;
   documentTitle: string;
   signerName: string;
+  signaturePngDataUrl?: string | null;
+  companyName: string;
+  regulator: string;
+  description: string;
+  body: string;
 }): Promise<{ data?: SignedDocument; error?: string }> {
   const ts = new Date().toISOString();
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : null;
   const signature_hash = await sha256Hex(
     [opts.ownerUserId, opts.requirementId, opts.signerName, ts, ua ?? ""].join("|"),
   );
+
+  // Upload signature image (if drawn)
+  let signature_image_path: string | null = null;
+  if (opts.signaturePngDataUrl) {
+    const path = `${opts.assessmentId}/signatures/${opts.requirementId}-owner.png`;
+    const err = await uploadDataUrl(path, opts.signaturePngDataUrl, "image/png");
+    if (!err) signature_image_path = path;
+  }
+
+  // Build PDF
+  const pdfBytes = await buildSignedPdf({
+    title: opts.documentTitle,
+    companyName: opts.companyName,
+    requirementId: opts.requirementId,
+    regulator: opts.regulator,
+    description: opts.description,
+    body: opts.body,
+    signerName: opts.signerName,
+    signedAt: ts,
+    signatureHash: signature_hash,
+    signaturePngDataUrl: opts.signaturePngDataUrl ?? null,
+  });
+  const pdf_path = `${opts.assessmentId}/pdfs/${opts.requirementId}.pdf`;
+  await uploadBytes(pdf_path, pdfBytes, "application/pdf");
 
   const { data, error } = await supabase
     .from("signed_documents")
@@ -98,6 +127,14 @@ export async function signDocument(opts: {
         signed_user_agent: ua,
         signed_at: ts,
         review_status: "awaiting_review" as DocumentReviewStatus,
+        pdf_path,
+        signature_image_path,
+        // reset reviewer fields on re-sign
+        reviewer_user_id: null,
+        reviewer_name: null,
+        reviewer_signature_hash: null,
+        reviewer_signed_at: null,
+        reviewer_signature_image_path: null,
       },
       { onConflict: "assessment_id,requirement_id" },
     )
@@ -122,12 +159,27 @@ export async function reviewerApprove(opts: {
   signedDocumentId: string;
   reviewerUserId: string;
   reviewerName: string;
+  reviewerSignaturePngDataUrl?: string | null;
+  assessmentId: string;
+  requirementId: string;
 }): Promise<{ data?: SignedDocument; error?: string }> {
   const ts = new Date().toISOString();
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const reviewer_signature_hash = await sha256Hex(
     [opts.reviewerUserId, opts.signedDocumentId, opts.reviewerName, ts, ua].join("|"),
   );
+
+  let reviewer_signature_image_path: string | null = null;
+  if (opts.reviewerSignaturePngDataUrl) {
+    // Reviewers can only write to {assessment}/reviews/...
+    const path = `${opts.assessmentId}/reviews/${opts.requirementId}-reviewer.png`;
+    const err = await uploadDataUrl(
+      path,
+      opts.reviewerSignaturePngDataUrl,
+      "image/png",
+    );
+    if (!err) reviewer_signature_image_path = path;
+  }
 
   const { data, error } = await supabase
     .from("signed_documents")
@@ -137,6 +189,7 @@ export async function reviewerApprove(opts: {
       reviewer_signature_hash,
       reviewer_signed_at: ts,
       review_status: "approved" as DocumentReviewStatus,
+      reviewer_signature_image_path,
     })
     .eq("id", opts.signedDocumentId)
     .select()
