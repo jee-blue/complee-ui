@@ -62,7 +62,6 @@ function Processing() {
     } catch {
       navigate({ to: "/error" });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

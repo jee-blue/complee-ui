@@ -3,7 +3,7 @@
 // generation (PDF/DOCX), and persistence via the stepProgress store
 // (which auto-syncs to Lovable Cloud when the user is authenticated).
 
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -23,7 +23,7 @@ import { generateStepDocument } from "@/lib/documentGenerator";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import { useAuth } from "@/hooks/useAuth";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 interface Props {

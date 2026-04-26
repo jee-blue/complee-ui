@@ -34,7 +34,7 @@ interface BuildArgs {
   profile: CompanyProfile;
 }
 
-function ctx({ row, template, inputs, profile }: BuildArgs) {
+function ctx({ row, template: _template, inputs, profile }: BuildArgs) {
   return {
     companyName: profile.companyName,
     authority: row.requirement.authority,
