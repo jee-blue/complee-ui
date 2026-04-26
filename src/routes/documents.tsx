@@ -62,6 +62,7 @@ function Documents() {
         eyebrow="Step 2 of 4 — Evidence documents"
         title="Upload your current compliance pack"
         description="Complee compares your existing setup against the target regulator's requirements."
+        width="wide"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
           {/* Upload card */}
