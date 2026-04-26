@@ -106,8 +106,8 @@ function Landing() {
           style={{ minHeight: "calc(100vh - 60px)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 py-10 sm:py-14 lg:py-16">
-            {/* LEFT — editorial copy */}
-            <div className="lg:col-span-7 text-left">
+            {/* LEFT — editorial copy (7 cols) */}
+            <div className="lg:col-span-7 text-left lg:pr-8 xl:pr-12">
               <h1
                 id="hero-heading"
                 className="font-semibold text-navy-foreground tracking-tight"
@@ -154,10 +154,15 @@ function Landing() {
                 </a>
               </div>
 
+              {/* Regulatory ribbon — constrained to the text column, between CTAs and status */}
+              <div className="mt-6 sm:mt-8 max-w-full lg:max-w-[520px] xl:max-w-[600px]">
+                <RegulatoryRibbon />
+              </div>
+
               {/* Live proof bar */}
               <div
                 role="status"
-                className="mt-7 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85"
+                className="mt-6 sm:mt-7 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-70" />
@@ -167,15 +172,10 @@ function Landing() {
               </div>
             </div>
 
-            {/* RIGHT — rotating dotted globe */}
+            {/* RIGHT — rotating dotted globe (5 cols) */}
             <div className="lg:col-span-5 relative hidden md:flex items-center justify-center">
               <HeroGlobe />
             </div>
-          </div>
-
-          {/* Bottom ribbon — Expansion Requirements Covered */}
-          <div className="relative pb-6 sm:pb-8">
-            <RegulatoryRibbon />
           </div>
 
         </div>
