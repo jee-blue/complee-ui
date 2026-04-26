@@ -16,11 +16,47 @@ const SECTION_NAV = [
 
 // Assessment flow steps (the homepage "/" is intentionally excluded so the
 // step indicator only appears once the user clicks "Start assessment").
-const STEPS = [
-  { path: "/profile", label: "Profile" },
-  { path: "/documents", label: "Documents" },
-  { path: "/processing", label: "Analysis" },
-  { path: "/results", label: "Results" },
+const STEPS: {
+  path: string;
+  label: string;
+  bullets: string[];
+}[] = [
+  {
+    path: "/profile",
+    label: "Company Scope",
+    bullets: [
+      "Define entity and target market",
+      "Select services and regulatory scope",
+      "Generate assessment scope",
+    ],
+  },
+  {
+    path: "/documents",
+    label: "Evidence Documents",
+    bullets: [
+      "Upload required evidence packs",
+      "Validate required documentation",
+      "Prepare evidence for analysis",
+    ],
+  },
+  {
+    path: "/processing",
+    label: "Agent Processing",
+    bullets: [
+      "Map evidence to controls",
+      "Detect missing requirements",
+      "Generate remediation roadmap",
+    ],
+  },
+  {
+    path: "/results",
+    label: "Results Dashboard",
+    bullets: [
+      "Review readiness findings",
+      "Prioritize gaps and actions",
+      "Export roadmap and evidence matrix",
+    ],
+  },
 ];
 
 export function Chrome({ children }: { children: React.ReactNode }) {
