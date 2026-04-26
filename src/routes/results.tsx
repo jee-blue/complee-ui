@@ -10,6 +10,8 @@ import {
   Code2,
   ExternalLink,
   FileDown,
+  FileSignature,
+  Loader2,
   PlayCircle,
   RefreshCw,
   ShieldCheck,
@@ -22,6 +24,13 @@ import { RoadmapGuide } from "@/components/complee/RoadmapGuide";
 import { StepShell } from "@/components/complee/StepShell";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
+import { useAuth } from "@/hooks/useAuth";
+import { getCurrentAssessmentId } from "@/hooks/useCloudSync";
+import {
+  listSignedDocuments,
+  signDocument,
+  type SignedDocument,
+} from "@/lib/documentSigning";
 import {
   getRegulatorByCountry,
   getRequirements,
@@ -757,6 +766,8 @@ function DetailPanel({
                   }
                 />
               </div>
+
+              <SignSection row={row} />
             </div>
           </>
         )}
@@ -784,5 +795,160 @@ function Meta({ label, value }: { label: string; value: React.ReactNode }) {
       </div>
       <div className="mt-1 text-[13px] font-medium text-navy break-words">{value}</div>
     </div>
+  );
+}
+
+function SignSection({ row }: { row: AssessmentResultRow }) {
+  const { user } = useAuth();
+  const requirementId = taskKey(row);
+  const [existing, setExisting] = useState<SignedDocument | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [signerName, setSignerName] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    setSignerName(
+      (user?.user_metadata?.display_name as string | undefined) ??
+        user?.email?.split("@")[0] ??
+        "",
+    );
+  }, [user]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const aid = getCurrentAssessmentId();
+    if (!aid) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    void listSignedDocuments(aid).then((r) => {
+      if (cancelled) return;
+      const found =
+        r.data.find((d) => d.requirement_id === requirementId) ?? null;
+      setExisting(found);
+      setLoading(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [requirementId]);
+
+  const handleSign = async () => {
+    if (!user) {
+      toast.error("Sign in to sign documents");
+      return;
+    }
+    const aid = getCurrentAssessmentId();
+    if (!aid) {
+      toast.error("Workspace not ready", {
+        description: "Try refreshing the page in a moment.",
+      });
+      return;
+    }
+    if (!signerName.trim()) {
+      toast.error("Type your full name to sign");
+      return;
+    }
+    setBusy(true);
+    const r = await signDocument({
+      assessmentId: aid,
+      ownerUserId: user.id,
+      requirementId,
+      documentTitle: row.requirement.title,
+      signerName: signerName.trim(),
+    });
+    setBusy(false);
+    if (r.error || !r.data) {
+      toast.error("Signing failed", { description: r.error });
+      return;
+    }
+    setExisting(r.data);
+    toast.success("Document signed", {
+      description: "Sent to reviewer for approval.",
+    });
+  };
+
+  return (
+    <Section title="Document signature">
+      {loading ? (
+        <div className="text-[12px] text-muted-foreground inline-flex items-center gap-2">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          Loading signature status…
+        </div>
+      ) : existing ? (
+        <div className="rounded-lg border border-border bg-surface-muted px-4 py-3 space-y-2">
+          <div className="flex items-center gap-2">
+            <FileSignature className="h-3.5 w-3.5 text-brand" />
+            <span className="text-[12.5px] font-medium text-navy">
+              Signed by {existing.signer_name}
+            </span>
+          </div>
+          <div className="text-[11px] text-muted-foreground">
+            {new Date(existing.signed_at).toLocaleString()}
+          </div>
+          <div className="text-[10.5px] text-muted-foreground/80 font-mono break-all">
+            sig: {existing.signature_hash.slice(0, 24)}…
+          </div>
+          <ReviewBadge status={existing.review_status} />
+          {existing.review_status === "approved" && existing.reviewer_name && (
+            <div className="text-[11px] text-success-foreground">
+              Approved by {existing.reviewer_name}
+              {existing.reviewer_signed_at
+                ? ` · ${new Date(existing.reviewer_signed_at).toLocaleString()}`
+                : ""}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="rounded-lg border border-border bg-surface-muted px-4 py-3 space-y-3">
+          <p className="text-[12px] text-muted-foreground">
+            Type your full name to sign this requirement. A SHA-256 audit hash
+            with timestamp will be recorded and sent to your reviewer.
+          </p>
+          <input
+            type="text"
+            value={signerName}
+            onChange={(e) => setSignerName(e.target.value)}
+            placeholder="Your full name"
+            className="w-full rounded-md border border-border bg-card px-3 py-2 text-[13px] focus:outline-none focus:ring-2 focus:ring-brand/40"
+          />
+          <button
+            onClick={handleSign}
+            disabled={busy || !signerName.trim()}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-brand text-brand-foreground px-3.5 py-2 text-[12.5px] font-medium hover:bg-brand/90 shadow-sm disabled:opacity-50"
+          >
+            {busy ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <FileSignature className="h-3.5 w-3.5" />
+            )}
+            Sign document
+          </button>
+        </div>
+      )}
+    </Section>
+  );
+}
+
+function ReviewBadge({ status }: { status: SignedDocument["review_status"] }) {
+  const map: Record<SignedDocument["review_status"], string> = {
+    draft: "bg-muted text-muted-foreground border-border",
+    awaiting_review: "bg-warn-soft text-warn-foreground border-warn/30",
+    changes_requested: "bg-danger-soft text-danger border-danger/30",
+    approved: "bg-success-soft text-success-foreground border-success/30",
+  };
+  const label: Record<SignedDocument["review_status"], string> = {
+    draft: "Draft",
+    awaiting_review: "Awaiting review",
+    changes_requested: "Changes requested",
+    approved: "Approved",
+  };
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10.5px] font-medium ${map[status]}`}
+    >
+      {label[status]}
+    </span>
   );
 }
