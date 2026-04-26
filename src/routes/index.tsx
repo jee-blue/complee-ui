@@ -13,11 +13,11 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
-  Globe,
-  CreditCard,
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { REGULATORS, getRequirements } from "@/data/requirements";
+import { RegulatoryRibbon } from "@/components/complee/RegulatoryRibbon";
+import { HowItWorksScroller } from "@/components/complee/HowItWorksScroller";
 
 const RotatingEarth = lazy(
   () => import("@/components/ui/wireframe-dotted-globe"),
@@ -177,52 +177,18 @@ function Landing() {
           </div>
 
           {/* Bottom ribbon — Expansion Requirements Covered */}
-          <div
-            id="requirements"
-            className="relative pb-6 sm:pb-8 scroll-mt-24"
-            aria-labelledby="requirements-heading"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-navy-foreground/55">
-                Expansion Requirements Covered
-              </div>
-              <div className="h-px flex-1 bg-navy-foreground/10" aria-hidden />
-            </div>
-            <ul
-              className="flex flex-wrap items-center gap-2.5 sm:gap-3"
-              aria-label="Regulatory frameworks supported"
-            >
-              {[
-                { icon: Globe, label: "GDPR", sub: "Data Protection" },
-                { icon: CreditCard, label: "PSD2 / PSD3", sub: "Payments" },
-                { icon: ShieldCheck, label: "DORA", sub: "Operational Resilience" },
-              ].map(({ icon: Icon, label, sub }) => (
-                <li
-                  key={label}
-                  className="inline-flex items-center gap-2.5 rounded-xl border border-navy-foreground/12 bg-navy-foreground/[0.04] px-3.5 py-2 backdrop-blur-sm"
-                >
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand/20 text-brand-foreground">
-                    <Icon className="h-3.5 w-3.5" aria-hidden />
-                  </span>
-                  <span className="flex flex-col leading-tight">
-                    <span className="text-[12.5px] font-semibold text-navy-foreground">
-                      {label}
-                    </span>
-                    <span className="text-[10.5px] text-navy-foreground/60">
-                      {sub}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
+          <div className="relative pb-6 sm:pb-8">
+            <RegulatoryRibbon />
           </div>
+
         </div>
       </section>
 
       {/* 2. VALUE PROPOSITION */}
       <section
+        id="why-complee"
         aria-labelledby="value-heading"
-        className="border-t border-border bg-surface-muted/40"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
       >
         <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
@@ -254,47 +220,50 @@ function Landing() {
         </div>
       </section>
 
-      {/* 3. HOW IT WORKS */}
-      <section id="how-it-works" aria-labelledby="how-heading" className="border-t border-border scroll-mt-20">
+      {/* 3. HOW IT WORKS — sticky scroll-driven walkthrough */}
+      <HowItWorksScroller />
+
+      {/* 4. USE CASES */}
+      <section
+        id="use-cases"
+        aria-labelledby="usecases-heading"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
+      >
         <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              How It Works
+              Use Cases
             </div>
-            <h2 id="how-heading" className="mt-2 fluid-h2 font-semibold text-navy">
-              Three steps to expansion readiness
+            <h2 id="usecases-heading" className="mt-2 fluid-h2 font-semibold text-navy">
+              Built for FinTech expansion use cases
             </h2>
           </div>
 
-          <ol className="mt-12 flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-4 text-left">
-            <FlowStep
-              n={1}
-              icon={<ClipboardList className="h-5 w-5" aria-hidden="true" />}
-              title="Assess"
-              body="Answer a short readiness assessment tailored to your business."
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+            <UseCaseCard
+              tag="Market entry"
+              title="France to UK expansion readiness"
+              body="Assess what an ACPR-authorised EMI needs to operate under FCA rules."
             />
-            <FlowConnector />
-            <FlowStep
-              n={2}
-              icon={<Search className="h-5 w-5" aria-hidden="true" />}
-              title="Identify Gaps"
-              body="See exactly which requirements are ready, partial, or missing for your target market."
+            <UseCaseCard
+              tag="Licensing"
+              title="Payment licensing requirement checks"
+              body="Map PSD2 / PSD3 obligations and authorisation prerequisites by market."
             />
-            <FlowConnector />
-            <FlowStep
-              n={3}
-              icon={<RouteIcon className="h-5 w-5" aria-hidden="true" />}
-              title="Receive Roadmap"
-              body="Get a prioritized roadmap with actions, owners, and estimated effort."
+            <UseCaseCard
+              tag="Resilience"
+              title="Operational resilience gap review"
+              body="Compare existing DORA controls against target-market expectations."
             />
-          </ol>
+          </div>
         </div>
       </section>
 
-      {/* 4. IMPACT / PROOF BAND */}
+      {/* 5. COVERAGE — IMPACT / PROOF BAND */}
       <section
+        id="coverage"
         aria-labelledby="impact-heading"
-        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground"
+        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground scroll-mt-20"
       >
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07]"
@@ -399,140 +368,137 @@ function Landing() {
         className="border-t border-border bg-surface-muted/40 scroll-mt-20"
       >
         <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-          <div className="text-center max-w-[720px] mx-auto">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              Sample Output
-            </div>
-            <h2 id="preview-heading" className="mt-2 fluid-h2 font-semibold text-navy">
-              See your readiness before expanding
-            </h2>
-            <p className="mt-3 text-[14px] text-muted-foreground">
-              Example: a French EMI assessing UK market entry.
-            </p>
-          </div>
-
-          <div className="mt-10 rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
-            <div className="px-5 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-3 flex-wrap">
-              <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
-                <span className="inline-block h-2 w-2 rounded-full bg-success" aria-hidden />
-                Live preview · FR → GB
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            {/* LEFT — explanatory content */}
+            <div className="lg:col-span-4">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                Demo Results Preview
               </div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
-                Readiness Report
-              </div>
+              <h2
+                id="preview-heading"
+                className="mt-2 fluid-h2 font-semibold text-navy"
+              >
+                See your readiness before expanding
+              </h2>
+              <ul className="mt-6 space-y-3 text-[14px] text-navy">
+                {[
+                  "Get your readiness score",
+                  "See critical gaps and missing requirements",
+                  "Understand estimated remediation effort",
+                  "Export your expansion roadmap",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5">
+                    <CheckCircle2
+                      className="h-4 w-4 text-success mt-0.5 shrink-0"
+                      aria-hidden
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-0">
-              {/* Score */}
-              <div className="p-6 border-b lg:border-b-0 lg:border-r border-border">
-                <div className="text-[12px] text-muted-foreground">Readiness Score</div>
-                <div className="mt-2 flex items-baseline gap-2">
-                  <div className="text-[44px] leading-none font-semibold text-navy tabular-nums">
-                    62
-                  </div>
-                  <div className="text-[14px] text-muted-foreground">/ 100</div>
+            {/* RIGHT — two cards */}
+            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+              {/* Card 1 — Readiness Score */}
+              <div className="rounded-2xl border border-border bg-card shadow-sm p-6">
+                <div className="text-[12px] text-muted-foreground">
+                  Readiness Score
                 </div>
+                <div className="mt-2 flex items-baseline gap-2">
+                  <div className="text-[44px] leading-none font-semibold text-brand tabular-nums">
+                    72%
+                  </div>
+                </div>
+                <p className="mt-2 text-[12px] text-muted-foreground">
+                  Moderate Readiness
+                </p>
                 <div
-                  className="mt-3 h-2 w-full rounded-full bg-muted overflow-hidden"
+                  className="mt-4 h-2 w-full rounded-full bg-muted overflow-hidden"
                   role="progressbar"
                   aria-valuemin={0}
                   aria-valuemax={100}
-                  aria-valuenow={62}
-                  aria-label="Sample readiness score: 62 of 100"
+                  aria-valuenow={72}
+                  aria-label="Sample readiness score: 72 of 100"
                 >
-                  <div className="h-full bg-brand" style={{ width: "62%" }} />
+                  <div className="h-full bg-brand" style={{ width: "72%" }} />
                 </div>
-                <p className="mt-3 text-[12px] text-muted-foreground">
-                  Moderate readiness. Address critical gaps before applying for authorisation.
-                </p>
+                <div className="mt-6 pt-5 border-t border-border">
+                  <div className="text-[12px] text-muted-foreground">
+                    Estimated Remediation Effort
+                  </div>
+                  <div className="mt-1.5 inline-flex items-center gap-1.5 text-[18px] font-semibold text-navy">
+                    <Clock className="h-4 w-4 text-brand" aria-hidden />
+                    6 weeks
+                  </div>
+                </div>
               </div>
 
-              {/* Critical gaps */}
-              <div className="p-6 border-b lg:border-b-0 lg:border-r border-border">
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-warning-foreground" aria-hidden="true" />
-                  <div className="text-[12px] font-semibold text-navy">Critical Gaps</div>
+              {/* Card 2 — Top Findings */}
+              <div className="rounded-2xl border border-border bg-card shadow-sm p-6">
+                <div className="text-[12px] font-semibold text-navy">
+                  Top Findings
                 </div>
-                <ul className="mt-3 space-y-2 text-[13px]">
-                  <li className="flex items-start gap-2">
-                    <XCircle className="h-3.5 w-3.5 text-danger mt-0.5 shrink-0" aria-hidden />
-                    <span className="text-navy">CASS 15 — Safeguarding</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <XCircle className="h-3.5 w-3.5 text-danger mt-0.5 shrink-0" aria-hidden />
-                    <span className="text-navy">Consumer Duty outcomes</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <XCircle className="h-3.5 w-3.5 text-danger mt-0.5 shrink-0" aria-hidden />
-                    <span className="text-navy">SM&amp;CR governance map</span>
-                  </li>
+                <ul className="mt-3 divide-y divide-border">
+                  {[
+                    {
+                      icon: (
+                        <XCircle className="h-4 w-4 text-danger" aria-hidden />
+                      ),
+                      bg: "bg-danger/10",
+                      title: "3 Critical gaps",
+                      sub: "Require immediate attention",
+                    },
+                    {
+                      icon: (
+                        <AlertTriangle
+                          className="h-4 w-4 text-warning-foreground"
+                          aria-hidden
+                        />
+                      ),
+                      bg: "bg-warning/20",
+                      title: "4 Partial requirements",
+                      sub: "Partially implemented controls",
+                    },
+                    {
+                      icon: (
+                        <Clock className="h-4 w-4 text-brand" aria-hidden />
+                      ),
+                      bg: "bg-brand/10",
+                      title: "3 Missing requirements",
+                      sub: "Not yet addressed",
+                    },
+                  ].map((f) => (
+                    <li
+                      key={f.title}
+                      className="flex items-center gap-3 py-3 first:pt-0 last:pb-0"
+                    >
+                      <span
+                        className={`inline-flex h-9 w-9 items-center justify-center rounded-full ${f.bg} shrink-0`}
+                      >
+                        {f.icon}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[13.5px] font-semibold text-navy">
+                          {f.title}
+                        </div>
+                        <div className="text-[12px] text-muted-foreground">
+                          {f.sub}
+                        </div>
+                      </div>
+                      <ArrowRight
+                        className="h-4 w-4 text-muted-foreground shrink-0"
+                        aria-hidden
+                      />
+                    </li>
+                  ))}
                 </ul>
-              </div>
-
-              {/* Missing & effort */}
-              <div className="p-6">
-                <div className="text-[12px] font-semibold text-navy">Coverage Summary</div>
-                <ul className="mt-3 space-y-2 text-[13px]">
-                  <li className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 text-navy">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-success" aria-hidden /> Covered
-                    </span>
-                    <span className="tabular-nums text-muted-foreground">5</span>
-                  </li>
-                  <li className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 text-navy">
-                      <Clock className="h-3.5 w-3.5 text-brand" aria-hidden /> Partial
-                    </span>
-                    <span className="tabular-nums text-muted-foreground">2</span>
-                  </li>
-                  <li className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 text-navy">
-                      <XCircle className="h-3.5 w-3.5 text-danger" aria-hidden /> Missing
-                    </span>
-                    <span className="tabular-nums text-muted-foreground">3</span>
-                  </li>
-                </ul>
-                <div className="mt-4 pt-4 border-t border-border">
-                  <div className="text-[12px] text-muted-foreground">Estimated remediation</div>
-                  <div className="mt-1 text-[18px] font-semibold text-navy">8–12 weeks</div>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. USE CASES */}
-      <section id="use-cases" aria-labelledby="usecases-heading" className="border-t border-border scroll-mt-20">
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-          <div className="text-center max-w-[720px] mx-auto">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              Use Cases
-            </div>
-            <h2 id="usecases-heading" className="mt-2 fluid-h2 font-semibold text-navy">
-              Built for FinTech expansion use cases
-            </h2>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            <UseCaseCard
-              tag="Market entry"
-              title="France to UK expansion readiness"
-              body="Assess what an ACPR-authorised EMI needs to operate under FCA rules."
-            />
-            <UseCaseCard
-              tag="Licensing"
-              title="Payment licensing requirement checks"
-              body="Map PSD2 / PSD3 obligations and authorisation prerequisites by market."
-            />
-            <UseCaseCard
-              tag="Resilience"
-              title="Operational resilience gap review"
-              body="Compare existing DORA controls against target-market expectations."
-            />
-          </div>
-        </div>
-      </section>
 
       {/* 6. FINAL CTA */}
       <section aria-labelledby="final-cta-heading" className="border-t border-border bg-navy">

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { RoadmapGuide } from "@/components/complee/RoadmapGuide";
+import { StepShell } from "@/components/complee/StepShell";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import {
@@ -130,41 +131,32 @@ function Results() {
 
   return (
     <Chrome>
-      <div className="max-w-[1280px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6 sm:mb-8">
-          <div>
-            <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
-              Step 4 — Readiness
-            </p>
-            <h1 className="text-[24px] sm:text-[30px] font-semibold tracking-tight text-navy">
-              {profile.companyName} PSD3 / PSR readiness
-            </h1>
-            <p className="mt-2 text-[13px] sm:text-[14px] text-muted-foreground">
+      <StepShell
+        eyebrow="Step 4 of 4 — Results dashboard"
+        title={`${profile.companyName} expansion readiness`}
+        width="wide"
+        description={
+          <>
+            <p>
               Assessment against{" "}
               <span className="font-medium text-navy">
                 {target?.authority ?? profile.targetCountry}
               </span>{" "}
-              for entering{" "}
+              requirements for entering{" "}
               <span className="font-medium text-navy">
                 {target?.flag} {target?.country ?? profile.targetCountry}
               </span>
-              , scoped to wallet accounts, payouts, payment initiation and open banking.
+              .
             </p>
-            <div className="mt-2 flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft border border-brand/20 text-brand px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.08em]">
-                PSD3 / PSR
-              </span>
-              <span className="text-[11.5px] text-muted-foreground">
-                Data version {meta.version} · Extracted {formatISODate(meta.generated_at)}
-              </span>
-            </div>
-          </div>
-          {result && rows.length > 0 && (
-            <ReadinessBadge score={result.readinessScore} />
-          )}
-        </div>
-
+            <p className="mt-1.5 text-[13px]">
+              Data version {meta.version} · Extracted {formatISODate(meta.generated_at)}
+            </p>
+          </>
+        }
+        headerAside={
+          result && rows.length > 0 ? <ReadinessBadge score={result.readinessScore} /> : null
+        }
+      >
         {/* Empty state */}
         {result && rows.length === 0 && (
           <div className="rounded-2xl border border-border bg-card p-8 sm:p-12 text-center shadow-sm">
@@ -559,7 +551,7 @@ function Results() {
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
-      </div>
+      </StepShell>
 
       <DetailPanel row={selected} onClose={() => setSelected(null)} />
       <RoadmapGuide
