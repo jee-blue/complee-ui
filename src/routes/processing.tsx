@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader2, Scale } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { useAssessment } from "@/store/assessment";
 import { getRegulatorByCountry, getRequirements } from "@/data/requirements";
@@ -10,33 +10,43 @@ export const Route = createFileRoute("/processing")({
   component: Processing,
 });
 
-const TOTAL_MS = 6000;
+const TOTAL_MS = 6500;
 
 function Processing() {
   const navigate = useNavigate();
-  const { profile } = useAssessment();
+  const { profile, uploadedDocuments, selectedServices } = useAssessment();
   const target = getRegulatorByCountry(profile.targetCountry);
   const authority = target?.authority ?? profile.targetCountry;
   const requirementsForTarget = getRequirements().filter(
     (r) => r.country === profile.targetCountry,
   );
   const n = requirementsForTarget.length;
+  const docCount = uploadedDocuments.length;
+  const svcCount = selectedServices.length;
 
+  // Flow 3 — aligned with PSD3/PSR evidence pack model from Flow 2.
+  // Operating model in scope: wallet accounts, payouts, payment initiation, open banking (AISP).
   const steps = [
-    { label: "Reading uploaded compliance documents", detail: "Parsing supplied PDFs" },
     {
-      label: "Classifying existing controls",
-      detail: "Tagging policies by category and jurisdiction",
+      label: "Ingesting evidence packs",
+      detail: `Parsing ${docCount} document${docCount === 1 ? "" : "s"} across Authorization, Operational controls, Customer protection and Governance`,
     },
     {
-      label: `Mapping ${profile.companyName} setup against ${authority} requirements`,
-      detail: `Loaded ${n} ${authority} requirements from the regulatory data layer`,
+      label: "Classifying controls against PSD3 / PSR articles",
+      detail: `Tagging safeguarding, SCA, fraud monitoring, AISP and complaints clauses for ${svcCount} in-scope service${svcCount === 1 ? "" : "s"}`,
     },
     {
-      label: "Scoring covered, partial, and missing obligations",
-      detail: "Cross-referencing services against rulebook",
+      label: `Mapping ${profile.companyName} operating model to ${authority} obligations`,
+      detail: `Wallet · Payouts · Payment initiation · Open banking — checked against ${n} ${authority} requirements`,
     },
-    { label: "Generating execution roadmap", detail: "Owners, effort, and cost estimates" },
+    {
+      label: "Scoring evidence coverage",
+      detail: "Marking each pack as Matched, Uploaded, Needs review or Missing",
+    },
+    {
+      label: "Building execution roadmap",
+      detail: "Sequenced gaps with owners, effort, and cost estimates",
+    },
   ];
 
   const [completed, setCompleted] = useState(0);
@@ -68,15 +78,24 @@ function Processing() {
     <Chrome>
       <div className="max-w-[760px] mx-auto px-5 sm:px-6 py-10 sm:py-16">
         <div className="text-center mb-8 sm:mb-10">
+          <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
+            Step 3 — Analysis
+          </p>
           <h1 className="text-[22px] sm:text-[28px] font-semibold tracking-tight text-navy">
-            Complee is reviewing your documents…
+            Complee is reviewing your evidence…
           </h1>
           <p className="mt-2 text-[13px] sm:text-[15px] text-muted-foreground">
-            Mapping {profile.companyName} setup against {authority} requirements
+            Mapping {profile.companyName}'s operating model against {authority} under PSD3 / PSR
           </p>
-          <p className="mt-1 text-[12px] sm:text-[13px] text-muted-foreground">
-            Loaded {n} {authority} requirements from the regulatory data layer
-          </p>
+          <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft border border-brand/20 text-brand px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em]">
+              <Scale className="h-3 w-3" />
+              PSD3 / PSR
+            </span>
+            <span className="text-[12px] text-muted-foreground">
+              {docCount} evidence document{docCount === 1 ? "" : "s"} · {n} {authority} requirements
+            </span>
+          </div>
         </div>
 
         <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm mb-6 sm:mb-8">

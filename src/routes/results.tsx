@@ -135,25 +135,30 @@ function Results() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6 sm:mb-8">
           <div>
             <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
-              Step 4 — Results
+              Step 4 — Readiness
             </p>
             <h1 className="text-[24px] sm:text-[30px] font-semibold tracking-tight text-navy">
-              {profile.companyName} expansion readiness
+              {profile.companyName} PSD3 / PSR readiness
             </h1>
             <p className="mt-2 text-[13px] sm:text-[14px] text-muted-foreground">
               Assessment against{" "}
               <span className="font-medium text-navy">
                 {target?.authority ?? profile.targetCountry}
               </span>{" "}
-              requirements for entering{" "}
+              for entering{" "}
               <span className="font-medium text-navy">
                 {target?.flag} {target?.country ?? profile.targetCountry}
               </span>
-              .
+              , scoped to wallet accounts, payouts, payment initiation and open banking.
             </p>
-            <p className="mt-1 text-[12px] text-muted-foreground">
-              Data version {meta.version} · Extracted {formatISODate(meta.generated_at)}
-            </p>
+            <div className="mt-2 flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft border border-brand/20 text-brand px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.08em]">
+                PSD3 / PSR
+              </span>
+              <span className="text-[11.5px] text-muted-foreground">
+                Data version {meta.version} · Extracted {formatISODate(meta.generated_at)}
+              </span>
+            </div>
           </div>
           {result && rows.length > 0 && (
             <ReadinessBadge score={result.readinessScore} />
