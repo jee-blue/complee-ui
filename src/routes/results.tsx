@@ -22,6 +22,15 @@ import { RoadmapGuide } from "@/components/complee/RoadmapGuide";
 import { StepShell } from "@/components/complee/StepShell";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
+import { useAuth } from "@/hooks/useAuth";
+import { getCurrentAssessmentId } from "@/hooks/useCloudSync";
+import {
+  listSignedDocuments,
+  signDocument,
+  type SignedDocument,
+} from "@/lib/documentSigning";
+import { taskKey as taskKeyFn } from "@/lib/playbook";
+import { FileSignature, Loader2 } from "lucide-react";
 import {
   getRegulatorByCountry,
   getRequirements,
