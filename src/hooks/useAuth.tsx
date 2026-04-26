@@ -28,9 +28,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Set up listener FIRST
-    const { data: sub } = supabase.auth.onAuthStateChange((_evt, s) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((evt, s) => {
       setSession(s);
       setUser(s?.user ?? null);
+      // Defer post-login work to avoid running inside Supabase's auth callback.
+      if (evt === "SIGNED_IN" && s?.user) {
+        setTimeout(() => {
+          void acceptPendingInvitationsForCurrentUser();
+        }, 0);
+      }
     });
     // Then check existing session
     supabase.auth.getSession().then(({ data }) => {
