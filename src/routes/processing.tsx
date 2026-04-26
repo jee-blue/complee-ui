@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
-import { StepShell } from "@/components/complee/StepShell";
 import { useAssessment } from "@/store/assessment";
 import { getRegulatorByCountry, getRequirements } from "@/data/requirements";
 
@@ -67,17 +66,19 @@ function Processing() {
 
   return (
     <Chrome>
-      <StepShell
-        eyebrow="Step 3 of 4 — Agent processing"
-        title="Complee is reviewing your documents…"
-        description={
-          <>
-            Mapping {profile.companyName} setup against {authority} requirements.
-            <br />
-            Loaded {n} {authority} requirements from the regulatory data layer.
-          </>
-        }
-      >
+      <div className="max-w-[760px] mx-auto px-5 sm:px-6 py-10 sm:py-16">
+        <div className="text-center mb-8 sm:mb-10">
+          <h1 className="text-[22px] sm:text-[28px] font-semibold tracking-tight text-navy">
+            Complee is reviewing your documents…
+          </h1>
+          <p className="mt-2 text-[13px] sm:text-[15px] text-muted-foreground">
+            Mapping {profile.companyName} setup against {authority} requirements
+          </p>
+          <p className="mt-1 text-[12px] sm:text-[13px] text-muted-foreground">
+            Loaded {n} {authority} requirements from the regulatory data layer
+          </p>
+        </div>
+
         <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm mb-6 sm:mb-8">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[12px] font-medium text-navy">
@@ -132,7 +133,7 @@ function Processing() {
             })}
           </ol>
         </div>
-      </StepShell>
+      </div>
     </Chrome>
   );
 }

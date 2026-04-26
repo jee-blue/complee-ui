@@ -235,77 +235,84 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
 
       {idx >= 0 && (
-        <div className="border-b border-border bg-card">
+        <div className="border-b border-border bg-card mt-2 sm:mt-4">
           <div
-            className="max-w-[880px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10"
+            className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6"
             role="progressbar"
             aria-valuemin={0}
             aria-valuemax={STEPS.length}
             aria-valuenow={step}
             aria-label={`Assessment step ${step} of ${STEPS.length}: ${STEPS[idx]?.label}`}
           >
-            <ol className="flex items-start justify-between gap-1 sm:gap-2">
+            <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto text-justify">
               {STEPS.map((s, i) => {
                 const state =
                   i < idx ? "complete" : i === idx ? "active" : "upcoming";
-                const isLast = i === STEPS.length - 1;
                 return (
-                  <li
+                  <div
                     key={s.path}
-                    className="flex-1 flex flex-col items-center relative min-w-0"
+                    className="flex items-center gap-2.5 sm:gap-3 shrink-0"
                   >
-                    <div className="flex items-center w-full">
-                      {/* Left connector spacer */}
-                      <div className="flex-1 h-px">
-                        {i > 0 && (
-                          <div
-                            className={`h-px w-full transition-colors ${
-                              i <= idx ? "bg-brand" : "bg-border"
-                            }`}
-                            aria-hidden="true"
-                          />
-                        )}
-                      </div>
-                      {/* Node */}
+                    <div
+                      className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-colors ${
+                        state === "active"
+                          ? "bg-brand-soft"
+                          : ""
+                      }`}
+                      aria-current={state === "active" ? "step" : undefined}
+                    >
                       <span
-                        className={`flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-semibold tabular-nums shrink-0 transition-colors ${
+                        className={`flex h-5 w-5 items-center justify-center rounded-full text-[10.5px] font-semibold tabular-nums shrink-0 ${
                           state === "complete"
-                            ? "bg-brand text-brand-foreground"
+                            ? "bg-success text-success-foreground"
                             : state === "active"
-                              ? "bg-card border-2 border-brand text-brand"
-                              : "bg-card border border-border text-muted-foreground"
+                              ? "bg-brand text-brand-foreground"
+                              : "bg-muted text-muted-foreground"
                         }`}
-                        aria-current={state === "active" ? "step" : undefined}
+                        aria-hidden="true"
                       >
                         {state === "complete" ? "✓" : i + 1}
                       </span>
-                      {/* Right connector spacer */}
-                      <div className="flex-1 h-px">
-                        {!isLast && (
-                          <div
-                            className={`h-px w-full transition-colors ${
-                              i < idx ? "bg-brand" : "bg-border"
-                            }`}
-                            aria-hidden="true"
-                          />
-                        )}
-                      </div>
+                      <span
+                        className={`text-[12.5px] font-medium whitespace-nowrap ${
+                          state === "active"
+                            ? "text-brand"
+                            : state === "complete"
+                              ? "text-navy"
+                              : "text-muted-foreground"
+                        }`}
+                      >
+                        {s.label}
+                      </span>
                     </div>
-                    <span
-                      className={`mt-3 text-[12.5px] font-medium text-center whitespace-nowrap ${
-                        state === "active"
-                          ? "text-navy"
-                          : state === "complete"
-                            ? "text-navy"
-                            : "text-muted-foreground"
-                      }`}
-                    >
-                      {s.label}
-                    </span>
-                  </li>
+                    {i < STEPS.length - 1 && (
+                      <div
+                        className={`h-px w-6 sm:w-10 transition-colors ${
+                          i < idx ? "bg-success" : "bg-border"
+                        }`}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
                 );
               })}
-            </ol>
+            </div>
+            {STEPS[idx]?.bullets && (
+              <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 pl-1">
+                {STEPS[idx].bullets.map((b) => (
+                  <li
+                    key={b}
+                    className="text-[12px] text-muted-foreground flex items-center gap-1.5"
+                  >
+                    <span
+                      className="h-1 w-1 rounded-full bg-brand/60 shrink-0"
+                      aria-hidden="true"
+                    />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       )}

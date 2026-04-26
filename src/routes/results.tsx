@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { RoadmapGuide } from "@/components/complee/RoadmapGuide";
-import { StepShell } from "@/components/complee/StepShell";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import {
@@ -131,13 +130,17 @@ function Results() {
 
   return (
     <Chrome>
-      <StepShell
-        eyebrow="Step 4 of 4 — Results dashboard"
-        title={`${profile.companyName} expansion readiness`}
-        width="wide"
-        description={
-          <>
-            <p>
+      <div className="max-w-[1280px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6 sm:mb-8">
+          <div>
+            <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
+              Step 4 — Results
+            </p>
+            <h1 className="text-[24px] sm:text-[30px] font-semibold tracking-tight text-navy">
+              {profile.companyName} expansion readiness
+            </h1>
+            <p className="mt-2 text-[13px] sm:text-[14px] text-muted-foreground">
               Assessment against{" "}
               <span className="font-medium text-navy">
                 {target?.authority ?? profile.targetCountry}
@@ -148,15 +151,15 @@ function Results() {
               </span>
               .
             </p>
-            <p className="mt-1.5 text-[13px]">
+            <p className="mt-1 text-[12px] text-muted-foreground">
               Data version {meta.version} · Extracted {formatISODate(meta.generated_at)}
             </p>
-          </>
-        }
-        headerAside={
-          result && rows.length > 0 ? <ReadinessBadge score={result.readinessScore} /> : null
-        }
-      >
+          </div>
+          {result && rows.length > 0 && (
+            <ReadinessBadge score={result.readinessScore} />
+          )}
+        </div>
+
         {/* Empty state */}
         {result && rows.length === 0 && (
           <div className="rounded-2xl border border-border bg-card p-8 sm:p-12 text-center shadow-sm">
@@ -551,7 +554,7 @@ function Results() {
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
-      </StepShell>
+      </div>
 
       <DetailPanel row={selected} onClose={() => setSelected(null)} />
       <RoadmapGuide

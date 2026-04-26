@@ -2,7 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { ArrowRight, FileText, Sparkles, Trash2, UploadCloud, X } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
-import { StepShell } from "@/components/complee/StepShell";
 import { useAssessment, type UploadedDocument } from "@/store/assessment";
 
 export const Route = createFileRoute("/documents")({
@@ -58,12 +57,19 @@ function Documents() {
 
   return (
     <Chrome>
-      <StepShell
-        eyebrow="Step 2 of 4 — Evidence documents"
-        title="Upload your current compliance pack"
-        description="Complee compares your existing setup against the target regulator's requirements."
-        width="wide"
-      >
+      <div className="max-w-[1180px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="mb-8 sm:mb-10">
+          <p className="text-[12px] uppercase tracking-[0.14em] text-brand font-medium mb-2">
+            Step 2 — Documents
+          </p>
+          <h1 className="text-[24px] sm:text-[32px] font-semibold tracking-tight text-navy">
+            Upload your current compliance pack
+          </h1>
+          <p className="mt-2 text-[14px] sm:text-[15px] text-muted-foreground max-w-[680px]">
+            Complee compares your existing setup against the target regulator's requirements.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
           {/* Upload card */}
           <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm flex flex-col">
@@ -227,7 +233,7 @@ function Documents() {
             </button>
           </div>
         </div>
-      </StepShell>
+      </div>
     </Chrome>
   );
 }
