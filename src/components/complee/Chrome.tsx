@@ -71,7 +71,6 @@ export function Chrome({ children }: { children: React.ReactNode }) {
   const stepIndex = STEPS.findIndex((s) => s.path === location.pathname);
   const idx = isAccountRoute ? -1 : stepIndex;
   const step = idx + 1;
-  const pct = idx >= 0 ? (step / STEPS.length) * 100 : 0;
 
   const [activeSection, setActiveSection] = useState<string>("");
 

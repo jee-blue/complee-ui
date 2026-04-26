@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Loader2, ShieldCheck, ArrowLeft } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";

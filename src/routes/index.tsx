@@ -6,9 +6,6 @@ import {
   GitCompareArrows,
   Map,
   ShieldCheck,
-  ClipboardList,
-  Search,
-  Route as RouteIcon,
   AlertTriangle,
   CheckCircle2,
   XCircle,
@@ -553,72 +550,6 @@ function ValueCard({
       </div>
       <div className="text-[14px] font-semibold text-navy">{title}</div>
       <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
-    </div>
-  );
-}
-
-function FlowStep({
-  n,
-  icon,
-  title,
-  body,
-}: {
-  n: number;
-  icon: React.ReactNode;
-  title: string;
-  body: string;
-}) {
-  return (
-    <li className="flex-1 flex flex-col items-start gap-3 md:max-w-[280px]">
-      <div className="flex items-center gap-3">
-        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-navy text-navy-foreground text-[13px] font-semibold tabular-nums shadow-sm">
-          {n}
-        </span>
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
-          {icon}
-        </span>
-      </div>
-      <div>
-        <div className="text-[15px] font-semibold text-navy">{title}</div>
-        <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground max-w-[260px]">
-          {body}
-        </p>
-      </div>
-    </li>
-  );
-}
-
-function FlowConnector() {
-  return (
-    <div
-      aria-hidden="true"
-      className="hidden md:flex items-center justify-center pt-4 shrink-0"
-    >
-      <svg
-        width="64"
-        height="8"
-        viewBox="0 0 64 8"
-        fill="none"
-        className="text-border"
-      >
-        <line
-          x1="0"
-          y1="4"
-          x2="56"
-          y2="4"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeDasharray="4 4"
-        />
-        <path
-          d="M56 1 L62 4 L56 7"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
     </div>
   );
 }
