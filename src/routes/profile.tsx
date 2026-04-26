@@ -216,7 +216,7 @@ function Profile() {
         </section>
 
         {/* Services section */}
-        <section className="mb-8">
+        <section className="mb-12 sm:mb-14">
           <SectionHeader
             icon={<Check className="h-4 w-4" />}
             title="Services offered"
@@ -273,7 +273,7 @@ function Profile() {
         </section>
 
         {/* Regulations section */}
-        <section className="mb-8">
+        <section className="mb-12 sm:mb-14">
           <SectionHeader
             icon={<Scale className="h-4 w-4" />}
             title="Regulations in scope"
