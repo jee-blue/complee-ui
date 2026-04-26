@@ -766,6 +766,8 @@ function DetailPanel({
                   }
                 />
               </div>
+
+              <SignSection row={row} />
             </div>
           </>
         )}
