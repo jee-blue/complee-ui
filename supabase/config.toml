@@ -1,1 +1,4 @@
 project_id = "zhycbnqsnkkjktwdgogm"
+
+[functions.complee-ai]
+verify_jwt = false
