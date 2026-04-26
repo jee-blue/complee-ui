@@ -277,7 +277,7 @@ function Landing() {
           aria-hidden="true"
           style={{ background: "var(--color-brand)" }}
         />
-        <div className="relative max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28">
+        <div className="relative w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
             <div className="lg:col-span-7">
               <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-foreground/70">
