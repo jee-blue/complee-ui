@@ -132,7 +132,7 @@ function Processing() {
             })}
           </ol>
         </div>
-      </div>
+      </StepShell>
     </Chrome>
   );
 }
