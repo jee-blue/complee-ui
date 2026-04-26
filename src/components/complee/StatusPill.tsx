@@ -1,38 +1,37 @@
 import type { Priority, Status } from "@/data/results";
+import { StatusPill as UIStatusPill } from "@/components/ui/status-pill";
+
+const statusTone: Record<Status, "success" | "warn" | "danger"> = {
+  Covered: "success",
+  Partial: "warn",
+  Missing: "danger",
+};
 
 export function StatusPill({ status }: { status: Status }) {
-  const styles: Record<Status, string> = {
-    Covered: "bg-success-soft text-success-foreground border-success/30",
-    Partial: "bg-warn-soft text-warn-foreground border-warn/30",
-    Missing: "bg-danger-soft text-danger border-danger/30",
-  };
-  const dot: Record<Status, string> = {
-    Covered: "bg-success",
-    Partial: "bg-warn",
-    Missing: "bg-danger",
-  };
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${styles[status]}`}
-    >
-      <span className={`h-1.5 w-1.5 rounded-full ${dot[status]}`} />
+    <UIStatusPill tone={statusTone[status]} size="sm" dot>
       {status}
-    </span>
+    </UIStatusPill>
   );
 }
 
+const priorityTone: Record<Priority, "danger" | "warn" | "brand" | "neutral"> = {
+  Critical: "danger",
+  High: "warn",
+  Medium: "brand",
+  Low: "neutral",
+};
+
 export function PriorityPill({ priority }: { priority: Priority }) {
-  const styles: Record<Priority, string> = {
-    Critical: "bg-danger-soft text-danger",
-    High: "bg-warn-soft text-warn-foreground",
-    Medium: "bg-brand-soft text-brand",
-    Low: "bg-muted text-muted-foreground",
-  };
+  // Original priority pill had no border and slightly tighter padding.
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${styles[priority]}`}
+    <UIStatusPill
+      tone={priorityTone[priority]}
+      size="sm"
+      borderless
+      className="px-2"
     >
       {priority}
-    </span>
+    </UIStatusPill>
   );
 }
