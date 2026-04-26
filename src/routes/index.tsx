@@ -363,12 +363,12 @@ function Landing() {
       <section
         id="demo-results"
         aria-labelledby="preview-heading"
-        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20 min-h-screen flex items-center"
       >
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <div className="w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
             {/* LEFT — explanatory content */}
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-5">
               <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 Demo Results Preview
               </div>
