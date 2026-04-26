@@ -51,13 +51,24 @@ function Review() {
     if (!user) return;
     void (async () => {
       const r = await listReviewerWorkspaces(user.id);
-      const rows: WorkspaceRow[] = (r.data ?? []).flatMap((row: never) => {
-        const a = (row as { assessments: WorkspaceRow | null }).assessments;
+      type Raw = {
+        id: string;
+        assessment_id: string;
+        assessments: {
+          id: string;
+          company_name: string;
+          home_country: string;
+          target_country: string;
+          institution_type: string;
+        } | null;
+      };
+      const raw = (r.data ?? []) as unknown as Raw[];
+      const rows: WorkspaceRow[] = raw.flatMap((row) => {
+        const a = row.assessments;
         if (!a) return [];
-        const w = row as unknown as { id: string; assessment_id: string };
         return [{
-          invite_id: w.id,
-          assessment_id: w.assessment_id,
+          invite_id: row.id,
+          assessment_id: row.assessment_id,
           company_name: a.company_name,
           home_country: a.home_country,
           target_country: a.target_country,
