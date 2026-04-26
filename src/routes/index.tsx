@@ -15,6 +15,7 @@ import { Chrome } from "@/components/complee/Chrome";
 import { REGULATORS, getRequirements } from "@/data/requirements";
 import RegulatoryRibbon from "@/components/complee/RegulatoryRibbon";
 import { HowItWorksScroller } from "@/components/complee/HowItWorksScroller";
+import { Surface } from "@/components/ui/surface";
 
 const RotatingEarth = lazy(
   () => import("@/components/ui/wireframe-dotted-globe"),
@@ -93,13 +94,11 @@ function Landing() {
         {/* Abstract brand glows (navy/blue only) */}
         <div
           aria-hidden="true"
-          className="absolute -top-32 -left-32 h-[520px] w-[520px] rounded-full blur-[120px] opacity-30 pointer-events-none"
-          style={{ background: "var(--color-brand)" }}
+          className="absolute -top-32 -left-32 h-[520px] w-[520px] rounded-full blur-[120px] opacity-30 pointer-events-none bg-brand"
         />
         <div
           aria-hidden="true"
-          className="absolute bottom-[-20%] right-[-10%] h-[480px] w-[480px] rounded-full blur-[120px] opacity-25 pointer-events-none"
-          style={{ background: "oklch(0.45 0.18 263)" }}
+          className="absolute bottom-[-20%] right-[-10%] h-[480px] w-[480px] rounded-full blur-[120px] opacity-25 pointer-events-none bg-brand-strong"
         />
 
         <div
@@ -273,9 +272,8 @@ function Landing() {
           }}
         />
         <div
-          className="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full blur-[100px] opacity-30 pointer-events-none"
+          className="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full blur-[100px] opacity-30 pointer-events-none bg-brand"
           aria-hidden="true"
-          style={{ background: "var(--color-brand)" }}
         />
         <div className="relative w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
@@ -399,7 +397,7 @@ function Landing() {
             {/* RIGHT — two cards */}
             <div className="lg:col-span-7 lg:justify-self-end lg:max-w-[640px] w-full grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
               {/* Card 1 — Readiness Score */}
-              <div className="rounded-2xl border border-border bg-card shadow-sm p-6">
+              <Surface padding="md">
                 <div className="text-[12px] text-muted-foreground">
                   Readiness Score
                 </div>
@@ -430,10 +428,10 @@ function Landing() {
                     6 weeks
                   </div>
                 </div>
-              </div>
+              </Surface>
 
               {/* Card 2 — Top Findings */}
-              <div className="rounded-2xl border border-border bg-card shadow-sm p-6">
+              <Surface padding="md">
                 <div className="text-[12px] font-semibold text-navy">
                   Top Findings
                 </div>
@@ -491,7 +489,7 @@ function Landing() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Surface>
             </div>
           </div>
         </div>
