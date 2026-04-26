@@ -290,8 +290,219 @@ function Account() {
             </ul>
           </div>
         )}
+
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <ReviewerInvitesCard />
+          <ReviewerPortalCard />
+        </div>
       </div>
     </Chrome>
+  );
+}
+
+function ReviewerInvitesCard() {
+  const { user } = useAuth();
+  const [invites, setInvites] = useState<WorkspaceReviewer[]>([]);
+  const [email, setEmail] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const refresh = async () => {
+    if (!user) return;
+    const r = await listOwnerInvites(user.id);
+    setInvites(r.data);
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    setLoading(true);
+    void (async () => {
+      await refresh();
+      setLoading(false);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const handleInvite = async () => {
+    if (!user) return;
+    const aid = getCurrentAssessmentId();
+    if (!aid) {
+      toast.error("Workspace not ready", {
+        description: "Try again in a moment.",
+      });
+      return;
+    }
+    setBusy(true);
+    const r = await inviteReviewer({
+      assessmentId: aid,
+      ownerUserId: user.id,
+      email,
+    });
+    setBusy(false);
+    if (r.error || !r.data) {
+      toast.error("Couldn't send invite", { description: r.error });
+      return;
+    }
+    setEmail("");
+    void refresh();
+    const link = buildInviteLink(r.data.invite_token);
+    try {
+      await navigator.clipboard.writeText(link);
+      toast.success("Invite created — link copied to clipboard");
+    } catch {
+      toast.success("Invite created", { description: link });
+    }
+  };
+
+  const handleRevoke = async (id: string) => {
+    const r = await revokeInvite(id);
+    if (r.error) {
+      toast.error("Couldn't revoke", { description: r.error });
+      return;
+    }
+    toast("Invitation revoked");
+    void refresh();
+  };
+
+  const handleCopy = async (token: string) => {
+    const link = buildInviteLink(token);
+    try {
+      await navigator.clipboard.writeText(link);
+      toast.success("Invite link copied");
+    } catch {
+      toast(link);
+    }
+  };
+
+  return (
+    <div className="rounded-2xl border border-border bg-card shadow-sm p-5 sm:p-6">
+      <div className="flex items-start gap-3 mb-4">
+        <div className="h-10 w-10 rounded-lg bg-brand-soft text-brand flex items-center justify-center shrink-0">
+          <UserPlus className="h-5 w-5" />
+        </div>
+        <div>
+          <h2 className="text-[16px] font-semibold text-navy">Invite a reviewer</h2>
+          <p className="mt-1 text-[12.5px] text-muted-foreground leading-relaxed">
+            Reviewers can view your signed documents and counter-sign them with a
+            second audit-grade signature.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="reviewer@firm.com"
+          className="flex-1 rounded-md border border-border bg-card px-3 py-2 text-[13px] focus:outline-none focus:ring-2 focus:ring-brand/40"
+        />
+        <button
+          onClick={handleInvite}
+          disabled={busy || !email.trim()}
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand text-brand-foreground px-3.5 py-2 text-[12.5px] font-medium hover:bg-brand/90 shadow-sm disabled:opacity-50"
+        >
+          {busy ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          ) : (
+            <Mail className="h-3.5 w-3.5" />
+          )}
+          Send invite
+        </button>
+      </div>
+
+      <div className="mt-5">
+        <div className="text-[11px] uppercase tracking-[0.08em] font-semibold text-muted-foreground mb-2">
+          Invitations
+        </div>
+        {loading ? (
+          <div className="text-[12px] text-muted-foreground inline-flex items-center gap-2">
+            <Loader2 className="h-3.5 w-3.5 animate-spin" /> Loading…
+          </div>
+        ) : invites.length === 0 ? (
+          <p className="text-[12px] text-muted-foreground">
+            No reviewers invited yet.
+          </p>
+        ) : (
+          <ul className="divide-y divide-border rounded-lg border border-border overflow-hidden">
+            {invites.map((inv) => (
+              <li
+                key={inv.id}
+                className="px-3 py-2.5 flex items-center justify-between gap-3"
+              >
+                <div className="min-w-0">
+                  <div className="text-[12.5px] font-medium text-navy truncate">
+                    {inv.invited_email}
+                  </div>
+                  <div className="text-[11px] text-muted-foreground capitalize">
+                    {inv.status}
+                    {inv.accepted_at
+                      ? ` · accepted ${new Date(inv.accepted_at).toLocaleDateString()}`
+                      : ""}
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  {inv.status === "pending" && (
+                    <button
+                      onClick={() => handleCopy(inv.invite_token)}
+                      className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-2 py-1 text-[11px] font-medium text-navy hover:bg-surface-muted"
+                    >
+                      <Copy className="h-3 w-3" /> Copy link
+                    </button>
+                  )}
+                  {inv.status !== "revoked" && (
+                    <button
+                      onClick={() => handleRevoke(inv.id)}
+                      className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-2 py-1 text-[11px] font-medium text-danger hover:bg-danger-soft/40"
+                    >
+                      <XCircle className="h-3 w-3" /> Revoke
+                    </button>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ReviewerPortalCard() {
+  const { isReviewer, loading } = useUserRoles();
+  return (
+    <div className="rounded-2xl border border-border bg-card shadow-sm p-5 sm:p-6">
+      <div className="flex items-start gap-3 mb-4">
+        <div className="h-10 w-10 rounded-lg bg-brand-soft text-brand flex items-center justify-center shrink-0">
+          <ShieldCheck className="h-5 w-5" />
+        </div>
+        <div>
+          <h2 className="text-[16px] font-semibold text-navy">Reviewer portal</h2>
+          <p className="mt-1 text-[12.5px] text-muted-foreground leading-relaxed">
+            If you have been invited as a reviewer for another workspace, open the
+            portal to approve documents.
+          </p>
+        </div>
+      </div>
+      {loading ? (
+        <div className="text-[12px] text-muted-foreground inline-flex items-center gap-2">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" /> Checking access…
+        </div>
+      ) : isReviewer ? (
+        <Link
+          to="/review"
+          className="inline-flex items-center gap-2 rounded-lg bg-navy text-navy-foreground px-4 py-2.5 text-[13px] font-medium hover:bg-navy/90 shadow-sm"
+        >
+          Open reviewer portal
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      ) : (
+        <p className="text-[12px] text-muted-foreground">
+          You don't have any active reviewer assignments yet. Once a workspace
+          owner invites you and you accept, the portal will be available here.
+        </p>
+      )}
+    </div>
   );
 }
 
