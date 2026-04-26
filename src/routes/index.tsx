@@ -106,11 +106,12 @@ function Landing() {
           style={{ minHeight: "calc(100vh - 60px)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 py-10 sm:py-14 lg:py-16">
-            {/* LEFT — editorial copy (7 cols) */}
-            <div className="lg:col-span-7 text-left lg:pr-8 xl:pr-12">
+            {/* LEFT — editorial copy (7 cols). Flex column so we can reorder the
+                globe to sit between ribbon and status badge on mobile. */}
+            <div className="lg:col-span-7 text-left lg:pr-8 xl:pr-12 flex flex-col">
               <h1
                 id="hero-heading"
-                className="font-semibold text-navy-foreground tracking-tight"
+                className="font-semibold text-navy-foreground tracking-tight order-1"
                 style={{
                   fontSize: "clamp(2.5rem, 1.4rem + 4.2vw, 5.25rem)",
                   lineHeight: 1.02,
@@ -128,7 +129,7 @@ function Landing() {
               </h1>
 
               <p
-                className="mt-6 sm:mt-7 text-navy-foreground/75 max-w-[620px]"
+                className="order-2 mt-6 sm:mt-7 text-navy-foreground/75 max-w-[620px]"
                 style={{
                   fontSize: "clamp(1rem, 0.9rem + 0.4vw, 1.2rem)",
                   lineHeight: 1.55,
@@ -138,7 +139,7 @@ function Landing() {
                 expansion risk becomes expensive.
               </p>
 
-              <div className="mt-8 sm:mt-10 flex items-center gap-3 flex-wrap">
+              <div className="order-3 mt-8 sm:mt-10 flex items-center gap-3 flex-wrap">
                 <Link
                   to="/profile"
                   className="inline-flex items-center gap-2 rounded-lg bg-brand text-brand-foreground px-6 py-3 min-h-[48px] text-[15px] font-medium hover:bg-brand/90 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
@@ -154,15 +155,15 @@ function Landing() {
                 </a>
               </div>
 
-              {/* Regulatory ribbon — constrained to the text column, between CTAs and status */}
-              <div className="mt-6 sm:mt-8 max-w-full lg:max-w-[520px] xl:max-w-[600px]">
+              {/* Regulatory ribbon — directly below CTA, anchored to text column */}
+              <div className="order-4 mt-6 sm:mt-8 max-w-[560px] w-full">
                 <RegulatoryRibbon />
               </div>
 
               {/* Live proof bar */}
               <div
                 role="status"
-                className="mt-6 sm:mt-7 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85"
+                className="order-6 lg:order-5 mt-6 sm:mt-7 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85 self-start"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-70" />
@@ -172,11 +173,17 @@ function Landing() {
               </div>
             </div>
 
-            {/* RIGHT — rotating dotted globe (5 cols) */}
-            <div className="lg:col-span-5 relative hidden md:flex items-center justify-center">
+            {/* RIGHT — rotating dotted globe (5 cols).
+                On mobile the globe lives in source order between ribbon (order-4)
+                and status badge (order-6) via order-5; on lg+ it returns to the
+                right column. */}
+            <div className="order-5 lg:order-none lg:col-span-5 relative flex items-center justify-center mt-8 lg:mt-0">
               <HeroGlobe />
             </div>
           </div>
+
+        </div>
+      </section>
 
         </div>
       </section>
