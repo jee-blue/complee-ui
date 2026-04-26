@@ -298,7 +298,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
               })}
             </div>
             {STEPS[idx]?.bullets && (
-              <ul className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 pl-1">
+              <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 pl-1">
                 {STEPS[idx].bullets.map((b) => (
                   <li
                     key={b}
