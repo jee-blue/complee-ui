@@ -68,7 +68,7 @@ See manifest.json for hashes and metadata.
         .slice(0, 60);
       folder!.file(
         `${String(i).padStart(2, "0")}_${safe || doc.requirement_id}.pdf`,
-        doc.bytes ? doc.bytes : r.bytes,
+        r.bytes,
       );
     }
     i++;
