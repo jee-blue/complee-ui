@@ -160,8 +160,8 @@ export async function reviewerApprove(opts: {
   reviewerUserId: string;
   reviewerName: string;
   reviewerSignaturePngDataUrl?: string | null;
-  assessmentId: string;
-  requirementId: string;
+  assessmentId?: string;
+  requirementId?: string;
 }): Promise<{ data?: SignedDocument; error?: string }> {
   const ts = new Date().toISOString();
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
