@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
  *  - Inputs/Buttons  → radius "md" (use ui/button, ui/input)
  *  - Pills           → radius "full" (use ui/status-pill, ui/badge)
  */
-const surfaceVariants = cva("border bg-card", {
+const surfaceVariants = cva("border border-border bg-card", {
   variants: {
     elevation: {
       none: "",
