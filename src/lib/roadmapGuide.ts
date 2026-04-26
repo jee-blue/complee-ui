@@ -162,7 +162,7 @@ const CATEGORY_PLAYBOOK: Record<
     ],
   }),
 
-  consumer_protection: (req) => ({
+  consumer_protection: (_req) => ({
     summary: `Implement the local consumer-outcomes framework and prepare the annual board attestation.`,
     outcome: "Board-approved consumer outcomes policy and the first annual attestation draft.",
     substeps: [
@@ -184,7 +184,7 @@ const CATEGORY_PLAYBOOK: Record<
     ],
   }),
 
-  operational_resilience: (req) => ({
+  operational_resilience: (_req) => ({
     summary: `Map important business services, set impact tolerances, and run a severe-but-plausible scenario test.`,
     outcome: "Important business service register, impact tolerance log, and a scenario test report.",
     substeps: [

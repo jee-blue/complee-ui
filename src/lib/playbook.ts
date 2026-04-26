@@ -260,7 +260,7 @@ const PLAYBOOKS: Record<string, (req: Requirement) => Omit<Playbook, "estimatedT
     ],
   }),
 
-  consumer_protection: (req) => ({
+  consumer_protection: (_req) => ({
     summary: `Implement the local consumer-outcomes framework and prepare the annual board attestation.`,
     outcome: "Board-approved Consumer Outcomes Policy and the first annual attestation draft.",
     substeps: [
@@ -291,7 +291,7 @@ const PLAYBOOKS: Record<string, (req: Requirement) => Omit<Playbook, "estimatedT
     ],
   }),
 
-  operational_resilience: (req) => ({
+  operational_resilience: (_req) => ({
     summary: `Map important business services, set impact tolerances, and run a severe-but-plausible scenario test.`,
     outcome: "Important Business Service register, impact tolerance log, and a scenario test report.",
     substeps: [
@@ -352,7 +352,7 @@ const PLAYBOOKS: Record<string, (req: Requirement) => Omit<Playbook, "estimatedT
     ],
   }),
 
-  data_protection: (req) => ({
+  data_protection: (_req) => ({
     summary: `Confirm GDPR / UK GDPR alignment, appoint a DPO if required, and document cross-border data transfers.`,
     outcome: "DPO appointment letter, ROPA, and the standard contractual clauses register.",
     substeps: [
