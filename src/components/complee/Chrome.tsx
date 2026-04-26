@@ -244,7 +244,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
             aria-valuenow={step}
             aria-label={`Assessment step ${step} of ${STEPS.length}: ${STEPS[idx]?.label}`}
           >
-            <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto">
+            <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto text-justify">
               {STEPS.map((s, i) => {
                 const state =
                   i < idx ? "complete" : i === idx ? "active" : "upcoming";
