@@ -363,7 +363,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
       <footer role="contentinfo" className="min-h-10 bg-navy text-navy-foreground">
         <div className="min-h-10 max-w-[1440px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center text-center text-[11.5px] sm:text-[12px] text-navy-foreground/70 py-3">
-          Complee · AI Compliance Consultant for FinTech Companies · 2026
+          Complee — AI Compliance for FinTech Expansion
         </div>
       </footer>
     </div>

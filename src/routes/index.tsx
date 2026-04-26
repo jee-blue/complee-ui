@@ -505,12 +505,8 @@ function Landing() {
             id="final-cta-heading"
             className="fluid-h2 font-semibold text-navy-foreground"
           >
-            Assess Expansion Readiness Today
+            Start your expansion assessment
           </h2>
-          <p className="mt-3 text-[14px] sm:text-[15px] text-navy-foreground/80 max-w-[560px] mx-auto">
-            Get a clear, data-backed view of what stands between your business and your next
-            European market.
-          </p>
           <div className="mt-8 flex items-center justify-center">
             <Link
               to="/profile"
@@ -520,12 +516,20 @@ function Landing() {
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-          <p className="mt-6 text-[12px] text-navy-foreground/70">
-            <ShieldCheck
-              className="inline h-3.5 w-3.5 mr-1 -mt-0.5"
-              aria-hidden="true"
-            />
-            Powered by real regulator data from ACPR, BaFin, DNB, Banco de España, and the FCA.
+          <nav
+            aria-label="Footer"
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] text-navy-foreground/75"
+          >
+            <a href="#why-complee" className="hover:text-navy-foreground transition-colors">Product</a>
+            <span aria-hidden="true" className="text-navy-foreground/30">·</span>
+            <a href="#use-cases" className="hover:text-navy-foreground transition-colors">How it works</a>
+            <span aria-hidden="true" className="text-navy-foreground/30">·</span>
+            <a href="#demo-results" className="hover:text-navy-foreground transition-colors">Demo results</a>
+            <span aria-hidden="true" className="text-navy-foreground/30">·</span>
+            <a href="mailto:hello@complee.app" className="hover:text-navy-foreground transition-colors">Contact</a>
+          </nav>
+          <p className="mt-6 text-[12px] text-navy-foreground/60">
+            This is a readiness assessment, not legal advice.
           </p>
         </div>
       </section>
