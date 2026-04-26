@@ -186,9 +186,9 @@ function Landing() {
       <section
         id="why-complee"
         aria-labelledby="value-heading"
-        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20 min-h-screen flex items-center"
       >
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <div className="w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
               Why Complee
@@ -225,9 +225,9 @@ function Landing() {
       <section
         id="use-cases"
         aria-labelledby="usecases-heading"
-        className="border-t border-border bg-surface-muted/40 scroll-mt-20"
+        className="border-t border-border bg-surface-muted/40 scroll-mt-20 min-h-screen flex items-center"
       >
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <div className="w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <div className="text-center max-w-[720px] mx-auto">
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
               Use Cases
@@ -261,7 +261,7 @@ function Landing() {
       <section
         id="coverage"
         aria-labelledby="impact-heading"
-        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground scroll-mt-20"
+        className="relative overflow-hidden border-t border-border bg-navy text-navy-foreground scroll-mt-20 min-h-screen flex items-center"
       >
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07]"
@@ -277,7 +277,7 @@ function Landing() {
           aria-hidden="true"
           style={{ background: "var(--color-brand)" }}
         />
-        <div className="relative max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28">
+        <div className="relative w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
             <div className="lg:col-span-7">
               <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-foreground/70">
@@ -499,8 +499,8 @@ function Landing() {
 
 
       {/* 6. FINAL CTA */}
-      <section aria-labelledby="final-cta-heading" className="border-t border-border bg-navy">
-        <div className="max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+      <section aria-labelledby="final-cta-heading" className="border-t border-border bg-navy min-h-screen flex items-center">
+        <div className="w-full max-w-[1080px] 2xl:max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
           <h2
             id="final-cta-heading"
             className="fluid-h2 font-semibold text-navy-foreground"
