@@ -1,24 +1,38 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   CheckCircle2,
   Circle,
   Clock,
+  Copy,
   FileDown,
+  Loader2,
   LogOut,
+  Mail,
   PlayCircle,
   ShieldCheck,
   User as UserIcon,
+  UserPlus,
+  XCircle,
 } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { useAuth } from "@/hooks/useAuth";
+import { useUserRoles } from "@/hooks/useUserRole";
+import { getCurrentAssessmentId } from "@/hooks/useCloudSync";
 import { useAssessment } from "@/store/assessment";
 import { useStepProgress } from "@/store/stepProgress";
 import { getRegulatorByCountry, getRequirements } from "@/data/requirements";
 import { runGapAnalysis } from "@/lib/gapAnalysis";
 import { taskKey } from "@/lib/playbook";
 import { generateMasterDocument } from "@/lib/documentGenerator";
+import {
+  buildInviteLink,
+  inviteReviewer,
+  listOwnerInvites,
+  revokeInvite,
+  type WorkspaceReviewer,
+} from "@/lib/reviewers";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/account")({
