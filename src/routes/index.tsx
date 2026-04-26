@@ -15,6 +15,7 @@ import { Chrome } from "@/components/complee/Chrome";
 import { REGULATORS, getRequirements } from "@/data/requirements";
 import RegulatoryRibbon from "@/components/complee/RegulatoryRibbon";
 import { HowItWorksScroller } from "@/components/complee/HowItWorksScroller";
+import { Surface } from "@/components/ui/surface";
 
 const RotatingEarth = lazy(
   () => import("@/components/ui/wireframe-dotted-globe"),
@@ -396,7 +397,7 @@ function Landing() {
             {/* RIGHT — two cards */}
             <div className="lg:col-span-7 lg:justify-self-end lg:max-w-[640px] w-full grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
               {/* Card 1 — Readiness Score */}
-              <div className="rounded-2xl border border-border bg-card shadow-sm p-6">
+              <Surface padding="md">
                 <div className="text-[12px] text-muted-foreground">
                   Readiness Score
                 </div>
@@ -427,10 +428,10 @@ function Landing() {
                     6 weeks
                   </div>
                 </div>
-              </div>
+              </Surface>
 
               {/* Card 2 — Top Findings */}
-              <div className="rounded-2xl border border-border bg-card shadow-sm p-6">
+              <Surface padding="md">
                 <div className="text-[12px] font-semibold text-navy">
                   Top Findings
                 </div>
