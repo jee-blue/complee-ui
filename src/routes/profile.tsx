@@ -127,23 +127,23 @@ function Profile() {
 
   return (
     <Chrome>
-      <div className="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <div className="max-w-[880px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 lg:pt-32 pb-16 sm:pb-20">
         {/* Context header */}
-        <div className="mb-10 sm:mb-12">
-          <p className="text-[12px] uppercase tracking-[0.16em] text-brand font-semibold mb-3">
+        <div className="mb-16 sm:mb-20">
+          <p className="text-[12px] uppercase tracking-[0.16em] text-brand font-semibold mb-6">
             Step 1 of 4 — Company scope
           </p>
-          <h1 className="text-[28px] sm:text-[36px] font-semibold tracking-tight text-navy leading-tight">
+          <h1 className="text-[32px] sm:text-[42px] font-semibold tracking-tight text-navy leading-[1.15]">
             Tell us about your company
           </h1>
-          <p className="mt-3 text-[15px] sm:text-[16px] text-muted-foreground max-w-[640px] leading-relaxed">
+          <p className="mt-7 sm:mt-8 text-[16px] sm:text-[17px] text-muted-foreground max-w-[620px] leading-relaxed">
             We'll use this to scope the regulatory requirements that apply to your expansion.
             Pre-filled with the FlowPay demo — adjust any field to match your business.
           </p>
         </div>
 
         {/* Profile section */}
-        <section className="mb-8">
+        <section className="mb-12 sm:mb-14">
           <SectionHeader
             icon={<Building2 className="h-4 w-4" />}
             title="Company profile"
@@ -216,7 +216,7 @@ function Profile() {
         </section>
 
         {/* Services section */}
-        <section className="mb-8">
+        <section className="mb-12 sm:mb-14">
           <SectionHeader
             icon={<Check className="h-4 w-4" />}
             title="Services offered"
@@ -273,7 +273,7 @@ function Profile() {
         </section>
 
         {/* Regulations section */}
-        <section className="mb-8">
+        <section className="mb-12 sm:mb-14">
           <SectionHeader
             icon={<Scale className="h-4 w-4" />}
             title="Regulations in scope"

@@ -235,9 +235,9 @@ export function Chrome({ children }: { children: React.ReactNode }) {
 
 
       {idx >= 0 && (
-        <div className="border-b border-border bg-card">
+        <div className="border-b border-border bg-card mt-2 sm:mt-4">
           <div
-            className="max-w-[1440px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 py-3"
+            className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6"
             role="progressbar"
             aria-valuemin={0}
             aria-valuemax={STEPS.length}
@@ -298,7 +298,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
               })}
             </div>
             {STEPS[idx]?.bullets && (
-              <ul className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 pl-1">
+              <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 pl-1">
                 {STEPS[idx].bullets.map((b) => (
                   <li
                     key={b}
