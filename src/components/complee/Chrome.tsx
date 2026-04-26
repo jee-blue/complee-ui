@@ -237,25 +237,82 @@ export function Chrome({ children }: { children: React.ReactNode }) {
       {idx >= 0 && (
         <div className="border-b border-border bg-card">
           <div
-            className="max-w-[1440px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center gap-4"
+            className="max-w-[1440px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 py-3"
             role="progressbar"
             aria-valuemin={0}
             aria-valuemax={STEPS.length}
             aria-valuenow={step}
             aria-label={`Assessment step ${step} of ${STEPS.length}: ${STEPS[idx]?.label}`}
           >
-            <span className="text-[12px] font-medium text-muted-foreground tabular-nums">
-              Step {step} of {STEPS.length}
-            </span>
-            <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
-              <div
-                className="h-full bg-brand transition-all duration-500 ease-out"
-                style={{ width: `${pct}%` }}
-              />
+            <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto">
+              {STEPS.map((s, i) => {
+                const state =
+                  i < idx ? "complete" : i === idx ? "active" : "upcoming";
+                return (
+                  <div
+                    key={s.path}
+                    className="flex items-center gap-2.5 sm:gap-3 shrink-0"
+                  >
+                    <div
+                      className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-colors ${
+                        state === "active"
+                          ? "bg-brand-soft"
+                          : ""
+                      }`}
+                      aria-current={state === "active" ? "step" : undefined}
+                    >
+                      <span
+                        className={`flex h-5 w-5 items-center justify-center rounded-full text-[10.5px] font-semibold tabular-nums shrink-0 ${
+                          state === "complete"
+                            ? "bg-success text-success-foreground"
+                            : state === "active"
+                              ? "bg-brand text-brand-foreground"
+                              : "bg-muted text-muted-foreground"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        {state === "complete" ? "✓" : i + 1}
+                      </span>
+                      <span
+                        className={`text-[12.5px] font-medium whitespace-nowrap ${
+                          state === "active"
+                            ? "text-brand"
+                            : state === "complete"
+                              ? "text-navy"
+                              : "text-muted-foreground"
+                        }`}
+                      >
+                        {s.label}
+                      </span>
+                    </div>
+                    {i < STEPS.length - 1 && (
+                      <div
+                        className={`h-px w-6 sm:w-10 transition-colors ${
+                          i < idx ? "bg-success" : "bg-border"
+                        }`}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+                );
+              })}
             </div>
-            <span className="text-[12px] text-muted-foreground hidden md:block">
-              {STEPS[idx]?.label}
-            </span>
+            {STEPS[idx]?.bullets && (
+              <ul className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 pl-1">
+                {STEPS[idx].bullets.map((b) => (
+                  <li
+                    key={b}
+                    className="text-[12px] text-muted-foreground flex items-center gap-1.5"
+                  >
+                    <span
+                      className="h-1 w-1 rounded-full bg-brand/60 shrink-0"
+                      aria-hidden="true"
+                    />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       )}
