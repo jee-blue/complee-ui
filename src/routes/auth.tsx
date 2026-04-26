@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Loader2, ShieldCheck, ArrowLeft } from "lucide-react";
 import { Chrome } from "@/components/complee/Chrome";
 import { useAuth } from "@/hooks/useAuth";
+import { useEffectiveRole } from "@/hooks/useUserRole";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
 
@@ -18,6 +19,8 @@ export const Route = createFileRoute("/auth")({
 function Auth() {
   const navigate = useNavigate();
   const { user, loading, signIn, signUp } = useAuth();
+  const role = useEffectiveRole();
+  const { returnTo } = Route.useSearch();
   const [mode, setMode] = useState<"signin" | "signup">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,11 +28,23 @@ function Auth() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!loading && user) {
+  const goPostAuth = () => {
+    if (returnTo && returnTo.startsWith("/")) {
+      window.location.assign(returnTo);
+      return;
+    }
+    if (role === "reviewer") {
+      navigate({ to: "/review" });
+    } else {
       navigate({ to: "/account" });
     }
-  }, [user, loading, navigate]);
+  };
+
+  useEffect(() => {
+    // Wait for both auth and role to settle so reviewers go straight to /review
+    if (!loading && user && role !== "loading") goPostAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, loading, role]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,14 +66,14 @@ function Auth() {
       setMode("signin");
     } else {
       toast.success("Welcome back");
-      navigate({ to: "/account" });
+      goPostAuth();
     }
   };
 
   const handleGoogle = async () => {
     setBusy(true);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/account",
+      redirect_uri: window.location.origin + (returnTo ?? "/account"),
     });
     if (result.error) {
       setErr(String(result.error.message ?? result.error));
