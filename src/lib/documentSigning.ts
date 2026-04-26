@@ -79,10 +79,10 @@ export async function signDocument(opts: {
   documentTitle: string;
   signerName: string;
   signaturePngDataUrl?: string | null;
-  companyName: string;
-  regulator: string;
-  description: string;
-  body: string;
+  companyName?: string;
+  regulator?: string;
+  description?: string;
+  body?: string;
 }): Promise<{ data?: SignedDocument; error?: string }> {
   const ts = new Date().toISOString();
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : null;
@@ -101,11 +101,11 @@ export async function signDocument(opts: {
   // Build PDF
   const pdfBytes = await buildSignedPdf({
     title: opts.documentTitle,
-    companyName: opts.companyName,
+    companyName: opts.companyName ?? "",
     requirementId: opts.requirementId,
-    regulator: opts.regulator,
-    description: opts.description,
-    body: opts.body,
+    regulator: opts.regulator ?? "",
+    description: opts.description ?? "",
+    body: opts.body ?? "",
     signerName: opts.signerName,
     signedAt: ts,
     signatureHash: signature_hash,
