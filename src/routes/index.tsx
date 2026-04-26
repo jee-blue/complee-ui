@@ -76,7 +76,8 @@ function Landing() {
 
   return (
     <Chrome>
-      {/* 1. HERO — premium dark, full viewport, left/right split */}
+      <>
+        {/* 1. HERO — premium dark, full viewport, left/right split */}
       <section
         aria-labelledby="hero-heading"
         className="relative overflow-hidden bg-navy text-navy-foreground"
@@ -531,6 +532,7 @@ function Landing() {
           </p>
         </div>
       </section>
+      </>
     </Chrome>
   );
 }

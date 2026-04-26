@@ -157,7 +157,8 @@ function Results() {
           result && rows.length > 0 ? <ReadinessBadge score={result.readinessScore} /> : null
         }
       >
-        {/* Empty state */}
+        <>
+          {/* Empty state */}
         {result && rows.length === 0 && (
           <div className="rounded-2xl border border-border bg-card p-8 sm:p-12 text-center shadow-sm">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-soft">
@@ -551,6 +552,7 @@ function Results() {
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
+        </>
       </StepShell>
 
       <DetailPanel row={selected} onClose={() => setSelected(null)} />
