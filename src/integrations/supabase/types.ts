@@ -83,6 +83,74 @@ export type Database = {
         }
         Relationships: []
       }
+      signed_documents: {
+        Row: {
+          assessment_id: string
+          created_at: string
+          document_title: string
+          id: string
+          owner_user_id: string
+          requirement_id: string
+          review_status: Database["public"]["Enums"]["document_review_status"]
+          reviewer_name: string | null
+          reviewer_signature_hash: string | null
+          reviewer_signed_at: string | null
+          reviewer_user_id: string | null
+          signature_hash: string
+          signed_at: string
+          signed_ip: string | null
+          signed_user_agent: string | null
+          signer_name: string
+          updated_at: string
+        }
+        Insert: {
+          assessment_id: string
+          created_at?: string
+          document_title: string
+          id?: string
+          owner_user_id: string
+          requirement_id: string
+          review_status?: Database["public"]["Enums"]["document_review_status"]
+          reviewer_name?: string | null
+          reviewer_signature_hash?: string | null
+          reviewer_signed_at?: string | null
+          reviewer_user_id?: string | null
+          signature_hash: string
+          signed_at?: string
+          signed_ip?: string | null
+          signed_user_agent?: string | null
+          signer_name: string
+          updated_at?: string
+        }
+        Update: {
+          assessment_id?: string
+          created_at?: string
+          document_title?: string
+          id?: string
+          owner_user_id?: string
+          requirement_id?: string
+          review_status?: Database["public"]["Enums"]["document_review_status"]
+          reviewer_name?: string | null
+          reviewer_signature_hash?: string | null
+          reviewer_signed_at?: string | null
+          reviewer_user_id?: string | null
+          signature_hash?: string
+          signed_at?: string
+          signed_ip?: string | null
+          signed_user_agent?: string | null
+          signer_name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signed_documents_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       step_progress: {
         Row: {
           assessment_id: string
@@ -133,15 +201,96 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      workspace_reviewers: {
+        Row: {
+          accepted_at: string | null
+          assessment_id: string
+          created_at: string
+          id: string
+          invite_token: string
+          invited_email: string
+          owner_user_id: string
+          reviewer_user_id: string | null
+          status: Database["public"]["Enums"]["reviewer_status"]
+        }
+        Insert: {
+          accepted_at?: string | null
+          assessment_id: string
+          created_at?: string
+          id?: string
+          invite_token: string
+          invited_email: string
+          owner_user_id: string
+          reviewer_user_id?: string | null
+          status?: Database["public"]["Enums"]["reviewer_status"]
+        }
+        Update: {
+          accepted_at?: string | null
+          assessment_id?: string
+          created_at?: string
+          id?: string
+          invite_token?: string
+          invited_email?: string
+          owner_user_id?: string
+          reviewer_user_id?: string | null
+          status?: Database["public"]["Enums"]["reviewer_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_reviewers_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_workspace_reviewer: {
+        Args: { _assessment_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "fintech_owner" | "reviewer" | "admin"
+      document_review_status:
+        | "draft"
+        | "awaiting_review"
+        | "changes_requested"
+        | "approved"
+      reviewer_status: "pending" | "active" | "revoked"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -268,6 +417,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["fintech_owner", "reviewer", "admin"],
+      document_review_status: [
+        "draft",
+        "awaiting_review",
+        "changes_requested",
+        "approved",
+      ],
+      reviewer_status: ["pending", "active", "revoked"],
+    },
   },
 } as const

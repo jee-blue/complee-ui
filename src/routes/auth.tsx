@@ -8,6 +8,10 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [{ title: "Sign in — Complee" }] }),
+  validateSearch: (search: Record<string, unknown>): { returnTo?: string } => {
+    const r = typeof search.returnTo === "string" ? search.returnTo : undefined;
+    return r ? { returnTo: r } : {};
+  },
   component: Auth,
 });
 
