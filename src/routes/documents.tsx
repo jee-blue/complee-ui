@@ -226,7 +226,7 @@ function Documents() {
             </button>
           </div>
         </div>
-      </div>
+      </StepShell>
     </Chrome>
   );
 }
