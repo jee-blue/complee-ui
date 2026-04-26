@@ -406,7 +406,7 @@ function Profile() {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
-      </div>
+      </StepShell>
     </Chrome>
   );
 }
