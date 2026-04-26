@@ -93,13 +93,11 @@ function Landing() {
         {/* Abstract brand glows (navy/blue only) */}
         <div
           aria-hidden="true"
-          className="absolute -top-32 -left-32 h-[520px] w-[520px] rounded-full blur-[120px] opacity-30 pointer-events-none"
-          style={{ background: "var(--color-brand)" }}
+          className="absolute -top-32 -left-32 h-[520px] w-[520px] rounded-full blur-[120px] opacity-30 pointer-events-none bg-brand"
         />
         <div
           aria-hidden="true"
-          className="absolute bottom-[-20%] right-[-10%] h-[480px] w-[480px] rounded-full blur-[120px] opacity-25 pointer-events-none"
-          style={{ background: "oklch(0.45 0.18 263)" }}
+          className="absolute bottom-[-20%] right-[-10%] h-[480px] w-[480px] rounded-full blur-[120px] opacity-25 pointer-events-none bg-brand-strong"
         />
 
         <div
