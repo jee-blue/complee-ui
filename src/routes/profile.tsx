@@ -324,15 +324,21 @@ function Profile() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {group.options.map((opt) => {
                     const active = selectedRegulations.includes(opt);
+                    const enabled = opt === "PSD3 / PSR";
                     return (
                       <button
                         type="button"
                         key={opt}
-                        onClick={() => toggleRegulation(opt)}
+                        onClick={() => enabled && toggleRegulation(opt)}
+                        disabled={!enabled}
+                        aria-disabled={!enabled || undefined}
+                        title={!enabled ? "Coming soon" : undefined}
                         className={`flex items-center gap-3 rounded-lg border px-3.5 py-3 text-left transition-all text-[13.5px] ${
                           active
                             ? "bg-brand-soft/60 border-brand text-navy shadow-sm"
-                            : "bg-card border-border text-foreground hover:border-brand/50 hover:bg-muted/30"
+                            : enabled
+                              ? "bg-card border-border text-foreground hover:border-brand/50 hover:bg-muted/30"
+                              : "bg-muted/30 border-border text-muted-foreground cursor-not-allowed opacity-60"
                         }`}
                       >
                         <span
@@ -344,7 +350,12 @@ function Profile() {
                         >
                           {active && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
                         </span>
-                        <span className="font-medium">{opt}</span>
+                        <span className="font-medium flex-1">{opt}</span>
+                        {!enabled && (
+                          <span className="text-[10.5px] uppercase tracking-[0.08em] font-semibold text-muted-foreground">
+                            Soon
+                          </span>
+                        )}
                       </button>
                     );
                   })}
@@ -382,7 +393,7 @@ function Profile() {
         )}
 
         {/* CTA bar */}
-        <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 flex items-center justify-end gap-4 flex-wrap shadow-sm">
+        <div className="flex items-center justify-end gap-4 flex-wrap pt-2">
           {!canContinue && (
             <span className="text-[12.5px] text-muted-foreground hidden sm:inline">
               {sameCountry
