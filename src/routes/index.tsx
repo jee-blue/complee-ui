@@ -109,9 +109,21 @@ function Landing() {
             {/* LEFT — editorial copy (7 cols). Flex column so we can reorder the
                 globe to sit between ribbon and status badge on mobile. */}
             <div className="lg:col-span-7 text-left lg:pr-8 xl:pr-12 flex flex-col">
+              {/* Live proof bar — top of column */}
+              <div
+                role="status"
+                className="order-1 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85 self-start mb-6 sm:mb-7"
+              >
+                <span className="relative flex h-2 w-2" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-70" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+                </span>
+                Live regulatory data tracking {total} requirements across {authorityCount} European regulators
+              </div>
+
               <h1
                 id="hero-heading"
-                className="font-semibold text-navy-foreground tracking-tight order-1"
+                className="font-semibold text-navy-foreground tracking-tight order-2"
                 style={{
                   fontSize: "clamp(2.5rem, 1.4rem + 4.2vw, 5.25rem)",
                   lineHeight: 1.02,
@@ -129,7 +141,7 @@ function Landing() {
               </h1>
 
               <p
-                className="order-2 mt-6 sm:mt-7 text-navy-foreground/75 max-w-[620px]"
+                className="order-3 mt-6 sm:mt-7 text-navy-foreground/75 max-w-[620px]"
                 style={{
                   fontSize: "clamp(1rem, 0.9rem + 0.4vw, 1.2rem)",
                   lineHeight: 1.55,
@@ -139,7 +151,7 @@ function Landing() {
                 expansion risk becomes expensive.
               </p>
 
-              <div className="order-3 mt-8 sm:mt-10 flex items-center gap-3 flex-wrap">
+              <div className="order-4 mt-8 sm:mt-10 flex items-center gap-3 flex-wrap">
                 <Link
                   to="/profile"
                   className="inline-flex items-center gap-2 rounded-lg bg-brand text-brand-foreground px-6 py-3 min-h-[48px] text-[15px] font-medium hover:bg-brand/90 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
@@ -156,20 +168,8 @@ function Landing() {
               </div>
 
               {/* Regulatory ribbon — directly below CTA, anchored to text column */}
-              <div className="order-4 mt-6 sm:mt-8 max-w-[560px] w-full">
+              <div className="order-5 mt-6 sm:mt-8 max-w-[560px] w-full">
                 <RegulatoryRibbon />
-              </div>
-
-              {/* Live proof bar */}
-              <div
-                role="status"
-                className="order-6 lg:order-5 mt-6 sm:mt-7 inline-flex items-center gap-2.5 rounded-full border border-navy-foreground/15 bg-navy-foreground/5 px-3.5 py-2 text-[12px] sm:text-[13px] text-navy-foreground/85 self-start"
-              >
-                <span className="relative flex h-2 w-2" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-70" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
-                </span>
-                Live regulatory data tracking {total} requirements across {authorityCount} European regulators
               </div>
             </div>
 
