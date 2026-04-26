@@ -43,6 +43,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(data.session);
       setUser(data.session?.user ?? null);
       setLoading(false);
+      if (data.session?.user) {
+        setTimeout(() => {
+          void acceptPendingInvitationsForCurrentUser();
+        }, 0);
+      }
     });
     return () => sub.subscription.unsubscribe();
   }, []);
