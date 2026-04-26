@@ -551,7 +551,7 @@ function Results() {
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
-      </div>
+      </StepShell>
 
       <DetailPanel row={selected} onClose={() => setSelected(null)} />
       <RoadmapGuide
