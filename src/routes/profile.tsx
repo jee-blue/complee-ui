@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Building2, Check, Info, Lightbulb, Scale, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Chrome } from "@/components/complee/Chrome";
+import { StepShell } from "@/components/complee/StepShell";
 import { useAssessment } from "@/store/assessment";
 import {
   REGULATORS,
