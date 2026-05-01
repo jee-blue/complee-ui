@@ -45,6 +45,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Complee — AI Compliance Consultant for FinTech" },
+      { name: "description", content: "Complee is an AI Compliance Consultant for European FinTechs expanding internationally." },
+      { property: "og:description", content: "Complee is an AI Compliance Consultant for European FinTechs expanding internationally." },
+      { name: "twitter:description", content: "Complee is an AI Compliance Consultant for European FinTechs expanding internationally." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45ba0e0a-01dc-465e-b933-75655ba7774a/id-preview-28d3e9ec--ce3ef39b-7456-4be0-ac15-412efb91d103.lovable.app-1777180447828.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45ba0e0a-01dc-465e-b933-75655ba7774a/id-preview-28d3e9ec--ce3ef39b-7456-4be0-ac15-412efb91d103.lovable.app-1777180447828.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
